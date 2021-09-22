@@ -1,13 +1,11 @@
 #ifndef SHADER_FUNCTION_INCLUDE
     #define SHADER_FUNCTION_INCLUDE
 
-    
-    #include "AutoLight.cginc"
-    #include "Lighting.cginc"
-    #include "UnityCG.cginc"
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
     //地表高度混合函数
     float _TerrainHeightDepth;
-    inline half4 TerrainBlend(fixed4 _Splat0,fixed4 _Splat1,fixed4 _Splat2,fixed4 _Splat3,fixed4 var_Control)
+    inline half4 TerrainBlend(real4 _Splat0,real4 _Splat1,real4 _Splat2,real4 _Splat3,real4 var_Control)
     {
         half4 blend;
         //获取混合后的高度通道
@@ -57,7 +55,8 @@
     }
 
     //风力动画
-    #pragma multi_compile _WINDANIM_ON _WINDANIM_OFF
+    
+    #pragma shader_feature _WINDANIM_ON _WINDANIM_OFF
     uniform int   _WindAnimToggle;
     uniform float  _WindDensity;
     uniform float3 _WindDirection;
@@ -66,27 +65,28 @@
     uniform float  _WindStrengthFloat;
     void WindAnimation(inout float4 vertex, float4 vertexColor)
     {   
+
         #if _WINDANIM_ON
             vertex.xyz = vertex.xyz;
-            float3 worldPos = mul(unity_ObjectToWorld,vertex);
+            float3 worldPos = TransformObjectToWorld(vertex.xyz);
             float3 windDirection = float3(_WindDirection.xy,0.0);
-            float2 panner = (1.0 * _Time.y * (windDirection * _WindSpeedFloat * 10).xy + worldPos.xy);
+            float2 panner = ((windDirection * _WindSpeedFloat * 10).xy * frac(_Time.y)  + worldPos.xy);
             float SimplePerlinNoise = PerlinNoise(panner * _WindTurbulenceFloat / 10 * _WindDensity) * 0.5 + 0.5;
             if(_WindAnimToggle > 0)
             {
-                vertex.xyz += mul(unity_WorldToObject,float4(_WindDirection * (SimplePerlinNoise * _WindStrengthFloat),0.0)) * vertexColor.a;
+            vertex.xyz += mul(unity_WorldToObject,_WindDirection * SimplePerlinNoise * _WindStrengthFloat) * vertexColor.a ;
             }
             vertex.w = 1.0;
         #elif _WINDANIM_OFF
             vertex = vertex;
         #endif
-        
+
         
     }
     #define WIND_ANIM(v)  WindAnimation(v.vertex,v.color);
 
     //云阴影
-    #pragma multi_compile _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
+    #pragma shader_feature _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
     uniform float _CloudShadowSize;
     uniform vector _CloudShadowRadius;
     uniform float _CloudShadowSpeed;
@@ -95,7 +95,7 @@
     {
         float Shadow = 1.0;
         #if _CLOUDSHADOW_ON
-            Shadow = PerlinNoise(worldPos.xz * _CloudShadowSize * _CloudShadowRadius.xy + _Time.y * _WindDirection * _CloudShadowSpeed);
+            Shadow = PerlinNoise(worldPos.xz * _CloudShadowSize * _CloudShadowRadius.xy + _Time.y * _WindDirection.xz * _CloudShadowSpeed);
             Shadow = lerp(1.0,1.0 - saturate(Shadow),_CloudShadowIntensity);
         #elif _CLOUDSHADOW_OFF
             Shadow = 1.0;
@@ -105,7 +105,7 @@
     #define CLOUD_SHADOW(i)  CloudShadow(i.worldPos);
 
     ///植被交互
-    #pragma multi_compile _INTERACT_ON _INTERACT_OFF
+    #pragma shader_feature _INTERACT_ON _INTERACT_OFF
     uniform float _InteractRadius;
     uniform float _InteractIntensity;
     uniform float _InteractHeight;
@@ -119,7 +119,7 @@
             float3 interactDirection = normalize(worldPos.xyz - _PlayerPos.xyz);
             worldPos.xyz = interactDirection * interactDown * vertexColor.a;
             worldPos.y*= 0.2;
-            vertex.xyz += mul(unity_WorldToObject,worldPos);
+            vertex.xyz += TransformObjectToWorld(worldPos);
         #elif _INTERACT_OFF
             vertex = vertex;
         #endif
@@ -130,7 +130,7 @@
 
     //大世界雾效
     //后续编辑脚本GUI时 控制宏开开关
-    #pragma multi_compile _WORLDFOG_ON _WORLDFOG_OFF
+    #pragma shader_feature _WORLDFOG_ON _WORLDFOG_OFF
     uniform float4 _FogColor;
     uniform float _FogGlobalDensity;
     // uniform float _FogFallOff;
@@ -150,26 +150,26 @@
             float rayLength = length(viewDir);
             float distanceFactor = max((rayLength - _FogStartDis)/ _FogGradientDis, 0);
             float fog = fogFactor * fogDensity * distanceFactor;
-            float inscatterFactor = pow(saturate(dot(-normalize(viewDir), WorldSpaceLightDir(float4(worldPos,1)))), _FogInscatteringExp);
+            float inscatterFactor = pow(saturate(dot(-normalize(viewDir), _MainLightPosition.xyz - worldPos)), _FogInscatteringExp);
             inscatterFactor *= 1-saturate(exp2(falloff));
             inscatterFactor *= distanceFactor;
-            float3 finalFogColor = lerp(_FogColor, _LightColor0, saturate(inscatterFactor));
+            float3 finalFogColor = lerp(_FogColor.rgb, _MainLightColor.rgb, saturate(inscatterFactor));
             finalRGB =lerp(finalRGB, finalFogColor, saturate(fog) * _FogColor.a);
         #endif
         finalRGB = finalRGB;
     }
     #define BIGWORLD_FOG(i,finalRGB) ExponentialHeightFog(i.worldPos,finalRGB);
 
-    //深度计算
-    UNITY_DECLARE_DEPTH_TEXTURE( _CameraDepthTexture );//声明深度纹理
+    // //深度计算
+    // UNITY_DECLARE_DEPTH_TEXTURE( _CameraDepthTexture );//声明深度纹理
 
-    float DepthCompare(float4 scrPos, float radius)
-    {
-        float4 screenPos = scrPos / scrPos.w;
-        screenPos = saturate(screenPos);
-        float screenDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, screenPos.xy ));
-        float distanceDepth = 1 - saturate(abs((screenDepth - LinearEyeDepth(screenPos.z )) * radius));
-        return distanceDepth;
-    }
-    #define DEPTH_COMPARE(i,radius)  DepthCompare(i.scrPos,radius);
+    // float DepthCompare(float4 scrPos, float radius)
+    // {
+        //     float4 screenPos = scrPos / scrPos.w;
+        //     screenPos = saturate(screenPos);
+        //     float screenDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, screenPos.xy ));
+        //     float distanceDepth = 1 - saturate(abs((screenDepth - LinearEyeDepth(screenPos.z )) * radius));
+        //     return distanceDepth;
+    // }
+    // #define DEPTH_COMPARE(i,radius)  DepthCompare(i.scrPos,radius);
 #endif

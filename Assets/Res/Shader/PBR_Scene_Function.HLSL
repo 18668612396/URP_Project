@@ -3,10 +3,7 @@
     
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-    //PBR代码
-    uniform samplerCUBE _cube;
-
-
+    
     //D项 法线微表面分布函数
     float D_Function (float NdotH,float roughness)
     {
@@ -78,7 +75,7 @@
     //间接光漫反射
     float3 indirectionDiffuse_Function(float NdotV,float3 normalDir,float metallic,float3 baseColor,float roughness,float3 F0)
     {
-        float3 SHColor = SampleSH(float4(normalDir,1));
+        float3 SHColor = SampleSH(normalDir);
         float3 KS = F_Indir_Function(NdotV,roughness,F0);
         float3 KD = (1 - KS) * (1 - metallic);
         return SHColor * KD * baseColor;//这里可以乘以一个AO
@@ -89,7 +86,7 @@
     {
         //采样环境贴图
         float mip = roughness * (1.7 - 0.7 * roughness) * UNITY_SPECCUBE_LOD_STEPS ;
-        float3 indirectionCube = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0,samplerunity_SpecCube0, reflectDir, mip);
+        float3 indirectionCube = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0,samplerunity_SpecCube0, reflectDir, mip).rgb;
         #if !defined(UNITY_USE_NATIVE_HDR)//如果使用本地HDR
             indirectionCube = DecodeHDREnvironment(float4(indirectionCube,1), unity_SpecCube0_HDR);
         #else
@@ -124,17 +121,18 @@
     {
         return emission;
     }
-
-    #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON 
+    
+    #pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
     #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
     #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+    #pragma multi_compile _ _SHADOWS_SOFT
     float3 PBR_Function (float3 worldTangent,float3 worldBitangent,float3 worldNormal,float3 worldView,float3 worldPos,float2 lightmapUV,PBR pbr)
     {
-        //光照
+        
         float4 SHADOW_COORDS = TransformWorldToShadowCoord(worldPos);
         Light light = GetMainLight(SHADOW_COORDS);
         //参数输入
-        float3 baseColor = pbr.baseColor;
+        float3 baseColor = pbr.baseColor.rgb;
         float3 normal    = pbr.normal.xyz;
         float  roughness = pbr.roughness;
         float  metallic  = pbr.metallic;
@@ -142,22 +140,22 @@
 
         float  occlusion = 1;
         float  shadow = 1;
-                #ifdef LIGHTMAP_ON
+        #ifdef LIGHTMAP_ON
             float3 var_Lightmap = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap,lightmapUV.xy));
             occlusion = pbr.occlusion * var_Lightmap.r;
             shadow    =  var_Lightmap.g;
         #else
             occlusion = pbr.occlusion;
-            shadow    = MainLightRealtimeShadow(SHADOW_COORDS);   //* CLOUD_SHADOW(i)
+            shadow    = light.shadowAttenuation;   //* CLOUD_SHADOW(i)
         #endif
 
         float3 F0 = lerp(0.04,baseColor,metallic);
         //法线计算
         float3x3 TBN = float3x3(normalize(worldTangent),normalize(worldBitangent),normalize(worldNormal));
         //向量准备
-        float3 normalDir  = mul(pbr.normal * 2 - 1,TBN);//映射法线  *2-1的操作在这里执行
+        float3 normalDir  = mul(pbr.normal,TBN);//映射法线  *2-1的操作在这里执行
         float3 viewDir    = normalize(worldView);
-        float3 lightDir   = normalize(light.direction.xyz);
+        float3 lightDir   = normalize(light.direction);
         float3 halfDir    = normalize(lightDir + viewDir);
         float3 reflectDir = normalize(reflect(viewDir,normalDir));
         //点乘结果
@@ -169,6 +167,7 @@
         float3 lighting = lightContribution(NdotH,NdotL,NdotV,HdotL,roughness,baseColor,metallic,shadow,light,F0);
         float3 indirection = indirectionContribution(reflectDir,normalDir,NdotV,baseColor,roughness,metallic,occlusion,F0);
         float3 emissionLight = emission_Function(emission);
+        
         return lighting +indirection + emissionLight;
     }
 
@@ -190,7 +189,8 @@
     //补充项
 
     //视差映射UV计算
-    inline float2 POM( sampler2D heightMap, float2 uvs, float3 normalWorld, float3 viewWorld, float3 viewDirTan, int minSamples, int maxSamples,int sectionSteps, float parallax, float refPlane,float vertexColor,float _BlendHeight)
+    #pragma shader_feature _PARALLAX_ON 
+    inline float2 POM( sampler2D _MainTex, float2 uvs, float3 normalWorld, float3 viewWorld, float3 viewDirTan, int minSamples, int maxSamples,int sectionSteps, float parallax, float refPlane,float vertexColor,float _BlendHeight)
     {
         int stepIndex = 0;
         int numSteps = ( int )lerp( (float)maxSamples, (float)minSamples, saturate( dot( normalWorld, viewWorld ) ) );
@@ -210,7 +210,7 @@
         float2 dy = ddy(uvs);
         while ( stepIndex < numSteps + 1 )
         {
-            currHeight = tex2D( heightMap, uvs + currTexOffset, dx, dy ).a;
+            currHeight = tex2D( _MainTex, uvs + currTexOffset, dx, dy ).a;
             currHeight = lerp(currHeight,1.0,vertexColor);
             if ( currHeight > currRayZ )
             {
@@ -234,7 +234,7 @@
             intersection = ( prevHeight - prevRayZ ) / ( prevHeight - currHeight + currRayZ - prevRayZ );
             finalTexOffset = prevTexOffset + intersection * deltaTex;
             newZ = prevRayZ - intersection * layerHeight;
-            newHeight = tex2D( heightMap, uvs + finalTexOffset, dx, dy ).a;
+            newHeight = tex2D( _MainTex, uvs + finalTexOffset, dx, dy ).a;
             newHeight = lerp(newHeight,1.0,vertexColor);
             if ( newHeight > newZ )
             {
@@ -257,11 +257,13 @@
         return uvs + finalTexOffset;
     }
 
+    CBUFFER_START(UnityPreMaterial)
     uniform int _SectionSteps,_MinSample,_MaxSample;
     uniform float _PomScale,_HeightScale;
     uniform float _BlendHeight;
+    CBUFFER_END
     //视差映射计算
-    float2 Parallax (float4 vertexColor,float3 worldTangent,float3 worldBitangent, float3 worldNormal,float3 worldPos,float3 worldView,float2 uv,sampler2D _Normal)//这里是用的法线的A通道来作为高度
+    float2 Parallax (float4 vertexColor,float3 worldTangent,float3 worldBitangent, float3 worldNormal,float3 worldPos,float3 worldView,float2 uv,sampler2D _MainTex)//这里是用的法线的A通道来作为高度
     {
         
         
@@ -273,10 +275,10 @@
         float3 tangenWorld_Z = float3(worldTangent.z,worldBitangent.z,worldNormal.z);
         float3 tangentViewDir = normalize(tangenWorld_X * worldViewDir.x + tangenWorld_Y * worldViewDir.y + tangenWorld_Z * worldViewDir.z);
         
-        uv = POM(_Normal, uv, worldNormal, worldViewDir, tangentViewDir, _MinSample, _MaxSample,_SectionSteps, _PomScale * 0.1, _HeightScale,vertexColor,_BlendHeight);
+        uv = POM(_MainTex, uv, worldNormal, worldViewDir, tangentViewDir, _MinSample, _MaxSample,_SectionSteps, _PomScale * 0.1, _HeightScale,vertexColor.r,_BlendHeight);
         return uv;
     }
-    #define PBR_PARALLAX(i,_Normal)  Parallax(i.vertexColor,i.worldTangent,i.worldBitangent,i.worldNormal,i.worldPos,i.worldView,i.uv,_Normal)
+    #define PBR_PARALLAX(i,_MainTex)  Parallax(i.vertexColor,i.worldTangent,i.worldBitangent,i.worldNormal,i.worldPos,i.worldView,i.uv,_MainTex)
 
 #endif
 

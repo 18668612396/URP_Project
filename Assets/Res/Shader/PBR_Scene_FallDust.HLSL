@@ -1,5 +1,6 @@
 #ifndef PBR_FALLDUST_INCLUDE
     #define PBR_FALLDUST_INCLUDE
+    #pragma shader_feature _FALLDUST_ON
     float _HeightDepth;
     sampler2D _FallDustMainTex,_FallDustPbrParam,_FallDustNormal;
     float4 _FallDustMainTex_ST;
