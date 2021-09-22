@@ -52,7 +52,7 @@ public class PBR_ShaderGUI : ShaderGUI
         BaseParam(properties);//传递参数
         LoadParam();//读取GUILayout数据
         BaseParamGUI(materialEditor);//PBR基础参数绘制
-        ParallaxGUI(materialEditor);//视察映射参数绘制
+        // ParallaxGUI(materialEditor);//视察映射参数绘制
         HeightBlendGUI(materialEditor);//高度融合参数绘制
 
         WindAnimTGUI(materialEditor);//风力动画
@@ -150,7 +150,7 @@ public class PBR_ShaderGUI : ShaderGUI
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space(10);
     }
-
+//高度融合
     private void HeightBlendGUI(MaterialEditor materialEditor)
     {
         _FallDustToggle = material.IsKeywordEnabled("_FALLDUST_ON") ? true : false; //读取Keywords数据
@@ -158,6 +158,7 @@ public class PBR_ShaderGUI : ShaderGUI
         if (_FallDustToggle)
         {
             material.EnableKeyword("_FALLDUST_ON");
+          
             materialEditor.TexturePropertySingleLine(new GUIContent("FullDustMainTex"), _FallDustMainTexProp, _FallDustColorProp, _FallDustColorBlendProp);
             materialEditor.TexturePropertySingleLine(new GUIContent("PbrParam"), _FallDustPbrParamProp, _FallDustRoughnessProp, _FallDustMetallicProp);
             materialEditor.RangeProperty(_fallDustEmissionIntensityProp, "EmissionIntensity");
@@ -168,6 +169,7 @@ public class PBR_ShaderGUI : ShaderGUI
         }
         else
         {
+
             material.DisableKeyword("_FALLDUST_ON");
         }
 

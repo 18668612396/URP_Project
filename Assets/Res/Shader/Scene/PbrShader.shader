@@ -38,7 +38,13 @@ Shader "Custom/Scene/PbrShader"
     }
     SubShader
     {
-
+        Tags
+        { 
+            "RenderPipeline"="UniversalRenderPipline"
+            "LightMode" = "UniversalForward"
+            "RenderType"="Opaque" 
+            "Queue" = "Geometry"
+        }
         HLSLINCLUDE
         struct PBR
         {
@@ -53,7 +59,7 @@ Shader "Custom/Scene/PbrShader"
         };
 
         #include "../ShaderFunction.HLSL"
-        // #include "../PBR_Scene_FallDust.HLSL"
+        #include "../PBR_Scene_FallDust.HLSL"
         #include "../PBR_Scene_Function.HLSL"
         #pragma shader_feature _WINDANIMTOGGLE_ON
         struct appdata
@@ -102,17 +108,11 @@ Shader "Custom/Scene/PbrShader"
         CBUFFER_END
 
         ENDHLSL
-        Tags { "RenderType"="Opaque" }
-        LOD 100
+      
 
         Pass
         {
-            Tags
-            { 
-                "RenderPipeline"="UniversalRenderPipline"
-                "RenderType"="Opaque" 
-                "Queue" = "Geometry"
-            }
+            
 
             // Blend One Zero
             
@@ -120,6 +120,7 @@ Shader "Custom/Scene/PbrShader"
             
             #pragma vertex vert
             #pragma fragment frag
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -129,7 +130,7 @@ Shader "Custom/Scene/PbrShader"
                 #endif
                 // o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                // o.blendUV = TRANSFORM_TEX(v.uv,_FallDustMainTex);//混合贴图的UV
+                o.blendUV = TRANSFORM_TEX(v.uv,_FallDustMainTex);//混合贴图的UV
                 
                 o.lightmapUV = v.lightmapUV * unity_LightmapST.xy + unity_LightmapST.zw;
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
@@ -151,7 +152,7 @@ Shader "Custom/Scene/PbrShader"
                 #endif
                 float2 uv = i.uv;
                 #ifdef _PARALLAX_ON
-                   // uv = PBR_PARALLAX(i,_MainTex,sampler_MainTex);
+                    // uv = PBR_PARALLAX(i,_MainTex,sampler_MainTex);
                 #endif
 
                 //贴图采样
@@ -168,14 +169,12 @@ Shader "Custom/Scene/PbrShader"
                 pbr.roughness = _Roughness*var_PbrParam.g;
                 pbr.occlusion = var_PbrParam.b;
 
-                // //高度融合相关
-                // #ifdef _FALLDUST_ON
-                //     PBR_FALLDUST(i,pbr);
-                // #endif
-                
+                //高度融合相关
+                PBR_FALLDUST(i,pbr);
                 float3 finalRGB = PBR_FUNCTION(i,pbr);
 
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效
+                
                 return  finalRGB;
             }
             ENDHLSL

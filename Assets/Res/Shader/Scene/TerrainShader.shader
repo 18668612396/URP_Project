@@ -24,11 +24,16 @@ Shader "Custom/Scene/TerrainShader"
 
 	SubShader
 	{
-		Tags { 
+	
+		Tags
+		{ 
+			"RenderPipeline"="UniversalRenderPipline"
+			"LightMode" = "UniversalForward"
 			"RenderType"="Opaque" 
+			"Queue" = "Geometry"
 			"SplatCount"="4" 
 		}
-		
+
 		
 
 		HLSLINCLUDE
@@ -114,13 +119,7 @@ Shader "Custom/Scene/TerrainShader"
 
 		Pass
 		{
-			Tags
-			{ 
-				"RenderPipeline"="UniversalRenderPipline"
-				"RenderType"="Opaque" 
-				"Queue" = "Geometry"
-			}
-
+			
 			Blend One Zero
 			HLSLPROGRAM
 
@@ -153,20 +152,20 @@ Shader "Custom/Scene/TerrainShader"
 
 				float4 var_Splat0 = SAMPLE_TEXTURE2D(_Splat0,sampler_Splat0,i.splat0_UV);
 				float4 var_Mask0  =  SAMPLE_TEXTURE2D(_Mask0,sampler_Mask0,i.splat0_UV);
-				float3 var_Normal0= SAMPLE_TEXTURE2D(_Normal0,sampler_Normal0,i.splat0_UV).xyz;
+				float3 var_Normal0= UnpackNormal(SAMPLE_TEXTURE2D(_Normal0,sampler_Normal0,i.splat0_UV)).xyz;
 				
 				//采样第二层贴图
 				float4 var_Splat1 = SAMPLE_TEXTURE2D(_Splat1,sampler_Splat1,i.splat1_UV);
 				float4 var_Mask1  = SAMPLE_TEXTURE2D(_Mask1,sampler_Mask1,i.splat1_UV);
-				float3 var_Normal1= SAMPLE_TEXTURE2D(_Normal1,sampler_Normal1,i.splat1_UV).xyz;
+				float3 var_Normal1= UnpackNormal(SAMPLE_TEXTURE2D(_Normal1,sampler_Normal1,i.splat1_UV)).xyz;
 				//采样第三层贴图
 				float4 var_Splat2 = SAMPLE_TEXTURE2D(_Splat2,sampler_Splat2,i.splat2_UV);
 				float4 var_Mask2  = SAMPLE_TEXTURE2D(_Mask2,sampler_Mask2,i.splat2_UV);
-				float3 var_Normal2= SAMPLE_TEXTURE2D(_Normal2,sampler_Normal2,i.splat2_UV).xyz;
+				float3 var_Normal2= UnpackNormal(SAMPLE_TEXTURE2D(_Normal2,sampler_Normal2,i.splat2_UV)).xyz;
 				//采样第四层贴图
 				float4 var_Splat3 = SAMPLE_TEXTURE2D(_Splat3,sampler_Splat3,i.splat3_UV);
 				float4 var_Mask3  = SAMPLE_TEXTURE2D(_Mask3,sampler_Mask3,i.splat3_UV);
-				float3 var_Normal3= SAMPLE_TEXTURE2D(_Normal3,sampler_Normal3,i.splat3_UV).xyz;
+				float3 var_Normal3= UnpackNormal(SAMPLE_TEXTURE2D(_Normal3,sampler_Normal3,i.splat3_UV)).xyz;
 				// //采样分层贴图
 				float4 var_Control = SAMPLE_TEXTURE2D(_Control,sampler_Control,i.Control_UV);
 				float4 blend = TerrainBlend(var_Splat0,var_Splat1,var_Splat2,var_Splat3,var_Control);
@@ -186,7 +185,7 @@ Shader "Custom/Scene/TerrainShader"
 				pbr.occlusion = finalPbrParam.b;
 
 
-
+				
 				float3 finalRGB = PBR_FUNCTION(i,pbr);
 				BIGWORLD_FOG(i,finalRGB);//大世界雾效
 				return finalRGB;

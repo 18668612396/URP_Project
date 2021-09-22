@@ -13,7 +13,13 @@ Shader "Custom/Scene/VegetationShader"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags
+        { 
+            "RenderPipeline"="UniversalRenderPipline"
+            "LightMode" = "UniversalForward"
+            "RenderType"="Opaque" 
+            "Queue" = "Geometry"
+        }
         LOD 100
 
         HLSLINCLUDE
@@ -58,12 +64,7 @@ Shader "Custom/Scene/VegetationShader"
         ENDHLSL
         Pass
         {
-            Tags
-            { 
-                "RenderPipeline"="UniversalRenderPipline"
-                "RenderType"="Opaque" 
-                "Queue" = "Geometry"
-            }
+            
             LOD 100
             Cull off
             HLSLPROGRAM
@@ -72,10 +73,11 @@ Shader "Custom/Scene/VegetationShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
-                WIND_ANIM(v);
+                o.worldPos = TransformObjectToWorld(v.vertex.xyz);//这个一定要放在下面两个顶点相关的方法之上 这样他们才能调用到
+                WIND_ANIM(v,o);
+                GRASS_INTERACT(v,o);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
-                o.worldPos = TransformObjectToWorld(v.vertex.xyz);
                 o.localPos = v.vertex;
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;

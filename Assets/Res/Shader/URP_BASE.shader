@@ -9,12 +9,16 @@
 		Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
 		Pass
 		{
-			Blend SrcAlpha OneMinusSrcAlpha
+			
 			Tags
-			{
+			{ 
+				"RenderPipeline"="UniversalRenderPipline"
 				"LightMode" = "UniversalForward"
+				"IgnoreProjector" = "True"
+				"RenderType"="Transparent" 
+				"Queue" = "Transparent"
 			}
-
+			Blend SrcAlpha OneMinusSrcAlpha
 			HLSLPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -38,8 +42,9 @@
 				float3 worldPos : TEXCOORD1;
 			};
 			
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
+			uniform TEXTURE2D (_MainTex);
+			uniform	SAMPLER(sampler_MainTex);
+			uniform float4 _MainTex_ST;
 			
 			v2f vert(appdata v)
 			{
@@ -59,8 +64,8 @@
 				
 				Light mainLight = GetMainLight(SHADOW_COORDS);
 				half shadow = MainLightRealtimeShadow(SHADOW_COORDS);
-				
-				return float4(shadow, shadow, shadow,1);
+				float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
+				return var_MainTex;
 			}
 			ENDHLSL
 		}

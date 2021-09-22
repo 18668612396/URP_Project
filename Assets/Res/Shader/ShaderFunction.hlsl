@@ -63,27 +63,25 @@
     uniform float  _WindSpeedFloat;
     uniform float  _WindTurbulenceFloat;
     uniform float  _WindStrengthFloat;
-    void WindAnimation(inout float4 vertex, float4 vertexColor)
+    void WindAnimation(inout float4 vertex, float4 vertexColor,float3 worldPos)
     {   
 
         #if _WINDANIM_ON
             vertex.xyz = vertex.xyz;
-            float3 worldPos = TransformObjectToWorld(vertex.xyz);
             float3 windDirection = float3(_WindDirection.xy,0.0);
-            float2 panner = ((windDirection * _WindSpeedFloat * 10).xy * frac(_Time.y)  + worldPos.xy);
+            float2 panner = _Time.y * (windDirection * _WindSpeedFloat * 10).xy  + worldPos.xy; //这里的  Time.y 会造成浮点数误差的问题  后续想办法解决
             float SimplePerlinNoise = PerlinNoise(panner * _WindTurbulenceFloat / 10 * _WindDensity) * 0.5 + 0.5;
             if(_WindAnimToggle > 0)
             {
-            vertex.xyz += mul(unity_WorldToObject,_WindDirection * SimplePerlinNoise * _WindStrengthFloat) * vertexColor.a ;
+                vertex.xyz += mul(unity_WorldToObject,float4(_WindDirection * SimplePerlinNoise * _WindStrengthFloat,0.0)) * vertexColor.a ;
             }
             vertex.w = 1.0;
         #elif _WINDANIM_OFF
             vertex = vertex;
         #endif
-
-        
+       
     }
-    #define WIND_ANIM(v)  WindAnimation(v.vertex,v.color);
+    #define WIND_ANIM(v,o)  WindAnimation(v.vertex,v.color,o.worldPos);
 
     //云阴影
     #pragma shader_feature _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
@@ -110,21 +108,20 @@
     uniform float _InteractIntensity;
     uniform float _InteractHeight;
     uniform float3 _PlayerPos;
-    void GrassInteract(float2 uv,float4 vertexColor,inout float4 vertex)
+    void GrassInteract(float2 uv,float4 vertexColor,inout float4 vertex,float3 worldPos)
     {
         #if _INTERACT_ON
-            float3 worldPos = mul(unity_ObjectToWorld,vertex).xyz;
-            float interactDistance = distance(_PlayerPos.xyz + float3(0,_InteractHeight,0),worldPos);
+                        float interactDistance = distance(_PlayerPos.xyz + float3(0,_InteractHeight,0),worldPos);
             float interactDown = saturate((1 - interactDistance + _InteractRadius) * uv.y * _InteractIntensity);
             float3 interactDirection = normalize(worldPos.xyz - _PlayerPos.xyz);
-            worldPos.xyz = interactDirection * interactDown * vertexColor.a;
-            worldPos.y*= 0.2;
-            vertex.xyz += TransformObjectToWorld(worldPos);
+            float3 incrementPos = interactDirection * interactDown * vertexColor.a;//计算增量的Position
+            incrementPos.y*= 0.2;
+            vertex.xyz += mul(unity_WorldToObject,incrementPos);
         #elif _INTERACT_OFF
             vertex = vertex;
         #endif
     }
-    #define GRASS_INTERACT(v) GrassInteract(v.uv,v.color,v.vertex);
+    #define GRASS_INTERACT(v,o) GrassInteract(v.uv,v.color,v.vertex,o.worldPos);
 
 
 
