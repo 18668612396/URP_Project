@@ -77,7 +77,7 @@ Shader "Custom/Scene/CloudShader"
                 o.worldPos = TransformObjectToWorld(v.vertex.xyz);
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 float3 worldPivot =TransformObjectToWorld(float3(0.0,0.0,0.0));//将模型空间坐标转到世界空间
-                float3 pivot = mul(unity_WorldToObject,worldPivot);//将世界空间坐标转到模型空间
+                float3 pivot = mul(unity_WorldToObject,float4(worldPivot,0.0)).xyz;//将世界空间坐标转到模型空间
 
                 //随机数值
                 float randomPivot = pivot.x + pivot.y + pivot.z;
@@ -85,7 +85,7 @@ Shader "Custom/Scene/CloudShader"
                 //随机UV坐标
                 float randomPosIncrement = 0.0;
                 
-                o.uv = v.uv *  float2(0.5,0.25) + ceil(frac(ceil(o.randomPos) / 10) * 10) * float2(0.5,0.25);
+                o.uv = v.uv *  float2(0.5,0.25) + ceil(frac(ceil(o.randomPos.xy) / 10) * 10) * float2(0.5,0.25);
                 
                 return o;
             }
@@ -94,7 +94,7 @@ Shader "Custom/Scene/CloudShader"
             {
 
                 //return float4(randomTime.xxx,1);
-                float randomTime =saturate(abs((frac((_Time.x + abs(i.randomPos)) * _CloudAminSpeed) - 0.5) * 3) - 0.5);
+                float randomTime =saturate(abs((frac((_Time.x + abs(i.randomPos.r)) * _CloudAminSpeed) - 0.5) * 3) - 0.5);
                 // return float4(frac(randomPos).xxx,1);
                 //采样贴图
                 float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
@@ -119,7 +119,7 @@ Shader "Custom/Scene/CloudShader"
                 float rimpLight = lerp(1.0,_RimpIntensity,var_MainTex.g * cloudAlphaFactor * lightMaxRadiusFactor);
                 //主光源影响
                 float shadow = var_MainTex.r;
-                float translucidus = lerp(lightMaxRadiusFactor,lightMinRadiusFactor,abs(lightDir));
+                float translucidus = lerp(lightMaxRadiusFactor,lightMinRadiusFactor,abs(lightDir).x);
                 float3 lightContribution =  Albedo * light.color * (shadow + translucidus * _TranslucidusIntensity) * rimpLight;
                 //环境光源影响
                 float3 Ambient = SampleSH(normalDir);

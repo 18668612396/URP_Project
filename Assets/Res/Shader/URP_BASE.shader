@@ -3,6 +3,7 @@
 	Properties
 	{
 		_MainTex("主贴图", 2D) = "white" {}
+		_test("test0",float) = 0
 	}
 	SubShader
 	{
@@ -18,7 +19,7 @@
 				"RenderType"="Transparent" 
 				"Queue" = "Transparent"
 			}
-			Blend SrcAlpha OneMinusSrcAlpha
+	
 			HLSLPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -27,7 +28,7 @@
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-			
+			#include "ShaderFunction.HLSL"
 			struct appdata
 			{
 				float4 vertex : POSITION;
@@ -57,15 +58,13 @@
 			}
 			
 			float4 _Color;
-			
+			float _test;
 			float4 frag(v2f i) : SV_Target
 			{
 				float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
 				
-				Light mainLight = GetMainLight(SHADOW_COORDS);
-				half shadow = MainLightRealtimeShadow(SHADOW_COORDS);
-				float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
-				return var_MainTex;
+	
+				return DepthCompare(i.pos,_test);
 			}
 			ENDHLSL
 		}

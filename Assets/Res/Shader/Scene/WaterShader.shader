@@ -24,14 +24,17 @@ Shader "Custom/Scene/WaterShader"
     
     SubShader
     {
-        Tags 
-        {
-            "RenderType"="Transparent" 
-            "Queue" = "Transparent+1"
+        Tags
+        { 
+            "RenderPipeline"="UniversalRenderPipline"
+            "LightMode" = "UniversalForward"
+            "IgnoreProjector" = "True"
+            "RenderType"="Opaque" 
+            "Queue" = "Transparent"
         }
         LOD 100
 
-        CGINCLUDE
+        HLSLINCLUDE
         #pragma vertex vert
         #pragma fragment frag
         #include "../ShaderFunction.hlsl"
@@ -43,12 +46,15 @@ Shader "Custom/Scene/WaterShader"
         };
         struct v2f
         {
-            float4 vertex : SV_POSITION;
+            float4 pos : SV_POSITION;
             float4 scrPos : TEXCOORD1;
             float2 uv:TEXCOORD0;
-            float4 worldPos:TEXCPPRD2;
+            float3 worldPos:TEXCPPRD2;
             float3 worldNormal:NORMAL;
         };
+        TEXTURE2D(_CameraOpaqueTexture);
+        SAMPLER(sampler_CameraOpaqueTexture);
+
         uniform float4 _WarpScaleOffset;
         uniform float _WarpIntensity;
 
@@ -69,43 +75,41 @@ Shader "Custom/Scene/WaterShader"
         uniform float _WaveWarpScale;
 
         uniform float _IndirectionFactor;
-        ENDCG
+        ENDHLSL
 
-        // GrabPass
-        // {
-        //     //此处给出一个抓屏贴图的名称，抓屏的贴图就可以通过这张贴图来获取，而且每一帧不管有多个物体使用了该shader，只会有一个进行抓屏操作
-        //     //如果此处为空，则默认抓屏到_GrabTexture中，但是据说每个用了这个shader的都会进行一次抓屏！
-        //     "_GrabTexture"
-        // }
         
         Pass
         {
-            Blend SrcAlpha OneMinusSrcAlpha
-            CGPROGRAM
-            sampler2D _GrabTexture;
+            Cull Back
+            Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+            ZTest LEqual
+            ZWrite Off
+            HLSLPROGRAM
             v2f vert ( appdata v )
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
+                o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.uv = v.uv;
-                o.scrPos = ComputeScreenPos(o.vertex);
-                o.worldPos = mul(unity_ObjectToWorld,v.vertex);
-                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                o.scrPos = ComputeScreenPos(o.pos);
                 
+                o.worldPos = TransformObjectToWorld(v.vertex.xyz);
+                o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 return o;
             }
             
-            fixed4 frag (v2f i ) : SV_Target
+            float4 frag (v2f i ) : SV_Target
             {
                 
                 //准备向量
-                float3 lightDir = normalize(_WorldSpaceLightPos0).xyz;
+                Light light = GetMainLight();
+                float3 lightDir = normalize(light.direction).xyz;
                 float3 normalDir = normalize(i.worldNormal);
                 float3 viewDir   =normalize(_WorldSpaceCameraPos - i.worldPos);
                 float3 reflectDir = reflect(-viewDir,normalDir);
                 float3 cameraPos = _WorldSpaceCameraPos;
                 float3 reflectCamera = reflect(cameraPos * 0.5 + i.worldPos,normalDir);
-
+                float2 scrPos = i.scrPos.xy / i.scrPos.w;
                 float fresnel = max(0.0,dot(normalDir,viewDir));
                 float indirectionFactor =1 -  pow(fresnel,_IndirectionFactor);
                 //计算扭曲
@@ -114,36 +118,35 @@ Shader "Custom/Scene/WaterShader"
                 warp.y = PerlinNoise(reflectCamera.xz + float2(0.0,-_Time.y));
                 warp *= _WarpIntensity;
                 //计算主光源漫反射
-                float3 Albedo = tex2Dproj(_GrabTexture,i.scrPos);
-                float DepthFactor = DEPTH_COMPARE(i,_WaterDepth);
+                float3 Albedo = SAMPLE_TEXTURE2D(_CameraOpaqueTexture, sampler_CameraOpaqueTexture, scrPos).rgb;
+                float DepthFactor =  DepthCompare(i.pos,scrPos,_WaterDepth);
                 float waterTopFactor = smoothstep(_TransparentRadius,1.0,DepthFactor);
-                float3 lightDiffuse = lerp(_WaterDownColor ,lerp(_WaterTopColor,1,waterTopFactor)* Albedo,DepthFactor) ;
+                float3 lightDiffuse = lerp(_WaterDownColor.rgb,lerp(_WaterTopColor.rgb,1,waterTopFactor)* Albedo,DepthFactor);
                 //计算主光源镜面反射
                 float waveFactor = distance(cameraPos,i.worldPos);
                 waveFactor = 1 - saturate((1 - waveFactor + _WaveFactorRadius) * i.uv.y * _WaveFactorIntensity);
                 float waveRadius = smoothstep(_WaveRadius,1,DepthFactor);
                 float waveWarp   = PerlinNoise(i.worldPos.xz * _WaveWarpScale);
                 float2 waveCoord = float2(0.0,waveRadius) * _WaveTile + float2(0.0,-_Time.y) + waveWarp;
-                float3 lightSpec = smoothstep(_WaveWidth,_WaveWidth+0.1,(PerlinNoise(waveCoord) * 0.5 + 0.5) * waveRadius) * _LightColor0.rgb * _WaveIntensity * waveFactor;
+                float3 lightSpec = smoothstep(_WaveWidth,_WaveWidth+0.1,(PerlinNoise(waveCoord) * 0.5 + 0.5) * waveRadius) *light.color * _WaveIntensity * waveFactor;
                 //计算主光源贡献
-                float3 lightContribution = (lightDiffuse + lightSpec)  * (1 - _LightFactor);
+                float3 lightContribution = lightDiffuse  * (1 - _LightFactor) + lightSpec;
 
                 //计算环境漫反射
                 float3 indirectionDiffuse = 0.0;
                 //采样环境反射
                 
-                float3 var_Cubemap = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectDir + float3(warp.y,warp.x,0.0));
+                float3 var_Cubemap =  SAMPLE_TEXTURECUBE(unity_SpecCube0,samplerunity_SpecCube0, reflectDir + float3(warp.y,warp.x,0.0)).rgb;;
                 float3 indirectionSpec = var_Cubemap;
                 float3 indirectionContribution = (indirectionDiffuse + indirectionSpec) * _LightFactor * indirectionFactor;
                 
-
                 float3 finalRGB = lightContribution + indirectionContribution;
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效
                 
                 float Alpha =1 - smoothstep(0.9,1,DepthFactor);
                 return float4(finalRGB,Alpha);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 

@@ -163,7 +163,7 @@ Shader "Custom/Scene/PbrShader"
                 PBR pbr;
                 ZERO_INITIALIZE(PBR,pbr);//初始化PBR结构体
                 pbr.baseColor = var_MainTex * _Color;
-                pbr.emission  = lerp(0,var_MainTex.rgb * max(0.0,_EmissionIntensity),var_PbrParam.a);//A通道为高度图
+                pbr.emission  = lerp(0,var_MainTex.rgb * _Color.rgb * max(0.0,_EmissionIntensity),var_PbrParam.a);//A通道为高度图
                 pbr.normal    = var_Normal;
                 pbr.metallic  = min(_Metallic,var_PbrParam.r);
                 pbr.roughness = _Roughness*var_PbrParam.g;

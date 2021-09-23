@@ -79,7 +79,7 @@
         #elif _WINDANIM_OFF
             vertex = vertex;
         #endif
-       
+        
     }
     #define WIND_ANIM(v,o)  WindAnimation(v.vertex,v.color,o.worldPos);
 
@@ -111,7 +111,7 @@
     void GrassInteract(float2 uv,float4 vertexColor,inout float4 vertex,float3 worldPos)
     {
         #if _INTERACT_ON
-                        float interactDistance = distance(_PlayerPos.xyz + float3(0,_InteractHeight,0),worldPos);
+            float interactDistance = distance(_PlayerPos.xyz + float3(0,_InteractHeight,0),worldPos);
             float interactDown = saturate((1 - interactDistance + _InteractRadius) * uv.y * _InteractIntensity);
             float3 interactDirection = normalize(worldPos.xyz - _PlayerPos.xyz);
             float3 incrementPos = interactDirection * interactDown * vertexColor.a;//计算增量的Position
@@ -157,16 +157,24 @@
     }
     #define BIGWORLD_FOG(i,finalRGB) ExponentialHeightFog(i.worldPos,finalRGB);
 
-    // //深度计算
-    // UNITY_DECLARE_DEPTH_TEXTURE( _CameraDepthTexture );//声明深度纹理
+    //深度计算
+    TEXTURE2D_X_FLOAT(_CameraDepthTexture);
+    SAMPLER(sampler_CameraDepthTexture);
 
-    // float DepthCompare(float4 scrPos, float radius)
-    // {
-        //     float4 screenPos = scrPos / scrPos.w;
-        //     screenPos = saturate(screenPos);
-        //     float screenDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, screenPos.xy ));
-        //     float distanceDepth = 1 - saturate(abs((screenDepth - LinearEyeDepth(screenPos.z )) * radius));
-        //     return distanceDepth;
-    // }
-    // #define DEPTH_COMPARE(i,radius)  DepthCompare(i.scrPos,radius);
+    uniform float _Offset;
+    float DepthCompare(float4 clipPos,float radius)
+    {
+        float4 scenePosition = ComputeScreenPos(clipPos);
+
+        float4 uv = float4(scenePosition.xy / scenePosition.w,0.0,0.0);
+        float Depth = LinearEyeDepth(SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_CameraDepthTexture,uv),_ZBufferParams).r;
+        
+        float test = scenePosition.w - _Offset;
+
+        float CameraDepth = Linear01Depth(Depth, _ZBufferParams);
+        float MeshDepth = Linear01Depth(clipPos.z,_ZBufferParams);
+        float distanceDepth = 1 -saturate(saturate(CameraDepth - MeshDepth) * radius * 100);
+        return distanceDepth;
+    }
+    #define DEPTH_COMPARE(clipPos,radius)  DepthCompare(clipPos,radius);
 #endif

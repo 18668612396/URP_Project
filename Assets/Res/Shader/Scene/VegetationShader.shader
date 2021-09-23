@@ -78,7 +78,7 @@ Shader "Custom/Scene/VegetationShader"
                 GRASS_INTERACT(v,o);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
-                o.localPos = v.vertex;
+                o.localPos = v.vertex.xyz;
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
                 o.vertexColor = v.color;
@@ -100,7 +100,7 @@ Shader "Custom/Scene/VegetationShader"
                 float NdotL = saturate(dot(normalDir,lightDir));
                 //基础颜色Albedo
                 float Gradient = saturate(smoothstep(_GradientVector.x,_GradientVector.y,localPos.y  + _GradientVector.z));
-                float3 Albedo  = lerp(_DownColor,_TopColor,Gradient) * var_MainTex.r;
+                float3 Albedo  = lerp(_DownColor.rgb,_TopColor.rgb,Gradient) * var_MainTex.r;
                 //Occlusion
                 float Occlustion = lerp(_GradientVector.z,_GradientVector.w,i.vertexColor.b);//和PBR相同  使用B通道来作为AO的输入
                 //主光源影响

@@ -47,6 +47,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,13 +67,17 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _Depth: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EdgeWidth: 0
+    - _Frequency: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _IndirectionFactor: 0.8
     - _LightFactor: 0.566
+    - _Magnitude: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -73,22 +85,28 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TransparentRadius: 0.9
+    - _TransparentRadius: 1
     - _UVSec: 0
+    - _WarpIns: 0
     - _WarpIntensity: 0.01
-    - _WaterDepth: 0.77
-    - _WaveFactorIntensity: 0.2
+    - _WarpSpeed: 0
+    - _WaterDepth: 14.97
+    - _WaveFactorIntensity: 0.127
     - _WaveFactorRadius: 10
     - _WaveIntensity: 1
-    - _WaveRadius: 0.7
+    - _WaveRadius: 0.76
     - _WaveTile: 6
-    - _WaveWarpScale: 0.1
-    - _WaveWidth: 0.5
+    - _WaveWarpScale: 0.236
+    - _WaveWidth: 0.565
     - _ZWrite: 1
     m_Colors:
+    - EdgeColor: {r: 0, g: 0, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DepthColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _WarpScaleOffset: {r: 1, g: 1, b: 0, a: 0}
-    - _WaterDownColor: {r: 0.13333334, g: 0.5529412, b: 0.65882355, a: 0}
+    - _WaterDir: {r: 0, g: 0, b: 0, a: 0}
+    - _WaterDownColor: {r: 0.13333334, g: 0.3888627, b: 0.65882355, a: 0}
     - _WaterTopColor: {r: 0.59607846, g: 1.4901961, b: 0.93333334, a: 1}
   m_BuildTextureStacks: []
