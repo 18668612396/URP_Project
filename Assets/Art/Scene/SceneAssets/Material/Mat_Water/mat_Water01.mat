@@ -75,7 +75,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _IndirectionFactor: 0.8
+    - _IndirectionFactor: 0.5
     - _LightFactor: 0.566
     - _Magnitude: 0
     - _Metallic: 0
@@ -85,19 +85,19 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TransparentRadius: 1
+    - _TransparentRadius: 0.791
     - _UVSec: 0
     - _WarpIns: 0
     - _WarpIntensity: 0.01
     - _WarpSpeed: 0
-    - _WaterDepth: 14.97
-    - _WaveFactorIntensity: 0.127
-    - _WaveFactorRadius: 10
-    - _WaveIntensity: 1
-    - _WaveRadius: 0.76
+    - _WaterDepth: 1.4
+    - _WaveFactorIntensity: 0
+    - _WaveFactorRadius: 7.24
+    - _WaveIntensity: 0.372
+    - _WaveRadius: 0.683
     - _WaveTile: 6
-    - _WaveWarpScale: 0.236
-    - _WaveWidth: 0.565
+    - _WaveWarpScale: 0.317
+    - _WaveWidth: 0.579
     - _ZWrite: 1
     m_Colors:
     - EdgeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -107,6 +107,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _WarpScaleOffset: {r: 1, g: 1, b: 0, a: 0}
     - _WaterDir: {r: 0, g: 0, b: 0, a: 0}
-    - _WaterDownColor: {r: 0.13333334, g: 0.3888627, b: 0.65882355, a: 0}
-    - _WaterTopColor: {r: 0.59607846, g: 1.4901961, b: 0.93333334, a: 1}
+    - _WaterDownColor: {r: 0.3754005, g: 0.58196473, b: 0.7169812, a: 0}
+    - _WaterTopColor: {r: 1.6610688, g: 1.9895288, b: 1.7849616, a: 1}
   m_BuildTextureStacks: []

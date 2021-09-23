@@ -24,7 +24,7 @@ Shader "Custom/Scene/TerrainShader"
 
 	SubShader
 	{
-	
+		
 		Tags
 		{ 
 			"RenderPipeline"="UniversalRenderPipline"
@@ -197,6 +197,29 @@ Shader "Custom/Scene/TerrainShader"
 			Name "ShadowCast"
 			
 			Tags{ "LightMode" = "ShadowCaster" }
+			HLSLPROGRAM
+			v2f vert(appdata v)
+			{
+				v2f o;
+				ZERO_INITIALIZE(v2f,o);
+				o.pos = TransformObjectToHClip(v.vertex.xyz);
+				return o;
+			}
+			float4 frag(v2f i) : SV_Target
+			{
+				return float4(1.0,1.0,1.0,1.0);
+			}
+			ENDHLSL
+		}
+
+		Pass//这个PASS暂时不知道做什么  不过加上这个Pass会使得Scene视图的深度信息正确
+		{
+			Tags{"LightMode" = "DepthOnly"}
+
+			ZWrite On
+			ColorMask 0
+
+
 			HLSLPROGRAM
 			v2f vert(appdata v)
 			{

@@ -38,13 +38,9 @@ Shader "Custom/Scene/PbrShader"
     }
     SubShader
     {
-        Tags
-        { 
-            "RenderPipeline"="UniversalRenderPipline"
-            "LightMode" = "UniversalForward"
-            "RenderType"="Opaque" 
-            "Queue" = "Geometry"
-        }
+        Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "True" "ShaderModel"="4.5"}
+        LOD 300
+        
         HLSLINCLUDE
         struct PBR
         {
@@ -57,10 +53,14 @@ Shader "Custom/Scene/PbrShader"
             float  shadow;
             
         };
-
+        #pragma vertex vert
+        #pragma fragment frag
+        #pragma target 4.5
+        
         #include "../ShaderFunction.HLSL"
         #include "../PBR_Scene_FallDust.HLSL"
         #include "../PBR_Scene_Function.HLSL"
+
         #pragma shader_feature _WINDANIMTOGGLE_ON
         struct appdata
         {
@@ -108,7 +108,7 @@ Shader "Custom/Scene/PbrShader"
         CBUFFER_END
 
         ENDHLSL
-      
+        
 
         Pass
         {
@@ -118,8 +118,7 @@ Shader "Custom/Scene/PbrShader"
             
             HLSLPROGRAM
             
-            #pragma vertex vert
-            #pragma fragment frag
+
 
             v2f vert (appdata v)
             {
@@ -205,6 +204,30 @@ Shader "Custom/Scene/PbrShader"
             }
             ENDHLSL
         }
+
+        Pass//这个PASS暂时不知道做什么  不过加上这个Pass会使得Scene视图的深度信息正确  //后续可以去除
+        {
+
+            Tags{"LightMode" = "DepthOnly"}
+
+            HLSLPROGRAM
+            
+            v2f vert(appdata v)
+            {
+                v2f o;
+                ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
+                o.pos = TransformObjectToHClip(v.vertex.xyz);
+                return o;
+            }
+            real3 frag(v2f i) : SV_Target
+            {
+                float3 color;
+                color.xyz = float3(0.0, 0.0, 0.0);
+                return color;
+            }
+            ENDHLSL
+        }
     }
+
     CustomEditor "PBR_ShaderGUI"
 }

@@ -47,7 +47,7 @@ Shader "Custom/Scene/WaterShader"
         struct v2f
         {
             float4 pos : SV_POSITION;
-            float4 scrPos : TEXCOORD1;
+            float3 viewPos : TEXCOORD1;
             float2 uv:TEXCOORD0;
             float3 worldPos:TEXCPPRD2;
             float3 worldNormal:NORMAL;
@@ -89,11 +89,10 @@ Shader "Custom/Scene/WaterShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
-                o.pos = TransformObjectToHClip(v.vertex.xyz);
+                o.worldPos = TransformObjectToWorld(v.vertex);
+                o.viewPos  = TransformWorldToView(o.worldPos);
+                o.pos = TransformWViewToHClip(o.viewPos);
                 o.uv = v.uv;
-                o.scrPos = ComputeScreenPos(o.pos);
-                
-                o.worldPos = TransformObjectToWorld(v.vertex.xyz);
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 return o;
             }
@@ -109,7 +108,7 @@ Shader "Custom/Scene/WaterShader"
                 float3 reflectDir = reflect(-viewDir,normalDir);
                 float3 cameraPos = _WorldSpaceCameraPos;
                 float3 reflectCamera = reflect(cameraPos * 0.5 + i.worldPos,normalDir);
-                float2 scrPos = i.scrPos.xy / i.scrPos.w;
+                float2 scrPos = i.pos / _ScreenParams.xy;
                 float fresnel = max(0.0,dot(normalDir,viewDir));
                 float indirectionFactor =1 -  pow(fresnel,_IndirectionFactor);
                 //计算扭曲
@@ -119,7 +118,7 @@ Shader "Custom/Scene/WaterShader"
                 warp *= _WarpIntensity;
                 //计算主光源漫反射
                 float3 Albedo = SAMPLE_TEXTURE2D(_CameraOpaqueTexture, sampler_CameraOpaqueTexture, scrPos).rgb;
-                float DepthFactor =  DepthCompare(i.pos,scrPos,_WaterDepth);
+                float DepthFactor = DepthCompare(scrPos,i.viewPos,_WaterDepth);
                 float waterTopFactor = smoothstep(_TransparentRadius,1.0,DepthFactor);
                 float3 lightDiffuse = lerp(_WaterDownColor.rgb,lerp(_WaterTopColor.rgb,1,waterTopFactor)* Albedo,DepthFactor);
                 //计算主光源镜面反射
@@ -132,7 +131,7 @@ Shader "Custom/Scene/WaterShader"
                 //计算主光源贡献
                 float3 lightContribution = lightDiffuse  * (1 - _LightFactor) + lightSpec;
 
-                //计算环境漫反射
+                //计算环境漫反射 
                 float3 indirectionDiffuse = 0.0;
                 //采样环境反射
                 
@@ -142,12 +141,13 @@ Shader "Custom/Scene/WaterShader"
                 
                 float3 finalRGB = lightContribution + indirectionContribution;
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效
-                
                 float Alpha =1 - smoothstep(0.9,1,DepthFactor);
                 return float4(finalRGB,Alpha);
             }
             ENDHLSL
         }
+        
+        
     }
 
 

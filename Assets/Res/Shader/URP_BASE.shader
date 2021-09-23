@@ -3,7 +3,6 @@
 	Properties
 	{
 		_MainTex("主贴图", 2D) = "white" {}
-		_test("test0",float) = 0
 	}
 	SubShader
 	{
@@ -16,16 +15,16 @@
 				"RenderPipeline"="UniversalRenderPipline"
 				"LightMode" = "UniversalForward"
 				"IgnoreProjector" = "True"
-				"RenderType"="Transparent" 
-				"Queue" = "Transparent"
+				"RenderType"="Opaque" 
+				"Queue" = "Opaque"
 			}
-	
+			
 			HLSLPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
-
+			#pragma multi_compile _ _SHADOWS_SOFT
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "ShaderFunction.HLSL"
@@ -62,9 +61,9 @@
 			float4 frag(v2f i) : SV_Target
 			{
 				float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
-				
-	
-				return DepthCompare(i.pos,_test);
+				Light light = GetMainLight(SHADOW_COORDS);
+				float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
+				return var_MainTex * light.shadowAttenuation;
 			}
 			ENDHLSL
 		}

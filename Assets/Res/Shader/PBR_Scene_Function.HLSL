@@ -4,7 +4,7 @@
     #include "ShaderFunction.HLSL"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-        //D项 法线微表面分布函数
+    //D项 法线微表面分布函数
     float D_Function (float NdotH,float roughness)
     {
         float a      = roughness*roughness;
@@ -122,7 +122,7 @@
         return emission;
     }
     
-    #pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
+    //#pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
     #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
     #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
     #pragma multi_compile _ _SHADOWS_SOFT
@@ -138,16 +138,18 @@
         float  metallic  = pbr.metallic;
         float3  emission  = pbr.emission;
 
-        float  occlusion = 1;
-        float  shadow = 1;
-        #ifdef LIGHTMAP_ON
-            float3 var_Lightmap = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap,lightmapUV.xy));
-            occlusion = pbr.occlusion * var_Lightmap.r;
-            shadow    =  var_Lightmap.g;
-        #else
-            occlusion = pbr.occlusion;
-            shadow    = light.shadowAttenuation * CloudShadow(worldPos);;   //* CLOUD_SHADOW(i)
-        #endif
+        float  occlusion = pbr.occlusion;;
+        float  shadow = light.shadowAttenuation * CloudShadow(worldPos);
+
+        
+        // #ifdef LIGHTMAP_ON
+        //     float3 var_Lightmap = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap,lightmapUV.xy));
+        //     occlusion = pbr.occlusion * var_Lightmap.r;
+        //     shadow    =  var_Lightmap.g;
+        // #else
+        //     occlusion = pbr.occlusion;
+        //     shadow    = light.shadowAttenuation * CloudShadow(worldPos);;   //* CLOUD_SHADOW(i)
+        // #endif
 
         float3 F0 = lerp(0.04,baseColor,metallic);
         //法线计算
@@ -192,70 +194,70 @@
     // #pragma shader_feature _PARALLAX_ON 
     // inline float2 POM( TEXTURE2D_PARAM(_Texture, sampler_Texture), float2 uvs, float3 normalWorld, float3 viewWorld, float3 viewDirTan, int minSamples, int maxSamples,int sectionSteps, float parallax, float refPlane,float vertexColor,float _BlendHeight)
     // {
-    //     int stepIndex = 0;
-    //     int numSteps = ( int )lerp( (float)maxSamples, (float)minSamples, saturate( dot( normalWorld, viewWorld ) ) );
-    //     float layerHeight = 1.0 / numSteps;
-    //     float2 plane = parallax  * ( viewDirTan.xy / viewDirTan.z );
-    //     uvs += lerp(refPlane,_BlendHeight,vertexColor.r) * plane;//这里增加了顶点色影响 后面要看有没有问题
-    //     float2 deltaTex = -plane * layerHeight;
-    //     float2 prevTexOffset = 0;
-    //     float prevRayZ = 1.0f;
-    //     float prevHeight = 0.0f;
-    //     float2 currTexOffset = deltaTex;
-    //     float currRayZ = 1.0f - layerHeight;
-    //     float currHeight = 0.0f;
-    //     float intersection = 0;
-    //     float2 finalTexOffset = 0;
-    //     float2 dx = ddx(uvs);
-    //     float2 dy = ddy(uvs);
-    //     while ( stepIndex < numSteps + 1 )
-    //     {
-    //         // currHeight = SAMPLE_TEXTURE2D(_Texture,sampler_Texture,uvs + currTexOffset, dx, dy ).a;
-    //         currHeight = tex2D( _MainTex, uvs + currTexOffset, dx, dy ).a;
-    //         currHeight = lerp(currHeight,1.0,vertexColor);
-    //         if ( currHeight > currRayZ )
-    //         {
-    //             stepIndex = numSteps + 1;
-    //         }
-    //         else
-    //         {
-    //             stepIndex++;
-    //             prevTexOffset = currTexOffset;
-    //             prevRayZ = currRayZ;
-    //             prevHeight = currHeight;
-    //             currTexOffset += deltaTex;
-    //             currRayZ -= layerHeight;
-    //         }
-    //     }
-    //     int sectionIndex = 0;
-    //     float newZ = 0;
-    //     float newHeight = 0;
-    //     while ( sectionIndex < sectionSteps )
-    //     {
-    //         intersection = ( prevHeight - prevRayZ ) / ( prevHeight - currHeight + currRayZ - prevRayZ );
-    //         finalTexOffset = prevTexOffset + intersection * deltaTex;
-    //         newZ = prevRayZ - intersection * layerHeight;
-    //         newHeight = tex2D( _MainTex, uvs + finalTexOffset, dx, dy ).a;
-    //         newHeight = lerp(newHeight,1.0,vertexColor);
-    //         if ( newHeight > newZ )
-    //         {
-    //             currTexOffset = finalTexOffset;
-    //             currHeight = newHeight;
-    //             currRayZ = newZ;
-    //             deltaTex = intersection * deltaTex;
-    //             layerHeight = intersection * layerHeight;
-    //         }
-    //         else
-    //         {
-    //             prevTexOffset = finalTexOffset;
-    //             prevHeight = newHeight;
-    //             prevRayZ = newZ;
-    //             deltaTex = ( 1 - intersection ) * deltaTex;
-    //             layerHeight = ( 1 - intersection ) * layerHeight;
-    //         }
-    //         sectionIndex++;
-    //     }
-    //     return uvs + finalTexOffset;
+        //     int stepIndex = 0;
+        //     int numSteps = ( int )lerp( (float)maxSamples, (float)minSamples, saturate( dot( normalWorld, viewWorld ) ) );
+        //     float layerHeight = 1.0 / numSteps;
+        //     float2 plane = parallax  * ( viewDirTan.xy / viewDirTan.z );
+        //     uvs += lerp(refPlane,_BlendHeight,vertexColor.r) * plane;//这里增加了顶点色影响 后面要看有没有问题
+        //     float2 deltaTex = -plane * layerHeight;
+        //     float2 prevTexOffset = 0;
+        //     float prevRayZ = 1.0f;
+        //     float prevHeight = 0.0f;
+        //     float2 currTexOffset = deltaTex;
+        //     float currRayZ = 1.0f - layerHeight;
+        //     float currHeight = 0.0f;
+        //     float intersection = 0;
+        //     float2 finalTexOffset = 0;
+        //     float2 dx = ddx(uvs);
+        //     float2 dy = ddy(uvs);
+        //     while ( stepIndex < numSteps + 1 )
+        //     {
+            //         // currHeight = SAMPLE_TEXTURE2D(_Texture,sampler_Texture,uvs + currTexOffset, dx, dy ).a;
+            //         currHeight = tex2D( _MainTex, uvs + currTexOffset, dx, dy ).a;
+            //         currHeight = lerp(currHeight,1.0,vertexColor);
+            //         if ( currHeight > currRayZ )
+            //         {
+                //             stepIndex = numSteps + 1;
+            //         }
+            //         else
+            //         {
+                //             stepIndex++;
+                //             prevTexOffset = currTexOffset;
+                //             prevRayZ = currRayZ;
+                //             prevHeight = currHeight;
+                //             currTexOffset += deltaTex;
+                //             currRayZ -= layerHeight;
+            //         }
+        //     }
+        //     int sectionIndex = 0;
+        //     float newZ = 0;
+        //     float newHeight = 0;
+        //     while ( sectionIndex < sectionSteps )
+        //     {
+            //         intersection = ( prevHeight - prevRayZ ) / ( prevHeight - currHeight + currRayZ - prevRayZ );
+            //         finalTexOffset = prevTexOffset + intersection * deltaTex;
+            //         newZ = prevRayZ - intersection * layerHeight;
+            //         newHeight = tex2D( _MainTex, uvs + finalTexOffset, dx, dy ).a;
+            //         newHeight = lerp(newHeight,1.0,vertexColor);
+            //         if ( newHeight > newZ )
+            //         {
+                //             currTexOffset = finalTexOffset;
+                //             currHeight = newHeight;
+                //             currRayZ = newZ;
+                //             deltaTex = intersection * deltaTex;
+                //             layerHeight = intersection * layerHeight;
+            //         }
+            //         else
+            //         {
+                //             prevTexOffset = finalTexOffset;
+                //             prevHeight = newHeight;
+                //             prevRayZ = newZ;
+                //             deltaTex = ( 1 - intersection ) * deltaTex;
+                //             layerHeight = ( 1 - intersection ) * layerHeight;
+            //         }
+            //         sectionIndex++;
+        //     }
+        //     return uvs + finalTexOffset;
     // }
 
     // CBUFFER_START(UnityPreMaterial)
@@ -268,14 +270,14 @@
     // {
         
         
-    //     worldNormal = normalize(worldNormal);
-    //     float3 worldViewDir = normalize(worldView);
-    //     float3 tangenWorld_X = float3(worldTangent.x,worldBitangent.x,worldNormal.x);
-    //     float3 tangenWorld_Y = float3(worldTangent.y,worldBitangent.y,worldNormal.y);
-    //     float3 tangenWorld_Z = float3(worldTangent.z,worldBitangent.z,worldNormal.z);
-    //     float3 tangentViewDir = normalize(tangenWorld_X * worldViewDir.x + tangenWorld_Y * worldViewDir.y + tangenWorld_Z * worldViewDir.z);
+        //     worldNormal = normalize(worldNormal);
+        //     float3 worldViewDir = normalize(worldView);
+        //     float3 tangenWorld_X = float3(worldTangent.x,worldBitangent.x,worldNormal.x);
+        //     float3 tangenWorld_Y = float3(worldTangent.y,worldBitangent.y,worldNormal.y);
+        //     float3 tangenWorld_Z = float3(worldTangent.z,worldBitangent.z,worldNormal.z);
+        //     float3 tangentViewDir = normalize(tangenWorld_X * worldViewDir.x + tangenWorld_Y * worldViewDir.y + tangenWorld_Z * worldViewDir.z);
         
-    //     uv = POM(_Texture,sampler_Texture, uv, worldNormal, worldViewDir, tangentViewDir, _MinSample, _MaxSample,_SectionSteps, _PomScale * 0.1, _HeightScale,vertexColor.r,_BlendHeight);
+        //     uv = POM(_Texture,sampler_Texture, uv, worldNormal, worldViewDir, tangentViewDir, _MinSample, _MaxSample,_SectionSteps, _PomScale * 0.1, _HeightScale,vertexColor.r,_BlendHeight);
         
     // }
     // #define PBR_PARALLAX(i,_MainTex)  Parallax(i.vertexColor,i.worldTangent,i.worldBitangent,i.worldNormal,i.worldPos,i.worldView,_MainTex,i.uv)  //不知道怎么在采样贴图的时候使用 dx,dy 故后面查阅资料后再弄

@@ -162,19 +162,11 @@
     SAMPLER(sampler_CameraDepthTexture);
 
     uniform float _Offset;
-    float DepthCompare(float4 clipPos,float radius)
+    float DepthCompare(float2 scrPos,float3 viewPos,float _Radius)
     {
-        float4 scenePosition = ComputeScreenPos(clipPos);
-
-        float4 uv = float4(scenePosition.xy / scenePosition.w,0.0,0.0);
-        float Depth = LinearEyeDepth(SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_CameraDepthTexture,uv),_ZBufferParams).r;
-        
-        float test = scenePosition.w - _Offset;
-
-        float CameraDepth = Linear01Depth(Depth, _ZBufferParams);
-        float MeshDepth = Linear01Depth(clipPos.z,_ZBufferParams);
-        float distanceDepth = 1 -saturate(saturate(CameraDepth - MeshDepth) * radius * 100);
-        return distanceDepth;
+        float4 scrDepth = LinearEyeDepth(SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, scrPos), _ZBufferParams);
+        float disDepth  = (scrDepth + viewPos.z) * _Radius;
+        return 1 - saturate(disDepth);
     }
-    #define DEPTH_COMPARE(clipPos,radius)  DepthCompare(clipPos,radius);
+   
 #endif

@@ -46,7 +46,6 @@ Shader "Custom/Scene/GrassShader"
         //结构体
         #pragma vertex vert
         #pragma fragment frag
-        #pragma multi_compile_instancing    
         #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
         #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
         #pragma multi_compile _ _SHADOWS_SOFT
