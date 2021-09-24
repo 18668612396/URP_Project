@@ -88,7 +88,7 @@ Material:
     - _TransparentRadius: 0.791
     - _UVSec: 0
     - _WarpIns: 0
-    - _WarpIntensity: 0.01
+    - _WarpIntensity: 0.073
     - _WarpSpeed: 0
     - _WaterDepth: 1.4
     - _WaveFactorIntensity: 0

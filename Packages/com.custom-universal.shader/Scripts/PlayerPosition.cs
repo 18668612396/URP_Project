@@ -1,13 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-[ExecuteInEditMode]
-public class PlayerPosition : MonoBehaviour
-{
-    
-    void Update()
-    {
-        Shader.SetGlobalVector("_PlayerPos", transform.position);
+using CustomURP_Shader;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
+namespace CustomURP_Shader
+{
+    [ExecuteAlways]
+    public class PlayerPosition : MonoBehaviour
+    {
+
+        void Update()
+        {
+            Shader.SetGlobalVector("_PlayerPos", transform.position);
+
+        }
     }
 }
