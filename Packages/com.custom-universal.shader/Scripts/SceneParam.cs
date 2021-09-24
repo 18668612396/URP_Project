@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using System;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering.Universal;
+using WaterSystem.Data;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
-
-[ExecuteInEditMode]
+[ExecuteAlways]
 public class SceneParam : MonoBehaviour
-{
+{ 
 
     public bool _BigWind;
     bool _tempBigWind;
