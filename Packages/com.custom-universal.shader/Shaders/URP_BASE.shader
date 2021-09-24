@@ -18,7 +18,7 @@
 				"RenderType"="Opaque" 
 				"Queue" = "Opaque"
 			}
-			
+			 
 			HLSLPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

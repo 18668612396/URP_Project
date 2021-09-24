@@ -1,13 +1,12 @@
 {
   "dependencies": {
-    "com.unity.burst": {
-      "version": "1.5.6",
-      "depth": 1,
-      "source": "registry",
+    "com.shader.custom-universal-shader": {
+      "version": "file:com.custom-universal.shader",
+      "depth": 0,
+      "source": "embedded",
       "dependencies": {
-        "com.unity.mathematics": "1.2.1"
-      },
-      "url": "https://packages.unity.cn"
+        "com.unity.render-pipelines.universal": "11.0.0"
+      }
     },
     "com.unity.collab-proxy": {
       "version": "1.9.0",
@@ -145,16 +144,6 @@
         "com.unity.modules.physics2d": "1.0.0"
       },
       "url": "https://packages.unity.cn"
-    },
-    "com.verasl.universal-shader-system": {
-      "version": "file:com.verasl.water-system",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.mathematics": "1.1.0",
-        "com.unity.burst": "1.2.3",
-        "com.unity.render-pipelines.universal": "7.4.1"
-      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
