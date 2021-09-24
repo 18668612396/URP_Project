@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-[CustomEditor(typeof(SceneParam))]
+[CustomEditor(typeof(SceneParam))] 
 public class CustomSceneParamEditor : Editor
 {
 
@@ -10,7 +10,7 @@ public class CustomSceneParamEditor : Editor
         WindParam();//风力动画参数
         CloudShadowParam();//云阴影参数
         InteractParam();//植被交互
-        FogParam();//绘制雾效GUI
+        FogParam();//绘制雾效GUI 
     }
     public override void OnInspectorGUI()
     {

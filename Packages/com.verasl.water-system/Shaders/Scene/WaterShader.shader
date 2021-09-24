@@ -134,8 +134,8 @@ Shader "Custom/Scene/WaterShader"
                 //计算环境漫反射 
                 float3 indirectionDiffuse = 0.0;
                 //采样环境反射
-                
-                float3 var_Cubemap =  SAMPLE_TEXTURECUBE(unity_SpecCube0,samplerunity_SpecCube0, reflectDir + float3(warp.y,warp.x,0.0)).rgb;;
+                GlossyEnvironmentReflection(reflectDir + float3(warp.y,warp.x,0.0), 0, 1);
+                float3 var_Cubemap = GlossyEnvironmentReflection(reflectDir + float3(warp.y,warp.x,0.0), 0, 1);
                 float3 indirectionSpec = var_Cubemap;
                 float3 indirectionContribution = (indirectionDiffuse + indirectionSpec) * _LightFactor * indirectionFactor;
                 

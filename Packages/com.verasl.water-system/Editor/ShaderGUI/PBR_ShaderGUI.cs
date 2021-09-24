@@ -115,7 +115,7 @@ public class PBR_ShaderGUI : ShaderGUI
     {
         EditorGUILayout.LabelField("PBR BaseParam", EditorStyles.boldLabel);//头标题
         materialEditor.TexturePropertySingleLine(new GUIContent("Albedo", "纹理颜色(RGB) 透明通道(A) 叠加颜色(Color) 自发光强度(Slider)"), _MainTexProp, _ColorProp, _EmissionIntensityProp);//绘制主颜色纹理GUI
-        materialEditor.TexturePropertySingleLine(new GUIContent("PbrParam", "Metallic(R) Roughness(G) Occlusion(B) Emission(A) F_Roughness(Slider) F_Metallic(Float)"), _PbrParamProp, _RoughnessProp, _MetallicProp);//绘制PBR参数纹理GUI
+                materialEditor.TexturePropertySingleLine(new GUIContent("PbrParam", "Metallic(R) Roughness(G) Occlusion(B) Emission(A) F_Roughness(Slider) F_Metallic(Float)"), _PbrParamProp, _RoughnessProp, _MetallicProp);//绘制PBR参数纹理GUI
         materialEditor.TexturePropertySingleLine(new GUIContent("Normal"), _NormalProp, _NormalIntensityProp);//绘制法线纹理GUI
         materialEditor.TextureScaleOffsetProperty(_MainTexProp);//绘制主颜色纹理Tiling Offset
         EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalscrollbarthumb"));//绘制分割线
@@ -150,7 +150,7 @@ public class PBR_ShaderGUI : ShaderGUI
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space(10);
     }
-//高度融合
+    //高度融合
     private void HeightBlendGUI(MaterialEditor materialEditor)
     {
         _FallDustToggle = material.IsKeywordEnabled("_FALLDUST_ON") ? true : false; //读取Keywords数据
@@ -158,7 +158,7 @@ public class PBR_ShaderGUI : ShaderGUI
         if (_FallDustToggle)
         {
             material.EnableKeyword("_FALLDUST_ON");
-          
+
             materialEditor.TexturePropertySingleLine(new GUIContent("FullDustMainTex"), _FallDustMainTexProp, _FallDustColorProp, _FallDustColorBlendProp);
             materialEditor.TexturePropertySingleLine(new GUIContent("PbrParam"), _FallDustPbrParamProp, _FallDustRoughnessProp, _FallDustMetallicProp);
             materialEditor.RangeProperty(_fallDustEmissionIntensityProp, "EmissionIntensity");
