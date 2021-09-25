@@ -1,0 +1,21 @@
+{
+    "name": "Custom.Universal.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:16415bceb255389409dd7a04fe5d5ace",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:c579267770062bf448e75eb160330b7f",
+        "GUID:329b4ccd385744985bf3f83cfd77dfe7"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
