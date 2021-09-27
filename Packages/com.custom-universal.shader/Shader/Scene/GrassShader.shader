@@ -6,8 +6,10 @@ Shader "Custom/Scene/GrassShader"
     {
         
         _MainTex ("Texture", 2D) = "white" {}
-        _Color("TopColor",Color) = (1.0,1.0,1.0,1.0)
-        
+        _Color01("TopColor1",Color) = (1.0,1.0,1.0,1.0)
+        _Color02("TopColor2",Color) = (1.0,1.0,1.0,1.0)
+        _Color03("TopColor3",Color) = (1.0,1.0,1.0,1.0)
+        _Color04("TopColor4",Color) = (1.0,1.0,1.0,1.0)
         _GradientVector("_GradientVector",vector) = (0.0,1.0,0.0,0.0)
         _CutOff("Cutoff",Range(0.0,1.0)) = 0.0
         _WindAnimToggle("_WindAnimToggle",int) = 1
@@ -39,6 +41,21 @@ Shader "Custom/Scene/GrassShader"
 
         uniform TEXTURE2D (_MainTex);
         uniform	SAMPLER(sampler_MainTex);
+
+        uniform TEXTURE2D (_BaseTex);
+        uniform	SAMPLER(sampler_BaseTex);
+
+        uniform TEXTURE2D (_ColorTex0);
+        uniform	SAMPLER(sampler_ColorTex0);
+
+        uniform TEXTURE2D (_ColorTex1);
+        uniform	SAMPLER(sampler_ColorTex1);
+
+        uniform TEXTURE2D (_ColorTex2);
+        uniform	SAMPLER(sampler_ColorTex2);
+
+        uniform TEXTURE2D (_ColorTex3);
+        uniform	SAMPLER(sampler_ColorTex3);
         //变量声明
         CBUFFER_START(UnityPerMaterial)
         //贴图采样器
@@ -50,6 +67,10 @@ Shader "Custom/Scene/GrassShader"
         uniform float _SpecularRadius;
         uniform float _SpecularIntensity;
 
+        uniform float _Color0_ST;
+        uniform float _Color1_ST;
+        uniform float _Color2_ST;
+        uniform float _Color3_ST;
         CBUFFER_END
         //结构体
         #pragma vertex vert
@@ -99,9 +120,45 @@ Shader "Custom/Scene/GrassShader"
                 return o;
             }
 
+            //地表融合函数
+            float4 TerrainBlend(real4 _Splat0,real4 _Splat1,real4 _Splat2,real4 _Splat3,real4 var_Control)
+            {
+                half4 blend;
+                //获取混合后的高度通道
+                blend.r = _Splat0.a * var_Control.r;
+                blend.g = _Splat1.a * var_Control.g;
+                blend.b = _Splat2.a * var_Control.b;
+                blend.a = _Splat3.a * var_Control.a;
+                
+                half max_Height = max(blend.a,max(blend.b,max(blend.r,blend.g)));
+                blend = max( blend - max_Height + 0.2,0.0) * var_Control;
+                
+                return blend / (blend.r + blend.g + blend.b + blend.a);
+            }
 
             real3 frag (v2f i) : SV_Target
             {
+                //临时的颜色计算//////////////////////////////////////////////////////////////////////////////////
+                
+                float4 var_Splat0 = SAMPLE_TEXTURE2D(_ColorTex0,sampler_ColorTex0,i.worldPos.xz / _Color0_ST );
+                //采样第二层贴图
+                float4 var_Splat1 = SAMPLE_TEXTURE2D(_ColorTex1,sampler_ColorTex1,i.worldPos.xz / _Color1_ST );
+                //采样第三层贴图
+                float4 var_Splat2 = SAMPLE_TEXTURE2D(_ColorTex2,sampler_ColorTex2,i.worldPos.xz/ _Color2_ST );
+                //采样第四层贴图
+                float4 var_Splat3 = SAMPLE_TEXTURE2D(_ColorTex3,sampler_ColorTex3,i.worldPos.xz / _Color3_ST );
+                // //采样分层贴图
+                float4 var_Control = SAMPLE_TEXTURE2D(_BaseTex,sampler_BaseTex,i.worldPos.xz / 256);
+
+                float4 blend = TerrainBlend(var_Splat0,var_Splat1,var_Splat2,var_Splat3,var_Control);
+                //合成
+                float4 finalAlbedo = var_Splat0*blend.r + var_Splat1*blend.g+ var_Splat2*blend.b+ var_Splat3*blend.a;
+
+
+
+
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
                 //采样贴图
                 float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
                 //AlphaTest
@@ -114,20 +171,21 @@ Shader "Custom/Scene/GrassShader"
                 float3 normalDir = normalize(i.worldNormal);
                 float3 halfDir   = normalize(lightDir + viewDir);
                 //点乘计算
-                float NdotL = max(0.0,dot(normalDir,lightDir));
+                float NdotL = max(0.0,dot(float3(0.0,1.0,0.0),lightDir));
                 float NdotH = max(0.0,dot(float3(0.0,1.0,0.0),halfDir));//这里假设所有法线朝上
                 
                 //基础颜色Albedo
-                float3 Albedo  = _Color.rgb;
+                float3 Albedo  = finalAlbedo.rgb;
                 //Occlusion
+                // float Occlustion = lerp(1,i.vertexColor.a,_OcclusionIntensity);//把顶点色A通道当作别的草和自己的环境闭塞
                 float Occlustion = lerp(1,i.vertexColor.a,_OcclusionIntensity);//把顶点色A通道当作别的草和自己的环境闭塞
                 //主光源影响
                 float specular = pow(NdotH,_SpecularRadius) * _SpecularIntensity * i.vertexColor.a;
-                float shadow = light.shadowAttenuation * i.vertexColor.a * CLOUD_SHADOW(i);//把顶点色A通道当作自投影
-                float3 lightContribution = (specular +  Albedo * light.color * NdotL) * shadow;
+                float shadow = light.shadowAttenuation * CLOUD_SHADOW(i);//把顶点色A通道当作自投影
+                float3 lightContribution = (specular * light.color +  Albedo * light.color * NdotL) * shadow;
                 //环境光源影响
                 float3 Ambient = SampleSH(normalDir);
-                float3 indirectionContribution = Ambient * Albedo * Occlustion;
+                float3 indirectionContribution = Ambient * Albedo;
                 
                 //光照合成
                 float3 finalRGB = lightContribution + indirectionContribution;
@@ -162,5 +220,5 @@ Shader "Custom/Scene/GrassShader"
         
     }
 
-    CustomEditor "GrassShaderGUI"
+     CustomEditor "GrassShaderGUI"
 }

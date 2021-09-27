@@ -9,6 +9,7 @@
     uniform TEXTURE2D (_FallDustNormal);
     uniform	SAMPLER(sampler_FallDustNormal);
     
+    uniform float _HeightRadius;
     uniform float _HeightDepth;
     uniform float4 _FallDustColor;
     uniform float  _FallDustColorBlend;
@@ -48,7 +49,8 @@
             float  fallDustOcclustio = var_FallDustPbrParam.b;
             
             //高度融合mask
-            float heightBlend = saturate(pow(   max(0.0,(((1 - pbr.baseColor.a * var_FallDustMainTex.a)*vertexColor.r)*4)+(vertexColor.r*2)),_HeightDepth));//(1 - pbr.normal.a)比着原算法反向了一下高度图   此算法照搬的UE4的高度混合算法
+            vertexColor.r = pow(vertexColor.r,_HeightRadius + 0.01);
+            float heightBlend = saturate(pow(   max(0.0,(((1 - pbr.baseColor.a * var_FallDustMainTex.a)*vertexColor.r)*4)+(vertexColor.r*2)),_HeightDepth + 0.1));//(1 - pbr.normal.a)比着原算法反向了一下高度图   此算法照搬的UE4的高度混合算法
             pbr.baseColor = lerp(pbr.baseColor,fallDustBaseColor,heightBlend);
             pbr.metallic      = lerp(pbr.metallic,fallDustMetallic,heightBlend);
             pbr.roughness = lerp(pbr.roughness,fallDustRoughness,heightBlend);

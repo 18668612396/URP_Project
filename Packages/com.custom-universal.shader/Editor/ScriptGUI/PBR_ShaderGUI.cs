@@ -39,8 +39,10 @@ public class PBR_ShaderGUI : ShaderGUI
     MaterialProperty _FallDustNormalIntensityProp;
     MaterialProperty _HeightDepthProp;
     MaterialProperty _BlendHeightProp;
+    MaterialProperty _HeightRadiusProp;
     MaterialProperty _FallDustNormalBlendProp;
-
+    MaterialProperty _HeightNormalUpProp;
+    MaterialProperty _FallDustSwitchUVProp;
     //风力动画
     bool _WindAnimToggle;
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
@@ -90,8 +92,10 @@ public class PBR_ShaderGUI : ShaderGUI
         _FallDustNormalIntensityProp = FindProperty("_FallDustNormalIntensity", properties);
         _HeightDepthProp = FindProperty("_HeightDepth", properties);
         _BlendHeightProp = FindProperty("_BlendHeight", properties);
+        _HeightRadiusProp = FindProperty("_HeightRadius", properties);
         _FallDustNormalBlendProp = FindProperty("_FallDustNormalBlend", properties);
-
+        _HeightNormalUpProp = FindProperty("_HeightNormalUp", properties);
+        _FallDustSwitchUVProp = FindProperty("_FallDustSwitchUV", properties);
     }
 
     //保存GUILayout参数数据
@@ -210,6 +214,7 @@ public class PBR_ShaderGUI : ShaderGUI
          EditorGUILayout.Space(10);
      }*/
     //高度融合
+    private bool _HeightNormalToggle;
     private void HeightBlendGUI(MaterialEditor materialEditor)
     {
         _FallDustToggle = material.IsKeywordEnabled("_FALLDUST_ON") ? true : false; //读取Keywords数据
@@ -244,7 +249,7 @@ public class PBR_ShaderGUI : ShaderGUI
             Texture _FallDustNormal = material.GetTexture("_FallDustNormal");
             if (_FallDustNormal != null)
             {
-                materialEditor.TexturePropertySingleLine(new GUIContent("高度法线贴图"), _FallDustNormalProp, _FallDustNormalIntensityProp,_FallDustNormalBlendProp);
+                materialEditor.TexturePropertySingleLine(new GUIContent("高度法线贴图"), _FallDustNormalProp, _FallDustNormalIntensityProp, _FallDustNormalBlendProp);
                 material.EnableKeyword("_FALLDUST_NORMAL_ON");
             }
             else
@@ -257,6 +262,11 @@ public class PBR_ShaderGUI : ShaderGUI
             {
                 materialEditor.TextureScaleOffsetProperty(_FallDustMainTexProp);//绘制主颜色纹理Tiling Offset
             }
+            EditorGUILayout.BeginHorizontal();
+            materialEditor.ShaderProperty(_HeightNormalUpProp, "开启法线朝上");
+            materialEditor.ShaderProperty(_FallDustSwitchUVProp, "切换UV排布方式(勾上：世界坐标采样,不勾：自身UV采样)");
+            EditorGUILayout.EndHorizontal();
+            materialEditor.RangeProperty(_HeightRadiusProp, "高度融合的范围");
             materialEditor.RangeProperty(_FallDustColorBlendProp, "高度融合透明度");
             materialEditor.RangeProperty(_HeightDepthProp, "高度融合软硬度");
             // if (_ParallaxToggle)

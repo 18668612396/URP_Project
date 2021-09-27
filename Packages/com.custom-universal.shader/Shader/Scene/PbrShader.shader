@@ -18,8 +18,10 @@ Shader "Custom/Scene/PbrShader"
         [PowerSlider(1)]_Roughness("Roughness",Range(0,1)) = 1
         [Normal][NoScaleOffset]_Normal(  "Normal" , 2D) = "bump" {}
         [PowerSlider(1)]_NormalIntensity("_NormalIntensity",Range(0,2)) = 1
-        [Header(FallDust)] 
-        _HeightDepth("heightDepth",Range(1.0,20.0)) = 0
+        [Toggle]_HeightNormalUp("_HeightNormalUp",int) = 1
+        [Toggle]_FallDustSwitchUV("_FallDustSwitchUV",int) = 1
+        _HeightRadius("_HeightRadius",Range(0.0,10.0)) = 1
+        _HeightDepth("heightDepth",Range(0.0,20.0)) = 0
         _BlendHeight("BlendHeight",Range(-5,5)) = 0
         _FallDustMainTex("FallDustMainTex",2D) = "white"{}
         _fallDustEmissionIntensity("fallDustEmissionIntensity",Range(0,25)) = 0
@@ -30,7 +32,7 @@ Shader "Custom/Scene/PbrShader"
         _FallDustRoughness("FallDustRoughness",Range(0,1)) = 1
         _FallDustNormal("FallDustNormal",2D) = "bump"{}
         _FallDustNormalIntensity("FallDustNormalIntensity",Range(0,2)) = 0
-        [Toggle]_FallDustNormalBlend("_FallDustNormalBlend",int) = 0
+        [Toggle]_FallDustNormalBlend("_FallDustNormalBlend",int) = 1
         [Toggle] _WindAnimToggle("WindAmin",int) = 0
     }
     SubShader
@@ -58,7 +60,7 @@ Shader "Custom/Scene/PbrShader"
         #include "../ShaderFunction.HLSL"
         #include "../PBR_Scene_FallDust.HLSL"
         #include "../PBR_Scene_Function.HLSL"
-
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
         ///////////////////////////////////////////////////////////
         //                ShaderFunction中的宏开关                //
         ///////////////////////////////////////////////////////////
@@ -116,17 +118,21 @@ Shader "Custom/Scene/PbrShader"
         uniform TEXTURE2D (_Normal);
         uniform	SAMPLER(sampler_Normal);
         #pragma shader_feature _PBRPARAM_ON
+
         uniform TEXTURE2D (_PbrParam);
         uniform	SAMPLER(sampler_PbrParam);
-        
+        #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+
         CBUFFER_START(UnityPerMaterial)
         float4 _MainTex_ST;
         float4 _Color;
         float _Metallic,_Roughness,_EmissionIntensity;
         float _NormalIntensity;
+        
         // int _FallDust;
         // int _Parallax;
-        
+        int _HeightNormalUp;
+        int _FallDustSwitchUV;
         float4 _FallDustMainTex_ST;//这个不能写在HLSL库里
         
         CBUFFER_END
@@ -151,13 +157,27 @@ Shader "Custom/Scene/PbrShader"
                 // #endif
                 // o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.blendUV = TRANSFORM_TEX(v.uv,_FallDustMainTex);//混合贴图的UV
+                
                 
                 o.lightmapUV = v.lightmapUV * unity_LightmapST.xy + unity_LightmapST.zw;
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.worldPos = TransformObjectToWorld(v.vertex.xyz);
+                if (_FallDustSwitchUV > 0)
+                {
+                    o.blendUV = o.worldPos.xz / _FallDustMainTex_ST.xy;//混合贴图的UV
+                }
+                else
+                {
+                    o.blendUV = TRANSFORM_TEX(v.uv,_FallDustMainTex);//混合贴图的UV
+                }
                 // o.SHADOW_COORDS = TransformWorldToShadowCoord(o.worldPos);
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
+                #if _FALLDUST_ON
+                    if (_HeightNormalUp > 0)
+                    {
+                        o.worldNormal = lerp(o.worldNormal,float3(0.0,1.0,0.0),v.color.r);
+                    }
+                #endif
                 o.worldTangent = TransformObjectToWorldDir(v.tangent.xyz);
                 o.worldBitangent = cross(o.worldNormal,o.worldTangent.xyz) * v.tangent.w * unity_WorldTransformParams.w;
                 o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
@@ -192,7 +212,9 @@ Shader "Custom/Scene/PbrShader"
                 #else
                     float3 var_Normal   = float3(0.0,0.0,1.0);
                 #endif
-
+                //屏幕空间AO
+                float2 scrPos = i.pos.xy / _ScreenParams.xy;
+                float ScrOcclusion = SampleAmbientOcclusion(scrPos);
                 PBR pbr;
                 ZERO_INITIALIZE(PBR,pbr);//初始化PBR结构体
                 pbr.baseColor = var_MainTex * _Color;
@@ -200,7 +222,7 @@ Shader "Custom/Scene/PbrShader"
                 pbr.normal    = var_Normal;
                 pbr.metallic  = var_PbrParam.r;
                 pbr.roughness = var_PbrParam.g;
-                pbr.occlusion = var_PbrParam.b;
+                pbr.occlusion = var_PbrParam.b * ScrOcclusion;
                 //高度融合相关
                 PBR_FALLDUST(i,pbr);
                 float3 finalRGB = PBR_FUNCTION(i,pbr);
@@ -258,6 +280,8 @@ Shader "Custom/Scene/PbrShader"
             }
             ENDHLSL
         }
+
+        
     }
 
     CustomEditor "PBR_ShaderGUI"

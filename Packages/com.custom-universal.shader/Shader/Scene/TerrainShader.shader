@@ -20,6 +20,7 @@ Shader "Custom/Scene/TerrainShader"
 		[NoScaleOffset]_Normal3("_Normal3",2D) = "bump"
 
 		_TerrainHeightDepth("_TerrainHeightDepth",float) = 0.2
+		[Toggle]_NormalUp("_NormalUp",int) = 0
 	}
 
 	SubShader
@@ -42,19 +43,19 @@ Shader "Custom/Scene/TerrainShader"
 		#pragma vertex vert
 		#pragma fragment frag
 
-        ///////////////////////////////////////////////////////////
-        //                ShaderFunction中的宏开关                //
-        ///////////////////////////////////////////////////////////
-        #pragma shader_feature _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
-        #pragma shader_feature _WORLDFOG_ON _WORLDFOG_OFF
+		///////////////////////////////////////////////////////////
+		//                ShaderFunction中的宏开关                //
+		///////////////////////////////////////////////////////////
+		#pragma shader_feature _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
+		#pragma shader_feature _WORLDFOG_ON _WORLDFOG_OFF
 
-        ///////////////////////////////////////////////////////////
-        //               光照相关的宏开关                          //
-        ///////////////////////////////////////////////////////////
-        //#pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
-        #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-        #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
-        #pragma multi_compile _ _SHADOWS_SOFT
+		///////////////////////////////////////////////////////////
+		//               光照相关的宏开关                          //
+		///////////////////////////////////////////////////////////
+		//#pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
+		#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+		#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+		#pragma multi_compile _ _SHADOWS_SOFT
 
 		struct PBR
 		{
@@ -101,6 +102,7 @@ Shader "Custom/Scene/TerrainShader"
 		uniform float4 _Splat2_ST;
 		uniform float4 _Splat3_ST;
 		uniform float _TerrainHeightDepth;
+		uniform int   _NormalUp;
 		CBUFFER_END
 		uniform TEXTURE2D (_Control);
 		uniform	SAMPLER(sampler_Control);
@@ -173,6 +175,10 @@ Shader "Custom/Scene/TerrainShader"
 				o.worldPos = TransformObjectToWorld(v.vertex.xyz);
 				o.SHADOW_COORDS = TransformWorldToShadowCoord(o.worldPos.xyz);
 				o.worldNormal = TransformObjectToWorldNormal(v.normal.xyz);
+				if (_NormalUp > 0)
+				{
+					o.worldNormal = float3(0.0,1.0,0.0);
+				}
 				o.worldTangent = TransformObjectToWorldDir(v.tangent.xyz);
 				o.worldBitangent = cross(o.worldNormal,o.worldTangent.xyz) * v.tangent.w;
 				o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
