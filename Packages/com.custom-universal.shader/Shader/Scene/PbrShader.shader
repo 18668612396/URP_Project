@@ -213,8 +213,11 @@ Shader "Custom/Scene/PbrShader"
                     float3 var_Normal   = float3(0.0,0.0,1.0);
                 #endif
                 //屏幕空间AO
+                float ScrOcclusion = 1.0;
+                #if _SCREEN_SPACE_OCCLUSION
                 float2 scrPos = i.pos.xy / _ScreenParams.xy;
-                float ScrOcclusion = SampleAmbientOcclusion(scrPos);
+                ScrOcclusion = SampleAmbientOcclusion(scrPos);
+                #endif
                 PBR pbr;
                 ZERO_INITIALIZE(PBR,pbr);//初始化PBR结构体
                 pbr.baseColor = var_MainTex * _Color;

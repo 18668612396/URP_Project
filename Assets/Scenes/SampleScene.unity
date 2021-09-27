@@ -20,10 +20,10 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.5304379, g: 0.59238535, b: 0.754717, a: 1}
+  m_AmbientSkyColor: {r: 0.6714578, g: 0.69218063, b: 0.745283, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.68
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 00721d1ee830aa24ca40e0186a6ffa45, type: 2}
@@ -822,8 +822,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800670720}
-  m_LocalRotation: {x: -0.40205574, y: -0.04573414, z: 0.020080952, w: -0.9142518}
-  m_LocalPosition: {x: 3.9021325, y: 2.241249, z: 4.2144575}
+  m_LocalRotation: {x: -0.4400188, y: -0.04753012, z: 0.023329634, w: -0.8964264}
+  m_LocalPosition: {x: 3.9063792, y: 2.496456, z: 4.251979}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
