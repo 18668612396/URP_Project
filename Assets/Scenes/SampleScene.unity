@@ -584,7 +584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: afbdde29c2e0fdf4d9924900d4de50ae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.233
+      value: 0.215
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: afbdde29c2e0fdf4d9924900d4de50ae, type: 3}
       propertyPath: m_LocalPosition.z
@@ -649,7 +649,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 695647957, guid: 13e0e06cda15fd0409e44a9cc0c9d09b, type: 3}
       propertyPath: _FogToggle
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 695647957, guid: 13e0e06cda15fd0409e44a9cc0c9d09b, type: 3}
       propertyPath: _GrassParam
@@ -838,8 +838,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800670720}
-  m_LocalRotation: {x: 0.0031352488, y: -0.9978954, z: 0.06476782, w: -0.0002468452}
-  m_LocalPosition: {x: 0.006176424, y: 0.67011195, z: 0.67593956}
+  m_LocalRotation: {x: 0.33136603, y: 0.086974576, z: -0.031241227, w: 0.93896544}
+  m_LocalPosition: {x: 4.376326, y: 1.4354904, z: 5.898124}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1364,7 +1364,7 @@ MonoBehaviour:
   _InteractRadius: 0.2
   _InteractIntensity: 0.5
   _InteractHeight: 1
-  _FogToggle: 1
+  _FogToggle: 0
   _FogColor: {r: 0.7137255, g: 0.9607844, b: 1, a: 1}
   _FogGlobalDensity: 4.29
   _FogHeight: 0
