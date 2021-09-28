@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Custom_Character_CartoonShader
   m_Shader: {fileID: 4800000, guid: a8857041328716b44a6937a8b49d606a, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _FALLDUSTNORMALBLEND_ON _FALLDUSTSWITCHUV_ON _HEIGHTNORMALUP_ON
+    _MAINTEX_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,12 +20,50 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _FallDustMainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FallDustNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FallDustPbrParam:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 48d7efc7fcd08a541b6190776422f07c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PbrParam:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BlendHeight: 0
+    - _EmissionIntensity: 0
+    - _FallDustColorBlend: 1
+    - _FallDustMetallic: 0
+    - _FallDustNormalBlend: 1
+    - _FallDustNormalIntensity: 0
+    - _FallDustRoughness: 1
+    - _FallDustSwitchUV: 1
+    - _HeightDepth: 0
+    - _HeightNormalUp: 1
+    - _HeightRadius: 1
+    - _Metallic: 0
+    - _NormalIntensity: 1
     - _OutlineFactor: 0
-    m_Colors: []
+    - _Roughness: 1
+    - _WindAnimToggle: 0
+    - _fallDustEmissionIntensity: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _FallDustColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

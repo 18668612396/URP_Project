@@ -65,7 +65,7 @@ Shader "Custom/Character/CartoonShader"
 
         Pass
         {
-            Tags{ "LightMode" = "SRPDefaultUnlit" }
+            Tags{ "LightMode" = "UniversalForward" }
 
             Cull off
             HLSLPROGRAM
@@ -102,8 +102,8 @@ Shader "Custom/Character/CartoonShader"
                 float3 Albedo  = var_MainTex.rgb;
                 //主光源影响
                 float shadow = light.shadowAttenuation  * CLOUD_SHADOW(i);//把顶点色A通道当作自投影
-                float3 lightContribution = Albedo * light.color * NdotL * shadow;
-
+                // float3 lightContribution = Albedo * light.color * NdotL * shadow;
+                float3 lightContribution = Albedo * light.color  * shadow;
                 //环境光源影响
                 float3 Ambient = SampleSH(normalDir);
                 float3 indirectionContribution = Ambient * Albedo;

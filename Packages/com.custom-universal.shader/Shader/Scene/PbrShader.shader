@@ -38,7 +38,14 @@ Shader "Custom/Scene/PbrShader"
     SubShader
     {
         Name "CustomPBR"
-        Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "True" "ShaderModel"="4.5"}
+        Tags{
+            "RenderType" = "Opaque" 
+            "RenderPipeline" = "UniversalPipeline" 
+            "LightMode" = "UniversalForward"
+            "UniversalMaterialType" = "Lit"
+            "IgnoreProjector" = "True"
+            "ShaderModel"="4.5"
+        }
         LOD 300
         
         HLSLINCLUDE
@@ -60,7 +67,7 @@ Shader "Custom/Scene/PbrShader"
         #include "../ShaderFunction.HLSL"
         #include "../PBR_Scene_FallDust.HLSL"
         #include "../PBR_Scene_Function.HLSL"
-#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
         ///////////////////////////////////////////////////////////
         //                ShaderFunction中的宏开关                //
         ///////////////////////////////////////////////////////////
@@ -215,8 +222,8 @@ Shader "Custom/Scene/PbrShader"
                 //屏幕空间AO
                 float ScrOcclusion = 1.0;
                 #if _SCREEN_SPACE_OCCLUSION
-                float2 scrPos = i.pos.xy / _ScreenParams.xy;
-                ScrOcclusion = SampleAmbientOcclusion(scrPos);
+                    float2 scrPos = i.pos.xy / _ScreenParams.xy;
+                    ScrOcclusion = SampleAmbientOcclusion(scrPos);
                 #endif
                 PBR pbr;
                 ZERO_INITIALIZE(PBR,pbr);//初始化PBR结构体
