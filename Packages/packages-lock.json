@@ -1,14 +1,5 @@
 {
   "dependencies": {
-    "com.renderpipeline.render-pipeline.custom": {
-      "version": "file:com.unity.render-pipeline.custom",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.mathematics": "1.1.0",
-        "com.unity.render-pipelines.core": "11.0.0"
-      }
-    },
     "com.shader.custom-universal-shader": {
       "version": "file:com.custom-universal.shader",
       "depth": 0,

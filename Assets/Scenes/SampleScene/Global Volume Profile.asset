@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Name: Global Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -4799452742764731298}
   - {fileID: 8669145453163602824}
+  - {fileID: -4799452742764731298}
 --- !u!114 &8669145453163602824
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
