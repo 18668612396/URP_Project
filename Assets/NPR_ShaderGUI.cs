@@ -24,9 +24,9 @@ public class NPR_ShaderGUI : ShaderGUI
     private void ShaderGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
         materialEditor.ShaderProperty(_ShaderEnumProp, "材质类型");
-        EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalscrollbarthumb"));//绘制分割线
+        EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalslider"));//绘制分割线
         EditorGUILayout.EndVertical();
-        EditorGUILayout.Space(10);
+        EditorGUILayout.Space(20);
 
         if (material.IsKeywordEnabled("_SHADERENUM_BODY"))
         {
