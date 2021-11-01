@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: hair
-  m_Shader: {fileID: 4800000, guid: 3ec313d726ade9e4382af020f954070e, type: 3}
-  m_ShaderKeywords: _RENDERTYPE_BODY
+  m_Shader: {fileID: 4800000, guid: a8857041328716b44a6937a8b49d606a, type: 3}
+  m_ShaderKeywords: _RENDERTYPE_BODY _SHADERENUM_HAIR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 27ed42545dbe623418688bbb024b2490, type: 3}
+        m_Texture: {fileID: 2800000, guid: cbf0b0822db2b3c4fb6c5167b6a5b7d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Material:
@@ -67,6 +67,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ParamTex:
+        m_Texture: {fileID: 2800000, guid: d1383c28d4da62f4a8fa925fc0885ac9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _RampTex:
         m_Texture: {fileID: 2800000, guid: e38cc5ead209b0a478a04a6976c6855d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -88,6 +92,13 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RenderType: 0
+    - _ShaderEnum: 2
+    - _SilkFactor: 0
+    - _SilkFactorTolerance: 20
+    - _SilkToggle: 0
+    - _SkinFactor: 0
+    - _SkinFactorTolerance: 20
+    - _SkinToggle: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularRadius: 0

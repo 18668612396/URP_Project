@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Unlit_eye
-  m_Shader: {fileID: 4800000, guid: a3a5344106fc7df40a22c5cd95398b9a, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: a8857041328716b44a6937a8b49d606a, type: 3}
+  m_ShaderKeywords: _SHADERENUM_BODY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -23,7 +23,13 @@ Material:
         m_Texture: {fileID: 2800000, guid: 27ed42545dbe623418688bbb024b2490, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ParamTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _ShaderEnum: 0
+    - _SilkFactor: 0
     m_Colors: []
   m_BuildTextureStacks: []
