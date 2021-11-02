@@ -22,13 +22,15 @@ public class NPR_ShaderGUI : ShaderGUI
     MaterialProperty _ShaderEnumProp;
     MaterialProperty _MainTexProp;
     MaterialProperty _ParamTexProp;
+    MaterialProperty _RampTexProp;
     private void ShaderGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
         //NPR公共参数
         _ShaderEnumProp = FindProperty("_ShaderEnum", properties);
         _MainTexProp = FindProperty("_MainTex", properties);
         _ParamTexProp = FindProperty("_ParamTex", properties);
-
+        _RampTexProp = FindProperty("_RampTex",properties);
+        
         materialEditor.ShaderProperty(_ShaderEnumProp, "材质类型");
         EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalslider"));//绘制分割线
         EditorGUILayout.EndVertical();
@@ -61,6 +63,7 @@ public class NPR_ShaderGUI : ShaderGUI
         Texture _MainTex = material.GetTexture("_MainTex");
         materialEditor.TexturePropertySingleLine(new GUIContent("颜色贴图"), _MainTexProp);//绘制主颜色纹理GUI
         materialEditor.TexturePropertySingleLine(new GUIContent("参数贴图"), _ParamTexProp);
+        materialEditor.TexturePropertySingleLine(new GUIContent("映射贴图"), _RampTexProp);
         //皮肤部分
         _SkinFactorProp = FindProperty("_SkinFactor", properties);
         _SkinFactorToleranceProp = FindProperty("_SkinFactorTolerance", properties);

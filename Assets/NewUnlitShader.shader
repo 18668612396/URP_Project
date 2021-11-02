@@ -390,7 +390,7 @@ Shader "GenshinCharacterShaderZhihuVer"
 
                     // 组合5个Ramp，得到最终的Ramp阴影，并根据rampValue与BaseColor结合。
                     half3 finalRamp = skinRamp + tightsRamp + metalRamp + softCommonRamp + hardSilkRamp;
-
+                   
                     rampValue = step(_RampShadowRange, input.lambert);
                     half3 RampShadowColor = rampValue * baseColor.rgb + (1 - rampValue) * finalRamp * baseColor.rgb;
 
@@ -405,20 +405,11 @@ Shader "GenshinCharacterShaderZhihuVer"
                 // SWeight：决定阴影范围
                 float SWeight = (LightMapColor.g * input.color.r + input.lambert) * 0.5 + 1.125;
 
-                //崩坏3原始算法
-                // float SFactor = 1.0f - step(0.5f, SWeight);
-                // float2 halfFactor = SWeight * float2(1.2f, 1.25f) + float2(-0.1f, -0.125f);
-                // SWeight = SFactor * halfFactor.x + (1.0f - SFactor) * halfFactor.y;
-                // SWeight = floor((SWeight + input.lambert) * 0.5 + 1.05 - _ShadowArea);
-                // SFactor = step(SWeight, 0);
-                //ShadowColor.rgb = SFactor * baseColor.rgb + (1 - SFactor) * ShadowColor.rgb;
-
-                //如果SFactor = 0,ShallowShadowColor为一级阴影色,否则为BaseColor。
-                // float SWeight = (LightMapColor.g * input.color.r + input.lambert) * 0.5 + 1.125;
+                
                 float SFactor = floor(SWeight - _ShadowArea);
                 half3 ShallowShadowColor = SFactor * baseColor.rgb + (1 - SFactor) * ShadowColor.rgb;
 
-                //如果SFactor = 0,DarkShadowColor为二级阴影色,否则为一级阴影色。
+      
                 SFactor = floor(SWeight - _DarkShadowArea);
                 DarkShadowColor = SFactor * (_FixDarkShadow * ShadowColor + (1 - _FixDarkShadow) * ShallowShadowColor) + (1 - SFactor) * DarkShadowColor;
 
@@ -518,6 +509,6 @@ Shader "GenshinCharacterShaderZhihuVer"
             ENDHLSL
 
         }
-       
+        
     }
 }

@@ -8,16 +8,10 @@ Shader "Custom/Character/CartoonShader"
         [KeywordEnum(Body,Face,Hair)] _ShaderEnum("ShaderEnum",int) = 0
         _MainTex ("MainTex", 2D) = "white" {}
         _ParamTex("_ParamTex",2D) = "white"{}
-        
+        _RampTex("RampTex",2D) = "white"{}
         //皮肤
-        [Toggle]_SkinToggle("SkinToggle",int) = 0
-        _SkinFactor("SkinFactor",Range(0.0,255.0)) = 0
-        _SkinFactorTolerance("SkinFactorTolerance",Range(0.0,50.0)) = 20.0
-        //丝绸
-        [Toggle]_SilkToggle("SilkToggle",int) = 0
-        _SilkFactor("SilkFactor",Range(0.0,255.0)) = 0
-        _SilkFactorTolerance("SilkFactorTolerance",Range(0.0,50.0)) = 20.0
-        
+        _Roughness("Roughness",Range(0.0,1.0)) = 1.0
+        _Metallic("_Metallic",Range(0.0,1.0))  = 0.0
     }
     SubShader
     {
@@ -47,9 +41,11 @@ Shader "Custom/Character/CartoonShader"
 
         uniform TEXTURE2D(_ParamTex);
         uniform SAMPLER(sampler_ParamTex);
+
         //变量声明
         CBUFFER_START(UnityPerMaterial)
-
+        uniform float _Roughness;
+        uniform float _Metallic;
         CBUFFER_END
         //结构体
         #pragma vertex vert
@@ -59,8 +55,9 @@ Shader "Custom/Character/CartoonShader"
         #pragma multi_compile _ _SHADOWS_SOFT
         struct NPR
         {
-            float3 baseMap;
-            float4 paramMap;
+            float3 baseColor;
+            float metallic;
+            float  roughness;
         };
 
 
@@ -116,9 +113,9 @@ Shader "Custom/Character/CartoonShader"
 
                 NPR npr;
                 ZERO_INITIALIZE(NPR,npr);//初始化顶点着色器
-                npr.baseMap = var_MainTex;
-                npr.paramMap = var_ParamTex;
-
+                npr.baseColor = var_MainTex;
+                npr.metallic = _Metallic;
+                npr.roughness = _Roughness;
                 // NPR_FUNCTION(i,npr);
                 float3 finalRGB = NPR_FUNCTION(i,npr);
                 return finalRGB;
@@ -148,5 +145,5 @@ Shader "Custom/Character/CartoonShader"
         
     }
 
-    CustomEditor "NPR_ShaderGUI"  
+    // CustomEditor "NPR_ShaderGUI"  
 }

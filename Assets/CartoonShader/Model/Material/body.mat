@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7a45ca7ed5046074897d14bf3a477e17, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2d2c74c9b480c4d66929f8589709840d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Matcap:
@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParamTex:
-        m_Texture: {fileID: 2800000, guid: 30380f108f8c4ed4e8a80005cadfa9ba, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampMap:
@@ -126,7 +126,7 @@ Material:
     - _RampLerp: 0.5
     - _RampOffset: 0.5
     - _RampOffset2: 0.1
-    - _Roughness: 1
+    - _Roughness: 0.868
     - _ShaderEnum: 0
     - _ShadowRampLerp: 0.5
     - _SilkFactor: 73

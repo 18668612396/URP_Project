@@ -390,13 +390,13 @@ Shader "GenshinCharacterShaderZhihuVer"
 
                     // 组合5个Ramp，得到最终的Ramp阴影，并根据rampValue与BaseColor结合。
                     half3 finalRamp = skinRamp + tightsRamp + metalRamp + softCommonRamp + hardSilkRamp;
-
+                    
                     rampValue = step(_RampShadowRange, input.lambert);
                     half3 RampShadowColor = rampValue * baseColor.rgb + (1 - rampValue) * finalRamp * baseColor.rgb;
 
                     ShadowColor = RampShadowColor;
                     DarkShadowColor = RampShadowColor;
-
+            
                     // #if ENABLE_FACE_SHADOW_MAP
                     //     ShadowColor = SAMPLE_TEXTURE2D(_RampMap, sampler_RampMap, float2(0.1, 0.85)).rgb;
                     // #endif
