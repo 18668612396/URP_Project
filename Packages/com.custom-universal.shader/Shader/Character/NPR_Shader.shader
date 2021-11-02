@@ -7,11 +7,17 @@ Shader "Custom/Character/CartoonShader"
         //基础
         [KeywordEnum(Body,Face,Hair)] _ShaderEnum("ShaderEnum",int) = 0
         _MainTex ("MainTex", 2D) = "white" {}
+        _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0
         _ParamTex("_ParamTex",2D) = "white"{}
         _RampTex("RampTex",2D) = "white"{}
-        //皮肤
-        _Roughness("Roughness",Range(0.0,1.0)) = 1.0
-        _Metallic("_Metallic",Range(0.0,1.0))  = 0.0
+        _MaskTolerate("MaskTolerate",Range(0.0,50)) = 10.0
+        _SkinMask("SkinMask",Range(0.0,255.0)) = 255.0
+        _SilkMask("SilkMask",Range(0.0,255.0)) = 160.0
+        _MetalMask("MetalMask",Range(0.0,255.0)) = 128.0
+        _SoftMask("SoftMask",Range(0.0,255.0)) = 78
+        _HandMask("HandMask",Range(0.0,255.0)) = 0
+        // _ShadowMultColor("一级阴影颜色(实时光照)",Color) = (1.0,1.0,1.0,1.0)
+        // _DarkShadowMultColor   ("二级阴影颜色(静态光照)",Color) = (1.0,1.0,1.0,1.0)
     }
     SubShader
     {
@@ -44,8 +50,9 @@ Shader "Custom/Character/CartoonShader"
 
         //变量声明
         CBUFFER_START(UnityPerMaterial)
-        uniform float _Roughness;
-        uniform float _Metallic;
+        uniform float _EmissionIntensity;
+        
+
         CBUFFER_END
         //结构体
         #pragma vertex vert
@@ -56,8 +63,8 @@ Shader "Custom/Character/CartoonShader"
         struct NPR
         {
             float3 baseColor;
-            float metallic;
-            float  roughness;
+            float3 emission;
+            float4 parameter;
         };
 
 
@@ -114,8 +121,9 @@ Shader "Custom/Character/CartoonShader"
                 NPR npr;
                 ZERO_INITIALIZE(NPR,npr);//初始化顶点着色器
                 npr.baseColor = var_MainTex;
-                npr.metallic = _Metallic;
-                npr.roughness = _Roughness;
+                npr.emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
+                npr.parameter  = var_ParamTex;
+                // return npr.rampMask;
                 // NPR_FUNCTION(i,npr);
                 float3 finalRGB = NPR_FUNCTION(i,npr);
                 return finalRGB;

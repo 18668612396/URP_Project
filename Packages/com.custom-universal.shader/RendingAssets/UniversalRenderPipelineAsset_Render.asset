@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: NewRenderObjects
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: NewRenderObjects
     Event: 300
@@ -84,7 +84,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 2147483647
+        m_Bits: 64
       PassNames:
       - UniversalForward
     overrideMaterial: {fileID: 2100000, guid: 5949f69a100679749bf67174a70bffe0, type: 2}

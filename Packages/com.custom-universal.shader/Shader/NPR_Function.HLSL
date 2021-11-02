@@ -7,61 +7,45 @@
 
 
 
-
-
     uniform TEXTURE2D(_RampTex);
     uniform SAMPLER(sampler_RampTex);
-
-    float3 Ramp_Function(float NdotL,NPR npr)
+    uniform float _MaskTolerate;
+    uniform float _SkinMask;
+    uniform float _SilkMask;
+    uniform float _MetalMask;
+    uniform float _SoftMask;
+    uniform float _HandMask;
+    float3 Ramp_Function (float NdotL,float rampMask)
     {
-        float rampValue = NdotL * 0.5 + 0.5;
-        float3 ramp01 = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(rampValue,0.75)).rgb;
-        return ramp01;
-    }
+        float maskFactor = rampMask * 255;
+        float SkinMask = maskFactor > _SkinMask + _MaskTolerate||maskFactor < _SkinMask - _MaskTolerate ? 0.0:1.0;
+        float SilkMask = maskFactor > _SilkMask + _MaskTolerate||maskFactor < _SilkMask - _MaskTolerate ? 0.0:1.0;
+        float MetalMask = maskFactor > _MetalMask + _MaskTolerate||maskFactor < _MetalMask - _MaskTolerate ? 0.0:1.0;
+        float SoftMask = maskFactor > _SoftMask + _MaskTolerate||maskFactor < _SoftMask - _MaskTolerate ? 0.0:1.0;
+        float HandMask = maskFactor > _HandMask + _MaskTolerate||maskFactor < _HandMask - _MaskTolerate ? 0.0:1.0;
 
-    //直接光F项
-    float3 F_Light_Function (float HdotL, float3 F0)
-    {
-        float fresnel = exp2((-5.55473 * HdotL - 6.98316) * HdotL);
-        return lerp(fresnel,1.0,F0);
+        float halfLambert = (NdotL * 0.5 + 0.5) * 1.5;//映射到一个合适的位置  这里应当找到一个合适的值，我现在是猜的
+        float3 SkinRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.95)).rgb;
+        float3 SilkRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.85)).rgb;
+        float3 MetalRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.75)).rgb;
+        float3 SoftRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.65)).rgb;
+        float3 HandRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.55)).rgb;
+        float3 Skin = SkinRamp * SkinMask;
+        float3 Silk = SilkMask * SilkRamp;
+        float3 Metal= MetalRamp * MetalMask;
+        float3 soft = SoftMask * SoftRamp;
+        float3 hand = HandMask * HandRamp;
+        return Skin + Silk + Metal + soft + hand;
     }
-    //直接光镜面反射 
-    float3 lightSpecular_Function(float NdotH,float NdotL,float NdotV,float HdotL,float roughness,float3 F0)
-    {
-        roughness = saturate(roughness + 0.02);
-        float a    = roughness*roughness;
-        float a2     = a*a;
-        float NdotH2 = NdotH*NdotH;
-        float nom   = a2;
-        float denom = (NdotH2 * (a2 - 1.0) + 1);
-        denom = denom * denom;
-
-        float3 KS = F_Light_Function(HdotL,F0);
-        return step(0.99,nom / denom) * (1 - roughness) * KS;
-    }
-
-    //直接光照漫反射
-    float3 lightDiffuse_Function(float HdotL,float NdotL , float3 baseColor,float metallic,float3 F0)
-    {
-        float3 KS = F_Light_Function(HdotL,F0);
-        float3 KD = (1 - KS) * (1 - metallic);
-        return KD * baseColor * NdotL;
-    }
-
-    //计算直接光照的贡献
-    float3 lightContribution(float NdotH,float NdotL,float NdotV,float HdotL,float roughness,float3 baseColor,float metallic,float shadow,Light light,float3 F0)
-    {
-        
-        float3 lightDiffuse = lightDiffuse_Function(HdotL,NdotL,baseColor,metallic,F0);
-        float3 lightSpec    = lightSpecular_Function(NdotH,NdotL,NdotV,HdotL,roughness,F0);
-        return (lightDiffuse + lightSpec) * light.color * shadow;//灯光和阴影在这里-----------------------------
-    }
-
     //主体部分  需要用到多个材质融合
-    float3 NPR_Function_Body (float NdotL,NPR npr)
+    float3 NPR_Function_Base (float NdotL,float3 baseColor,float4 parameter)
     {
+        float3 Albedo = baseColor;
 
-        return Ramp_Function(NdotL,npr);
+
+        float3 finalRGB = Albedo;
+        return Ramp_Function (NdotL,parameter.a) * Albedo;
+        return finalRGB;
     }
 
     //脸部
@@ -76,21 +60,27 @@
         
         return npr.baseColor;
     }
+
     //最终输出
+
+    uniform float3 _ShadowMultColor;//一级阴影颜色
+    uniform float3 _DarkShadowMultColor;//二级阴影颜色
+    
     float3 NPR_Function(float3 worldPos,float3 worldNormal,float3 worldView,NPR npr)
     {
+        //灯光信息
         float4 SHADOW_COORDS = TransformWorldToShadowCoord(worldPos);
         Light light = GetMainLight(SHADOW_COORDS);
-
+        //阴影
+        float3 ShallowShadowColor = npr.baseColor * _ShadowMultColor;
+        float3 DarkShadowColor = npr.baseColor * _DarkShadowMultColor;
         //参数输入
-        float3 baseColor = npr.baseColor.rgb;
-        float  roughness = npr.roughness;
-        float  metallic  = npr.metallic;
+        float3 baseColor = npr.baseColor;
+        float3 emission  = npr.emission;
+        float4 parameter   = npr.parameter;
 
-
-        float  shadow = light.shadowAttenuation;
         //向量准备
-        float3 normalDir  = normalize(worldNormal);//映射法线  *2-1的操作在这里执行
+        float3 normalDir  = normalize(worldNormal);
         float3 viewDir    = normalize(worldView);
         float3 lightDir   = normalize(light.direction);
         float3 halfDir    = normalize(lightDir + viewDir);
@@ -101,20 +91,15 @@
         float NdotV = max(0.00001,dot(normalDir,viewDir));
         float HdotL = max(0.00001,dot(halfDir,lightDir));
 
-        float3 F0 = lerp(0.04,baseColor,metallic);
-
-
-
 
         float3 finalRGB = float3(0.0,0.0,0.0);
         #if _SHADERENUM_BODY
-            finalRGB = NPR_Function_Body(NdotL,npr);
+            finalRGB = NPR_Function_Base(NdotL,baseColor,parameter);
         #elif _SHADERENUM_FACE
             finalRGB = NPR_Function_face(npr);
         #elif _SHADERENUM_HAIR
             finalRGB = NPR_Function_Hair(npr);
         #endif
-        return lightSpecular_Function(NdotH,NdotL,NdotV,HdotL,roughness,F0);
         return finalRGB;
     }
     #define NPR_FUNCTION(i,npr) NPR_Function(i.worldPos,i.worldNormal,i.worldView,npr);
