@@ -139,7 +139,7 @@ Material:
     - _ShadowRampLerp: 0.5
     - _SilkFactor: 73
     - _SilkFactorTolerance: 20
-    - _SilkMask: 160
+    - _SilkMask: 177
     - _SilkToggle: 0
     - _SkinFactor: 128
     - _SkinFactorTolerance: 10

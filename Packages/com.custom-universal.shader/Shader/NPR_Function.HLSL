@@ -15,7 +15,7 @@
     uniform float _MetalMask;
     uniform float _SoftMask;
     uniform float _HandMask;
-    float3 Ramp_Function (float NdotL,float rampMask)
+    float3 NPR_Base_Ramp (float NdotL,float rampMask)
     {
         float maskFactor = rampMask * 255;
         float SkinMask = maskFactor > _SkinMask + _MaskTolerate||maskFactor < _SkinMask - _MaskTolerate ? 0.0:1.0;
@@ -30,21 +30,29 @@
         float3 MetalRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.75)).rgb;
         float3 SoftRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.65)).rgb;
         float3 HandRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.55)).rgb;
-        float3 Skin = SkinRamp * SkinMask;
+        float3 Skin = SkinMask * SkinRamp;
         float3 Silk = SilkMask * SilkRamp;
-        float3 Metal= MetalRamp * MetalMask;
+        float3 Metal= MetalMask * MetalRamp;
         float3 soft = SoftMask * SoftRamp;
         float3 hand = HandMask * HandRamp;
-        return Skin + Silk + Metal + soft + hand;
+        return lerp(HandRamp,Skin + Silk + Metal + soft + hand,SkinMask + SilkMask + MetalMask + SoftMask + HandMask);//因为采样误差  会出现一些黑色的地方 这里使用lerp填充黑色的部分（以后要改）
+    }
+
+    float3 NPR_Base_Specular(float NdotH ,float3 baseColor,float glossMask,float glossiness)
+    {
+        float3 Specular = baseColor*glossiness;
+        return step(0.5,pow(NdotH,glossMask * 20)) * Specular;
     }
     //主体部分  需要用到多个材质融合
-    float3 NPR_Function_Base (float NdotL,float3 baseColor,float4 parameter)
+    float3 NPR_Function_Base (float NdotL,float NdotH,float3 baseColor,float4 parameter,Light light)
     {
-        float3 Albedo = baseColor;
+        
+        
+        float3 RampColor = NPR_Base_Ramp (NdotL,parameter.a);
 
-
-        float3 finalRGB = Albedo;
-        return Ramp_Function (NdotL,parameter.a) * Albedo;
+        float3 Albedo = baseColor * RampColor;
+        float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter.r,parameter.b);
+        float3 finalRGB = Albedo + Specular;
         return finalRGB;
     }
 
@@ -94,7 +102,7 @@
 
         float3 finalRGB = float3(0.0,0.0,0.0);
         #if _SHADERENUM_BODY
-            finalRGB = NPR_Function_Base(NdotL,baseColor,parameter);
+            finalRGB = NPR_Function_Base(NdotL,NdotH,baseColor,parameter,light);
         #elif _SHADERENUM_FACE
             finalRGB = NPR_Function_face(npr);
         #elif _SHADERENUM_HAIR
