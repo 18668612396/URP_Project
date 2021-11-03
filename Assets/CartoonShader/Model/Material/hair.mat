@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: hair
   m_Shader: {fileID: 4800000, guid: a8857041328716b44a6937a8b49d606a, type: 3}
-  m_ShaderKeywords: _RENDERTYPE_BODY _SHADERENUM_HAIR
+  m_ShaderKeywords: _RENDERTYPE_BODY _SHADERENUM_BODY _SHADERENUM_HAIR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Matcap:
+        m_Texture: {fileID: 2800000, guid: ab616fd4b724cc34ab2c18798bc78212, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Material:
         m_Texture: {fileID: 2800000, guid: abb9f6f8ab1f82845b1a95bec142d26e, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -72,11 +76,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParamTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3226591a58904d34d9c147b84424323f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
-        m_Texture: {fileID: 2800000, guid: e38cc5ead209b0a478a04a6976c6855d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 429f12a121726d44284101c17be9767f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -92,25 +96,31 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HandMask: 0
     - _MaskTolerate: 10
+    - _MetalMask: 255
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlineOffset: 0.00033
     - _Parallax: 0.02
     - _RenderType: 0
+    - _RimIntensity: 2
+    - _RimRadius: 0.013
     - _Roughness: 1
     - _ShaderEnum: 2
     - _SilkFactor: 0
     - _SilkFactorTolerance: 20
-    - _SilkMask: 160
+    - _SilkMask: 128
     - _SilkToggle: 0
     - _SkinFactor: 0
     - _SkinFactorTolerance: 20
-    - _SkinMask: 255
+    - _SkinMask: 128
     - _SkinToggle: 0
     - _SmoothnessTextureChannel: 0
+    - _SoftMask: 128
     - _SpecularHighlights: 1
-    - _SpecularRadius: 0
+    - _SpecularRadius: 100
     - _SrcBlend: 1
     - _TheTimeRamp: 2.68
     - _UVSec: 0
@@ -120,6 +130,10 @@ Material:
     - _DarkShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MetalColor: {r: 2.6415095, g: 1.5889804, b: 0.9843361, a: 1}
+    - _OutlineColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.87581456, g: 0.83183515, b: 0.8773585, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

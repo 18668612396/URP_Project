@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Matcap:
-        m_Texture: {fileID: 2800000, guid: c4985ac3b658ce741b8c17599e949add, type: 3}
+        m_Texture: {fileID: 2800000, guid: ab616fd4b724cc34ab2c18798bc78212, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Material:
@@ -128,12 +128,15 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OulineScale: 2.11
+    - _OutlineOffset: 0.00033
     - _Parallax: 0.02
     - _RampIndex: 1
     - _RampIntensity: 1
     - _RampLerp: 0.5
     - _RampOffset: 0.5
     - _RampOffset2: 0.1
+    - _RimIntensity: 1
+    - _RimRadius: 0.3
     - _Roughness: 0
     - _ShaderEnum: 0
     - _ShadowRampLerp: 0.5
@@ -150,7 +153,7 @@ Material:
     - _SpecularExp: 64
     - _SpecularHighlights: 1
     - _SpecularIntensity: 6
-    - _SpecularRadius: 0
+    - _SpecularRadius: 3.3
     - _SrcBlend: 1
     - _StepSpecularIntensity: 3
     - _StepSpecularIntensity2: 3
@@ -167,7 +170,10 @@ Material:
     - _DarkShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MetalColor: {r: 2.6415095, g: 1.5889804, b: 0.9843361, a: 1}
+    - _OutlineColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0}
+    - _RimColor: {r: 0.6886792, g: 0.57900846, b: 0.5230064, a: 1}
+    - _ShadowColor: {r: 1, g: 0.9046491, b: 0.8726415, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
