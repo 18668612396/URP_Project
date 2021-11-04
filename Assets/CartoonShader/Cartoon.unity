@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731268, g: 0.13414405, b: 0.121082805, a: 1}
+  m_IndirectSpecularColor: {r: 0.18123095, g: 0.22683153, b: 0.30734342, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -200,7 +200,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.61960787, g: 0.61960787, b: 0.61960787, a: 1}
+  m_Color: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -258,13 +258,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462741562}
-  m_LocalRotation: {x: -0, y: 0.89796275, z: -0, w: 0.44007152}
-  m_LocalPosition: {x: -3.5, y: 17.72, z: -0.62}
+  m_LocalRotation: {x: -0.3357499, y: -0.47837737, z: 0.20454596, w: -0.78523123}
+  m_LocalPosition: {x: -2.08, y: 17.72, z: -2.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 127.783, z: 0}
+  m_LocalEulerAnglesHint: {x: 46.301, y: -297.299, z: 0}
 --- !u!114 &462741565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,8 +388,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577477907}
-  m_LocalRotation: {x: 0.15271112, y: 0.81541085, z: -0.25802362, w: 0.49518517}
-  m_LocalPosition: {x: -14.21, y: 22.22, z: 7.61}
+  m_LocalRotation: {x: 0.000082045786, y: -0.9996847, z: 0.02489559, w: 0.0032952423}
+  m_LocalPosition: {x: -2.1431332, y: 17.451935, z: 7.2658997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.097375
+      value: -1.322097
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalPosition.y
@@ -552,23 +552,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5290887
+      value: -5.221244
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9989821
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.045109842
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -576,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 5.171
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2308,10 +2308,10 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924203894}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a80965a67b17f540a6af22ad864894d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoRotate: 0
-  sensity: 1
+  AutoRotate: 1
+  sensity: 0.1

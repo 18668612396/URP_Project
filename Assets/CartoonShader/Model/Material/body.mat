@@ -135,7 +135,7 @@ Material:
     - _RampLerp: 0.5
     - _RampOffset: 0.5
     - _RampOffset2: 0.1
-    - _RimIntensity: 1
+    - _RimIntensity: 0
     - _RimRadius: 0
     - _Roughness: 0
     - _ShaderEnum: 0

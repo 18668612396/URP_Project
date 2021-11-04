@@ -83,24 +83,21 @@
     }
 
     //脸部
-    float3 NPR_Function_face (float3 lightDir,float3 baseColor,float var_FaceShadow,float inv_FaceShadow)
+    float3 NPR_Function_face (float3 lightDir,float3 baseColor,float4 var_FaceShadow)
     {
-        float switchShadowTex = dot(lightDir.x,TransformObjectToWorldDir(float4(0.0,0.0,1.0,1.0)).x);//用来切换两张贴图的变量
-        float faceShadow = 0.0;
-        if (switchShadowTex < 0.0)
-        {
-            faceShadow = var_FaceShadow;
-        }
-        else
-        {
-            faceShadow = inv_FaceShadow;
-        }
-        float3 forwardDir = normalize(TransformObjectToWorldDir(float4(0.0,0.0,1.0,1.0)));
-        float faceShadowRange =1 - (dot(lightDir.xz,forwardDir.xz) * 0.5 + 0.5);//阴影边界位置（实际上是计算了模型方向与光照方向的夹角，但不知道为何数值并非-1 ~ 1 ，所以用remap函数重映射了一下范围）
+        float3 Front = unity_ObjectToWorld._12_22_32;
+        float3 Right = unity_ObjectToWorld._13_23_33;
+        float FrontL = dot(normalize(Front.xz), normalize(lightDir.xz));
+        float LeftL = dot(normalize(-Right.xz), normalize(lightDir.xz));
+        float RightL = dot(normalize(Right.xz), normalize(lightDir.xz));
 
-        // float Shadow =  faceShadow < faceShadowRange  ? 0.0 : 1.0 ; 
-         float Shadow =  smoothstep(faceShadowRange - 0.5,faceShadowRange + 0.5 ,faceShadow); 
-        float3 rampColor = NPR_Base_Ramp(Shadow,1.0,1.0);
+        float lightAttenuation = min(
+        (1 -var_FaceShadow.r > LeftL),
+        1-( var_FaceShadow.r < RightL)
+        );
+
+        float3 rampColor = NPR_Base_Ramp(lightAttenuation,1.0,1.0);
+        
         return rampColor * baseColor;
     }
 

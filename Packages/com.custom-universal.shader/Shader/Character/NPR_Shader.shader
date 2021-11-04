@@ -125,7 +125,7 @@ Shader "Custom/Character/CartoonShader"
                     float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
                 #else
                     float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
-                    float4 inv_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,float2(-i.uv.x,i.uv.y));
+                   
                 #endif
 
                 //灯光信息
@@ -154,7 +154,7 @@ Shader "Custom/Character/CartoonShader"
                 #if _SHADERENUM_BASE
                     finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light) ;
                 #elif _SHADERENUM_FACE
-                    finalRGB = NPR_Function_face(lightDir,baseColor,var_ParamTex.r,inv_ParamTex.r);
+                    finalRGB = NPR_Function_face(lightDir,baseColor,var_ParamTex);
                 #elif _SHADERENUM_HAIR
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light);
                 #endif
