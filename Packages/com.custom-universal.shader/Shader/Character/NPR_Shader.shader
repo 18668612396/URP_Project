@@ -12,7 +12,7 @@ Shader "Custom/Character/CartoonShader"
         _RampTex("RampTex",2D) = "white"{}
         _Matcap("_Matcap",2D) = "white"{}
         _SpecularRadius("SpecularRadius",Range(1.0,100.0)) = 1.0
-        [HDR]_MetalColor("_MetalColor",Color)= (1,1,1,1)
+        _MetalColor("_MetalColor",Color)= (1,1,1,1)
         _ShadowColor("ShadowColor",Color) = (0.0,0.0,0.0)
         _RimIntensity("_RimIntensity",float) = 0
         _RimRadius("_RimRadius",Range(0.0,1.0)) = 0.1
@@ -34,7 +34,7 @@ Shader "Custom/Character/CartoonShader"
 
 
         HLSLINCLUDE
-        #include "../ShaderFunction.hlsl" 
+        #include "../NPR_Function.hlsl" 
         ///////////////////////////////////////////////////////////
         //                ShaderFunction中的宏开关                //
         ///////////////////////////////////////////////////////////
@@ -58,6 +58,7 @@ Shader "Custom/Character/CartoonShader"
         float4 _OutlineColor;
 
 
+
         CBUFFER_END
         //结构体
         #pragma vertex vert
@@ -65,16 +66,7 @@ Shader "Custom/Character/CartoonShader"
         #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
         #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
         #pragma multi_compile_fragment _ _SHADOWS_SOFT
-        struct NPR
-        {
-            float3 baseColor;
-            float3 emission;
-            float4 parameter;
-        };
 
-
-
-        #include "../NPR_Function.hlsl" 
         struct appdata
         {
             float4 vertex : POSITION;
@@ -126,20 +118,48 @@ Shader "Custom/Character/CartoonShader"
 
             real3 frag (v2f i) : SV_Target
             {
-                //采样贴图
+                //采样贴图                
                 float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
-                float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
+                
+                #ifndef _SHADERENUM_FACE
+                    float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
+                #else
+                    float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
+                    float4 inv_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,float2(-i.uv.x,i.uv.y));
+                #endif
+
+                //灯光信息
+                float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
+                Light light = GetMainLight(SHADOW_COORDS);
+
+                //参数输入
+                float3 baseColor = var_MainTex.rgb;
+                float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
+                float4 parameter   = var_ParamTex;
+                float  shadow = light.shadowAttenuation;
+                //向量准备
+                float3 normalDir  = normalize(i.worldNormal);
+                float3 viewDir    = normalize(i.worldView);
+                float3 lightDir   = normalize(light.direction);
+                float3 halfDir    = normalize(lightDir + viewDir);
+                float3 reflectDir = normalize(reflect(viewDir,normalDir));
+                //点乘结果
+                float NdotH = max(0.00001,dot(normalDir,halfDir));
+                float NdotL = max(0.00001,dot(normalDir,lightDir));
+                float NdotV = max(0.00001,dot(normalDir,viewDir));
+                float HdotL = max(0.00001,dot(halfDir,lightDir));
 
 
-                NPR npr;
-                ZERO_INITIALIZE(NPR,npr);//初始化顶点着色器
-                npr.baseColor = var_MainTex;
-                npr.emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
-                npr.parameter  = var_ParamTex;
-                // return npr.rampMask;
-                // NPR_FUNCTION(i,npr);
-                float3 finalRGB = NPR_FUNCTION(i,npr);
+                float3 finalRGB = float3(0.0,0.0,0.0);
+                #if _SHADERENUM_BASE
+                    finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light) ;
+                #elif _SHADERENUM_FACE
+                    finalRGB = NPR_Function_face(lightDir,baseColor,var_ParamTex.r,inv_ParamTex.r);
+                #elif _SHADERENUM_HAIR
+                    finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light);
+                #endif
                 return finalRGB;
+
             }
             ENDHLSL
         }

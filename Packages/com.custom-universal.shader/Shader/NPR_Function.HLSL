@@ -25,9 +25,9 @@
         float MetalMask = maskFactor > _MetalMask + _MaskTolerate||maskFactor < _MetalMask - _MaskTolerate ? 0.0:1.0;
         float SoftMask = maskFactor > _SoftMask + _MaskTolerate||maskFactor < _SoftMask - _MaskTolerate ? 0.0:1.0;
         float HandMask = maskFactor > _HandMask + _MaskTolerate||maskFactor < _HandMask - _MaskTolerate ? 0.0:1.0;
-        float halfLambert = smoothstep(0.0,0.5,NdotL);
-        #if _SHADERENUM_BASE
-            halfLambert = smoothstep(0.0,0.5,NdotL) * LightMap;//映射到一个合适的位置  这里应当找到一个合适的值，我现在是猜的
+        float halfLambert = smoothstep(0.0,0.5,NdotL) * LightMap;
+        #if _SHADERENUM_HAIR
+            halfLambert = smoothstep(0.0,0.5,NdotL);
         #endif
         float3 SkinRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.95)).rgb;
         float3 SilkRamp = SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, 0.85)).rgb;
@@ -57,7 +57,7 @@
     float3 NPR_Base_Metal(float3 normalDir,float MetalMask,float3 baseColor)
     {
         float3 viewNormal = normalize(mul(UNITY_MATRIX_V,normalDir));//视空间法线向量，用于MatCap的UV采样
-        float var_Matcap = SAMPLE_TEXTURE2D(_Matcap,sampler_Matcap,viewNormal * 0.5 + 0.5);
+        float var_Matcap = SAMPLE_TEXTURE2D(_Matcap,sampler_Matcap,viewNormal * 0.5 + 0.5) * 2;
         float MetalColorMask = step(0.9,MetalMask);
         return var_Matcap * baseColor * MetalMask* lerp(1.0,_MetalColor,MetalColorMask);
     }
@@ -83,9 +83,25 @@
     }
 
     //脸部
-    float3 NPR_Function_face (NPR npr)
+    float3 NPR_Function_face (float3 lightDir,float3 baseColor,float var_FaceShadow,float inv_FaceShadow)
     {
-        return npr.baseColor;
+        float switchShadowTex = dot(lightDir.x,TransformObjectToWorldDir(float4(0.0,0.0,1.0,1.0)).x);//用来切换两张贴图的变量
+        float faceShadow = 0.0;
+        if (switchShadowTex < 0.0)
+        {
+            faceShadow = var_FaceShadow;
+        }
+        else
+        {
+            faceShadow = inv_FaceShadow;
+        }
+        float3 forwardDir = normalize(TransformObjectToWorldDir(float4(0.0,0.0,1.0,1.0)));
+        float faceShadowRange =1 - (dot(lightDir.xz,forwardDir.xz) * 0.5 + 0.5);//阴影边界位置（实际上是计算了模型方向与光照方向的夹角，但不知道为何数值并非-1 ~ 1 ，所以用remap函数重映射了一下范围）
+
+        // float Shadow =  faceShadow < faceShadowRange  ? 0.0 : 1.0 ; 
+         float Shadow =  smoothstep(faceShadowRange - 0.5,faceShadowRange + 0.5 ,faceShadow); 
+        float3 rampColor = NPR_Base_Ramp(Shadow,1.0,1.0);
+        return rampColor * baseColor;
     }
 
     //头发
@@ -102,46 +118,6 @@
 
     //最终输出
 
-    uniform float3 _ShadowMultColor;//一级阴影颜色
-    uniform float3 _DarkShadowMultColor;//二级阴影颜色 
-    
-    float3 NPR_Function(float3 worldPos,float3 worldNormal,float3 worldView,NPR npr)
-    {
-        //灯光信息
-        float4 SHADOW_COORDS = TransformWorldToShadowCoord(worldPos);
-        Light light = GetMainLight(SHADOW_COORDS);
-        //阴影
-        float3 ShallowShadowColor = npr.baseColor * _ShadowMultColor;
-        float3 DarkShadowColor = npr.baseColor * _DarkShadowMultColor;
-        //参数输入
-        float3 baseColor = npr.baseColor;
-        float3 emission  = npr.emission;
-        float4 parameter   = npr.parameter;
-        float  shadow = light.shadowAttenuation;
-        //向量准备
-        float3 normalDir  = normalize(worldNormal);
-        float3 viewDir    = normalize(worldView);
-        float3 lightDir   = normalize(light.direction);
-        float3 halfDir    = normalize(lightDir + viewDir);
-        float3 reflectDir = normalize(reflect(viewDir,normalDir));
-        //点乘结果
-        float NdotH = max(0.00001,dot(normalDir,halfDir));
-        float NdotL = max(0.00001,dot(normalDir,lightDir));
-        float NdotV = max(0.00001,dot(normalDir,viewDir));
-        float HdotL = max(0.00001,dot(halfDir,lightDir));
-
-
-        float3 finalRGB = float3(0.0,0.0,0.0);
-        #if _SHADERENUM_BASE
-            finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light) ;
-        #elif _SHADERENUM_FACE
-            finalRGB = NPR_Function_face(npr);
-        #elif _SHADERENUM_HAIR
-            finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light);
-        #endif
-        return finalRGB;
-    }
-    #define NPR_FUNCTION(i,npr) NPR_Function(i.worldPos,i.worldNormal,i.worldView,npr);
 
 
 #endif

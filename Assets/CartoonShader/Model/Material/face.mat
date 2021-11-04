@@ -55,6 +55,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 55ccf810fe8156349b75b02a155fe457, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Matcap:
+        m_Texture: {fileID: 2800000, guid: ab616fd4b724cc34ab2c18798bc78212, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetalMatCap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -76,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParamTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f1adfc2fcea4ab14ca0b57dfbe1d0f08, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
@@ -104,24 +108,27 @@ Material:
     - _GlossyReflections: 1
     - _HandMask: 0
     - _MaskTolerate: 50
-    - _MetalMask: 128
+    - _MetalMask: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OulineScale: 1
+    - _OutlineOffset: 0
     - _Parallax: 0.02
     - _RenderType: 1
+    - _RimIntensity: 0
+    - _RimRadius: 0.1
     - _ShaderEnum: 1
     - _SilkFactor: 0
     - _SilkFactorTolerance: 20
-    - _SilkMask: 160
+    - _SilkMask: 0
     - _SilkToggle: 0
     - _SkinFactor: 0
     - _SkinFactorTolerance: 20
     - _SkinMask: 255
     - _SkinToggle: 0
     - _SmoothnessTextureChannel: 0
-    - _SoftMask: 78
+    - _SoftMask: 0
     - _SpecularHighlights: 1
     - _SpecularRadius: 1
     - _SrcBlend: 1
@@ -136,7 +143,8 @@ Material:
     - _DarkShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MetalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 0}
     - _ShadowColor: {r: 0.896, g: 0.7747725, b: 0.73024, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}

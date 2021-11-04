@@ -72,9 +72,7 @@ Shader "Cartoon/Face"
                 //准备向量
                 float3 Ambient = UNITY_LIGHTMODEL_AMBIENT;
                 float3 lightDir = normalize(_WorldSpaceLightPos0.xyz);
-
                 fixed4 var_MainTex = tex2D(_MainTex, i.uv);
-
                 float switchShadowTex = dot(lightDir.x,UnityObjectToWorldDir(float4(1.0,0.0,0.0,1.0)).x);//用来切换两张贴图的变量
                 float4 var_FaceShadow;
                 //float4 shadowTex = switchShadowTex < 0.0 ? var_FaceShadow:var_FaceShadow_Inv;//切换两张相反的脸部阴影贴图
