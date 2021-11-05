@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: body
   m_Shader: {fileID: 4800000, guid: a8857041328716b44a6937a8b49d606a, type: 3}
-  m_ShaderKeywords: _SHADERENUM_BASE _SHADERENUM_BODY _SHADERENUM_HARI _SKINTOGGLE_ON
+  m_ShaderKeywords: _HANDMASK_ON _SHADERENUM_BASE _SHADERENUM_BODY _SHADERENUM_HARI
+    _SKINMASK_ON _SKINTOGGLE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -112,11 +113,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissioIntensity: 3
-    - _EmissionIntensity: 5
+    - _EmissionIntensity: 3.2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HandMask: 0
+    - _HairSpecularIntensity: 0.5
+    - _HandMask: 1
     - _IntMask: 0
     - _LayerStep: 0
     - _LightThreshold: -0.002
@@ -128,7 +130,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OulineScale: 2.11
-    - _OutlineOffset: 0.00033
+    - _OutlineOffset: 0
     - _Parallax: 0.02
     - _RampIndex: 1
     - _RampIntensity: 1
@@ -136,7 +138,7 @@ Material:
     - _RampOffset: 0.5
     - _RampOffset2: 0.1
     - _RimIntensity: 1
-    - _RimRadius: 0.523
+    - _RimRadius: 0.468
     - _Roughness: 0
     - _ShaderEnum: 0
     - _ShadowRampLerp: 0.5
@@ -146,14 +148,14 @@ Material:
     - _SilkToggle: 0
     - _SkinFactor: 128
     - _SkinFactorTolerance: 10
-    - _SkinMask: 255
+    - _SkinMask: 1
     - _SkinToggle: 1
     - _SmoothnessTextureChannel: 0
     - _SoftMask: 78
     - _SpecularExp: 64
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 6
-    - _SpecularRadius: 3.3
+    - _SpecularIntensity: 0.25
+    - _SpecularRadius: 100
     - _SrcBlend: 1
     - _StepSpecularIntensity: 3
     - _StepSpecularIntensity2: 3
@@ -166,14 +168,14 @@ Material:
     - _ZWrite: 1
     - _test: 500
     m_Colors:
-    - _Color: {r: 0.501513, g: 0.76223683, b: 0.9245283, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MetalColor: {r: 1, g: 0.7561581, b: 0.495283, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MetalColor: {r: 1, g: 0.8435717, b: 0.6745283, a: 1}
+    - _OutlineColor: {r: 0.3679245, g: 0.23345658, b: 0.0746262, a: 0}
     - _RimColor: {r: 0.6886792, g: 0.57900846, b: 0.5230064, a: 1}
-    - _ShadowColor: {r: 1, g: 0.9046491, b: 0.8726415, a: 1}
+    - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}

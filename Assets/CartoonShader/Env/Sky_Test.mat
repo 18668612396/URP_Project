@@ -33,8 +33,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NebulaTex:
         m_Texture: {fileID: 2800000, guid: 39302b5e80781ea43b4175b991b083f9, type: 3}
-        m_Scale: {x: 8, y: 2}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 4, y: 1}
+        m_Offset: {x: 3.65, y: 0}
     - _NoiseMask:
         m_Texture: {fileID: 2800000, guid: efccf27a2e7dd4a4c9a7b81f565bc7df, type: 3}
         m_Scale: {x: 16, y: 4}

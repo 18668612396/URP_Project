@@ -5,23 +5,24 @@ Shader "Custom/Character/CartoonShader"
     Properties
     {
         //基础
-        [KeywordEnum(Base,Face,Hair)] _ShaderEnum("ShaderEnum",int) = 0
-        _MainTex ("MainTex", 2D) = "white" {}
-        _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0
-        _ParamTex("_ParamTex",2D) = "white"{}
-        _RampTex("RampTex",2D) = "white"{}
-        _Matcap("_Matcap",2D) = "white"{}
-        _SpecularRadius("SpecularRadius",Range(1.0,100.0)) = 1.0
-        _MetalColor("_MetalColor",Color)= (1,1,1,1)
-        _ShadowColor("ShadowColor",Color) = (0.0,0.0,0.0)
+        [KeywordEnum(Base,Face,Hair)] _ShaderEnum("ShaderEnum",int) = 0//
+        _MainTex ("MainTex", 2D) = "white" {}//
+        _Color("Color",Color) = (1.0,1.0,1.0,1.0)//
+        _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
+        _ParamTex("_ParamTex",2D) = "white"{}//
+        _RampTex("RampTex",2D) = "white"{}//
+        _Matcap("_Matcap",2D) = "white"{}//
+        _MetalColor("_MetalColor",Color)= (1,1,1,1)//
+        _ShadowColor("ShadowColor",Color) = (0.0,0.0,0.0)//
+        _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
         _RimIntensity("_RimIntensity",float) = 0
         _RimRadius("_RimRadius",Range(0.0,1.0)) = 0.1
-        _MaskTolerate("MaskTolerate",Range(0.0,50)) = 10.0
-        _SkinMask("SkinMask",Range(0.0,255.0)) = 255.0
-        _SilkMask("SilkMask",Range(0.0,255.0)) = 160.0
-        _MetalMask("MetalMask",Range(0.0,255.0)) = 128.0
-        _SoftMask("SoftMask",Range(0.0,255.0)) = 78
-        _HandMask("HandMask",Range(0.0,255.0)) = 0
+        _MaskTolerate("MaskTolerate",Range(0.0,50)) = 10.0//
+        [Toggle]_SkinMask("SkinMask",int) = 0//
+        [Toggle]_SilkMask("SilkMask",int) = 0//
+        [Toggle]_MetalMask("MetalMask",int) = 0//
+        [Toggle]_SoftMask("SoftMask",int) = 0//
+        [Toggle]_HandMask("HandMask",int) = 0//
 
         _OutlineColor("Color",Color) = (0.0,0.0,0.0,0.0)
         _OutlineOffset("Offset",Range(0.0,0.01)) = 0.0 
@@ -53,11 +54,11 @@ Shader "Custom/Character/CartoonShader"
 
         //变量声明
         CBUFFER_START(UnityPerMaterial)
-        uniform float _EmissionIntensity;
+        
         float _OutlineOffset;
         float4 _OutlineColor;
 
-
+        float4 _Color;
 
         CBUFFER_END
         //结构体
@@ -119,13 +120,13 @@ Shader "Custom/Character/CartoonShader"
             real3 frag (v2f i) : SV_Target
             {
                 //采样贴图                
-                float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
+                float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv) * _Color;
                 
                 #ifndef _SHADERENUM_FACE
                     float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
                 #else
                     float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
-                   
+                    
                 #endif
 
                 //灯光信息
@@ -133,7 +134,7 @@ Shader "Custom/Character/CartoonShader"
                 Light light = GetMainLight(SHADOW_COORDS);
 
                 //参数输入
-                float3 baseColor = var_MainTex.rgb;
+                float4 baseColor = var_MainTex;
                 float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
                 float4 parameter   = var_ParamTex;
                 float  shadow = light.shadowAttenuation;
@@ -154,10 +155,11 @@ Shader "Custom/Character/CartoonShader"
                 #if _SHADERENUM_BASE
                     finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light) ;
                 #elif _SHADERENUM_FACE
-                    finalRGB = NPR_Function_face(NdotV,NdotL,lightDir,var_MainTex,var_ParamTex);
+                    finalRGB = NPR_Function_face(lightDir,var_MainTex,var_ParamTex,light);
                 #elif _SHADERENUM_HAIR
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light);
                 #endif
+              
                 return finalRGB;
 
             }
@@ -174,7 +176,7 @@ Shader "Custom/Character/CartoonShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
-                v.vertex.xyz += v.normal * _OutlineOffset;
+                v.vertex.xyz += v.normal * _OutlineOffset * v.color.r;
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.uv = v.uv;
                 o.worldPos = TransformObjectToWorld(v.vertex.xyz);
@@ -215,5 +217,5 @@ Shader "Custom/Character/CartoonShader"
         
     }
 
-    // CustomEditor "NPR_ShaderGUI"  
+   CustomEditor "NPR_ShaderGUI"  
 }

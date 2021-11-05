@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: hair
   m_Shader: {fileID: 4800000, guid: a8857041328716b44a6937a8b49d606a, type: 3}
-  m_ShaderKeywords: _RENDERTYPE_BODY _SHADERENUM_BODY _SHADERENUM_HAIR
+  m_ShaderKeywords: _METALMASK_ON _RENDERTYPE_BODY _SHADERENUM_BODY _SHADERENUM_HAIR
+    _SKINMASK_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -96,9 +97,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HairSpecularIntensity: 0.922
     - _HandMask: 0
     - _MaskTolerate: 10
-    - _MetalMask: 255
+    - _MetalMask: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -111,16 +113,17 @@ Material:
     - _ShaderEnum: 2
     - _SilkFactor: 0
     - _SilkFactorTolerance: 20
-    - _SilkMask: 128
+    - _SilkMask: 0
     - _SilkToggle: 0
     - _SkinFactor: 0
     - _SkinFactorTolerance: 20
-    - _SkinMask: 128
+    - _SkinMask: 1
     - _SkinToggle: 0
     - _SmoothnessTextureChannel: 0
-    - _SoftMask: 128
+    - _SoftMask: 0
     - _SpecularHighlights: 1
-    - _SpecularRadius: 100
+    - _SpecularIntensity: 0.78
+    - _SpecularRadius: 3.6
     - _SrcBlend: 1
     - _TheTimeRamp: 2.68
     - _UVSec: 0
@@ -133,7 +136,7 @@ Material:
     - _MetalColor: {r: 1, g: 0.75686276, b: 0.49411765, a: 1}
     - _OutlineColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0.87581456, g: 0.83183515, b: 0.8773585, a: 1}
+    - _ShadowColor: {r: 0.68529725, g: 0.7081424, b: 0.8301887, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -106,6 +106,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HairSpecularIntensity: 0.5
     - _HandMask: 0
     - _MaskTolerate: 50
     - _MetalMask: 0
@@ -113,10 +114,10 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OulineScale: 1
-    - _OutlineOffset: 0
+    - _OutlineOffset: 0.00013
     - _Parallax: 0.02
     - _RenderType: 1
-    - _RimIntensity: 0
+    - _RimIntensity: 3
     - _RimRadius: 0.1
     - _ShaderEnum: 1
     - _SilkFactor: 0
@@ -130,6 +131,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SoftMask: 0
     - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
     - _SpecularRadius: 1
     - _SrcBlend: 1
     - _TestMode: 0
@@ -144,8 +146,8 @@ Material:
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MetalColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 0}
-    - _ShadowColor: {r: 0.896, g: 0.7747725, b: 0.73024, a: 1}
+    - _OutlineColor: {r: 0.2264151, g: 0.21253115, b: 0.21253115, a: 0}
+    - _ShadowColor: {r: 0.8867924, g: 0.8061206, b: 0.7738519, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
