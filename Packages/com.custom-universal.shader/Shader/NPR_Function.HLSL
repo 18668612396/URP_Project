@@ -83,7 +83,7 @@
     }
 
     //脸部
-    float3 NPR_Function_face (float3 lightDir,float4 baseColor,float4 var_FaceShadow)
+    float3 NPR_Function_face (float NdotV,float NdotL,float3 lightDir,float4 baseColor,float4 var_FaceShadow)
     {
 
         float3 Up = float3(0.0,1.0,0.0);
@@ -94,6 +94,8 @@
         float FaceShadowRange = dot(normalize(Front.xz), normalize(lightDir.xz));
         float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.1,FaceShadowRange + 0.1,FaceShadow);
         float3 rampColor = NPR_Base_Ramp(lightAttenuation * var_FaceShadow.a,1.0,1.0);
+
+        float3 RimLight = NPR_Base_RimLight(NdotV,NdotL,baseColor);
         return baseColor.rgb * rampColor;
     }
 

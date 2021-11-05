@@ -154,7 +154,7 @@ Shader "Custom/Character/CartoonShader"
                 #if _SHADERENUM_BASE
                     finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light) ;
                 #elif _SHADERENUM_FACE
-                    finalRGB = NPR_Function_face(lightDir,var_MainTex,var_ParamTex);
+                    finalRGB = NPR_Function_face(NdotV,NdotL,lightDir,var_MainTex,var_ParamTex);
                 #elif _SHADERENUM_HAIR
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light);
                 #endif
