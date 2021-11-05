@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16434221, g: 0.19245234, b: 0.21812394, a: 1}
+  m_IndirectSpecularColor: {r: 0.18154702, g: 0.22719064, b: 0.30740723, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &329417509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,13 +331,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462741562}
-  m_LocalRotation: {x: 0.010617636, y: -0.3840995, z: 0.180895, w: -0.90533525}
+  m_LocalRotation: {x: -0.31439644, y: 0.77759373, z: -0.2615837, w: -0.477574}
   m_LocalPosition: {x: -0.08, y: 17.72, z: -2.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 6.877, y: -315.22, z: -19.763}
+  m_LocalEulerAnglesHint: {x: 45, y: -485.14, z: -19.763}
 --- !u!114 &462741565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 577477908}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -439,7 +439,7 @@ Camera:
   field of view: 26.991467
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -461,12 +461,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577477907}
-  m_LocalRotation: {x: 0.0005245331, y: -0.998976, z: 0.04361625, w: 0.012013779}
-  m_LocalPosition: {x: 1.06, y: 14.21, z: 47.23}
+  m_LocalRotation: {x: 0.00014389341, y: -0.99904287, z: 0.04361917, w: 0.0032957}
+  m_LocalPosition: {x: 0.22546458, y: 14.21, z: 40.9484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1924203895}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 5, y: -178.622, z: 0}
 --- !u!1 &713652954
 GameObject:
@@ -725,7 +725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.999962
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.x
@@ -733,7 +733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.008726558
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2470,11 +2470,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
   m_PrefabInstance: {fileID: 928078242}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1924203895 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
-  m_PrefabInstance: {fileID: 928078242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1924203896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,10 +2477,10 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924203894}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a80965a67b17f540a6af22ad864894d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoRotate: 1
-  sensity: 0.2
+  AutoRotate: 0
+  sensity: -2
