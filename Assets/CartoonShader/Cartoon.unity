@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18264122, g: 0.2255835, b: 0.29106897, a: 1}
+  m_IndirectSpecularColor: {r: 0.0029181293, g: 0.0023762654, b: 0.0009398095, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,13 +258,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462741562}
-  m_LocalRotation: {x: 0.04032748, y: -0.9689209, z: 0.17664999, w: 0.16840702}
+  m_LocalRotation: {x: 0.06449508, y: -0.50882363, z: -0.16933763, w: -0.841584}
   m_LocalPosition: {x: -0.08, y: 17.72, z: -2.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 20.879, y: -157.28, z: 0}
+  m_LocalEulerAnglesHint: {x: -16.536, y: -220.8, z: -12.931}
 --- !u!114 &462741565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoRotate: 1
-  sensity: 1
+  sensity: 0.2
 --- !u!1 &577477907
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,12 +388,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577477907}
-  m_LocalRotation: {x: -0, y: -0.9999946, z: -0, w: 0.0032987455}
-  m_LocalPosition: {x: 0.015836243, y: 17.451935, z: -0.000091552734}
+  m_LocalRotation: {x: -0, y: -0.99992776, z: -0, w: 0.01202513}
+  m_LocalPosition: {x: 0.87, y: 15.09, z: 36.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1924203895}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -179.622, z: 0}
 --- !u!1 &713652954
 GameObject:
@@ -2397,6 +2397,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
   m_PrefabInstance: {fileID: 928078242}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1924203895 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d661de79abd1c24eb8932ea95d95462, type: 3}
+  m_PrefabInstance: {fileID: 928078242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1924203896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2410,4 +2415,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoRotate: 1
-  sensity: 1
+  sensity: 0.2
