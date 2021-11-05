@@ -77,7 +77,7 @@
         float3 Albedo = baseColor * RampColor * lerp(_ShadowColor,1,parameter.g * 2) ;
         float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter.b);
         float3 Metal =  NPR_Base_Metal(normalDir,parameter.r,baseColor);
-        float3 RimLight = NPR_Base_RimLight(NdotV,NdotL,baseColor);
+        float3 RimLight = NPR_Base_RimLight(NdotV,NdotL,baseColor) * parameter.g;
         float3 finalRGB = Albedo* (1 - parameter.r) + Specular + Metal + RimLight;
         return finalRGB;
     }
