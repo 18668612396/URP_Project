@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[ExecuteInEditMode]
 public class PreviewObject : MonoBehaviour {
     public bool AutoRotate = false;
     public float sensity = 1.0f;

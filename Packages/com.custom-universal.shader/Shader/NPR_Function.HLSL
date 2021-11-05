@@ -83,22 +83,18 @@
     }
 
     //脸部
-    float3 NPR_Function_face (float3 lightDir,float3 baseColor,float4 var_FaceShadow)
+    float3 NPR_Function_face (float3 lightDir,float4 baseColor,float4 var_FaceShadow)
     {
+
+        float3 Up = float3(0.0,1.0,0.0);
         float3 Front = unity_ObjectToWorld._12_22_32;
-        float3 Right = unity_ObjectToWorld._13_23_33;
-        float FrontL = dot(normalize(Front.xz), normalize(lightDir.xz));
-        float LeftL = dot(normalize(-Right.xz), normalize(lightDir.xz));
-        float RightL = dot(normalize(Right.xz), normalize(lightDir.xz));
-
-        float lightAttenuation = min(
-        (1 -var_FaceShadow.r > LeftL),
-        1-( var_FaceShadow.r < RightL)
-        );
-
-        float3 rampColor = NPR_Base_Ramp(lightAttenuation,1.0,1.0);
-        
-        return rampColor * baseColor;
+        float3 Right = cross(Up,Front);
+        float switchShadow  = dot(normalize(Right.xz), normalize(lightDir.xz))*0.5+0.5 < 0.5;
+        float FaceShadow = lerp(var_FaceShadow.r,1 - var_FaceShadow,switchShadow.r);
+        float FaceShadowRange = dot(normalize(Front.xz), normalize(lightDir.xz));
+        float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.1,FaceShadowRange + 0.1,FaceShadow);
+        float3 rampColor = NPR_Base_Ramp(lightAttenuation * var_FaceShadow.a,1.0,1.0);
+        return baseColor.rgb * rampColor;
     }
 
     //头发
