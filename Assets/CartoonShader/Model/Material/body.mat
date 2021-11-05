@@ -130,7 +130,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OulineScale: 2.11
-    - _OutlineOffset: 0
+    - _OutlineOffset: 0.00028
     - _Parallax: 0.02
     - _RampIndex: 1
     - _RampIntensity: 1
@@ -173,7 +173,7 @@ Material:
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MetalColor: {r: 1, g: 0.8435717, b: 0.6745283, a: 1}
-    - _OutlineColor: {r: 0.3679245, g: 0.23345658, b: 0.0746262, a: 0}
+    - _OutlineColor: {r: 0.22745098, g: 0.21176471, b: 0.21176471, a: 0}
     - _RimColor: {r: 0.6886792, g: 0.57900846, b: 0.5230064, a: 1}
     - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
