@@ -4,7 +4,7 @@ Shader "Custom/Scene/GrassShader"
 {
     Properties
     {
-        
+        [Toggle]_UseMainColor("_UseMainColor",int) = 0
         _MainTex ("Texture", 2D) = "white" {}
         _Color01("TopColor1",Color) = (1.0,1.0,1.0,1.0)
         _Color02("TopColor2",Color) = (1.0,1.0,1.0,1.0)
@@ -15,7 +15,7 @@ Shader "Custom/Scene/GrassShader"
         _WindAnimToggle("_WindAnimToggle",int) = 1
         _SpecularRadius("_SpecularRadius",Range(1.0,100.0)) = 50.0
         _SpecularIntensity("_SpecularIntensity",Range(0.0,1.0)) = 0.5
-        _OcclusionIntensity("_OccIntensity",Range(0.0,1.0)) = 0.5
+        _HeightDepth("_HeightDepth",Range(0.0,1.0)) = 0.5
         
     }
     SubShader
@@ -63,7 +63,7 @@ Shader "Custom/Scene/GrassShader"
         uniform float _CutOff;
         uniform float4 _Color;
         uniform float4 _GradientVector;
-        uniform float _OcclusionIntensity;
+        uniform float _HeightDepth;
         uniform float _SpecularRadius;
         uniform float _SpecularIntensity;
 
@@ -71,6 +71,8 @@ Shader "Custom/Scene/GrassShader"
         uniform float _Color1_ST;
         uniform float _Color2_ST;
         uniform float _Color3_ST;
+
+        uniform int _UseMainColor;
         CBUFFER_END
         //结构体
         #pragma vertex vert
@@ -131,7 +133,7 @@ Shader "Custom/Scene/GrassShader"
                 blend.a = _Splat3.a * var_Control.a;
                 
                 half max_Height = max(blend.a,max(blend.b,max(blend.r,blend.g)));
-                blend = max( blend - max_Height + 0.2,0.0) * var_Control;
+                blend = max( blend - max_Height + _HeightDepth,0.0) * var_Control;
                 
                 return blend / (blend.r + blend.g + blend.b + blend.a);
             }
@@ -162,7 +164,7 @@ Shader "Custom/Scene/GrassShader"
                 //采样贴图
                 float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
                 //AlphaTest
-                clip(var_MainTex.g - _CutOff);
+                clip(var_MainTex.a - _CutOff);
                 //准备向量
                 float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
                 Light light = GetMainLight(SHADOW_COORDS);
@@ -174,11 +176,17 @@ Shader "Custom/Scene/GrassShader"
                 float NdotL = max(0.0,dot(float3(0.0,1.0,0.0),lightDir));
                 float NdotH = max(0.0,dot(float3(0.0,1.0,0.0),halfDir));//这里假设所有法线朝上
                 
+                
                 //基础颜色Albedo
                 float3 Albedo  = finalAlbedo.rgb;
+                if (_UseMainColor > 0)
+                {
+                    Albedo  = lerp(finalAlbedo.rgb,var_MainTex.rgb,i.vertexColor.a);
+                }
+
                 //Occlusion
                 // float Occlustion = lerp(1,i.vertexColor.a,_OcclusionIntensity);//把顶点色A通道当作别的草和自己的环境闭塞
-                float Occlustion = lerp(1,i.vertexColor.a,_OcclusionIntensity);//把顶点色A通道当作别的草和自己的环境闭塞
+                // float Occlustion = lerp(1,i.vertexColor.a,_OcclusionIntensity);//把顶点色A通道当作别的草和自己的环境闭塞
                 //主光源影响
                 float specular = pow(NdotH,_SpecularRadius) * _SpecularIntensity * i.vertexColor.a;
                 float shadow = light.shadowAttenuation * CLOUD_SHADOW(i);//把顶点色A通道当作自投影
@@ -220,5 +228,5 @@ Shader "Custom/Scene/GrassShader"
         
     }
 
-     CustomEditor "GrassShaderGUI"
+   CustomEditor "GrassShaderGUI"
 }
