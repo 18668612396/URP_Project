@@ -68,7 +68,7 @@ Shader "Custom/Scene/TerrainShader"
 			float  shadow;
 			
 		};
-		#include "../PBR_Scene_Function.HLSL"
+		#include "../PBR_Function.HLSL"
 		struct appdata
 		{
 			float4 vertex : POSITION;

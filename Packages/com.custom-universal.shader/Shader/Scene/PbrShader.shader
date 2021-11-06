@@ -66,7 +66,7 @@ Shader "Custom/Scene/PbrShader"
         
         #include "../ShaderFunction.HLSL"
         #include "../PBR_Scene_FallDust.HLSL"
-        #include "../PBR_Scene_Function.HLSL"
+        #include "../PBR_Function.HLSL"
         #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
         ///////////////////////////////////////////////////////////
         //                ShaderFunction中的宏开关                //

@@ -6,6 +6,7 @@ Shader "Custom/Character/CartoonShader"
     {
         //基础
         [KeywordEnum(Base,Face,Hair)] _ShaderEnum("ShaderEnum",int) = 0//
+        [Toggle]_NightTime("DayOrNight",int) = 0
         _MainTex ("MainTex", 2D) = "white" {}//
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)//
         _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
@@ -13,19 +14,13 @@ Shader "Custom/Character/CartoonShader"
         _RampTex("RampTex",2D) = "white"{}//
         _Matcap("_Matcap",2D) = "white"{}//
         _MetalColor("_MetalColor",Color)= (1,1,1,1)//
-        _ShadowColor("ShadowColor",Color) = (0.0,0.0,0.0)//
         _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
         _RimIntensity("_RimIntensity",float) = 0
         _RimRadius("_RimRadius",Range(0.0,1.0)) = 0.1
-        _MaskTolerate("MaskTolerate",Range(0.0,50)) = 10.0//
-        [Toggle]_SkinMask("SkinMask",int) = 0//
-        [Toggle]_SilkMask("SilkMask",int) = 0//
-        [Toggle]_MetalMask("MetalMask",int) = 0//
-        [Toggle]_SoftMask("SoftMask",int) = 0//
-        [Toggle]_HandMask("HandMask",int) = 0//
+
 
         _OutlineColor("Color",Color) = (0.0,0.0,0.0,0.0)
-        _OutlineOffset("Offset",Range(0.0,0.01)) = 0.0 
+        _OutlineOffset("Offset",Range(0.0,0.1)) = 0.0 
         // _ShadowMultColor("一级阴影颜色(实时光照)",Color) = (1.0,1.0,1.0,1.0)
         // _DarkShadowMultColor   ("二级阴影颜色(静态光照)",Color) = (1.0,1.0,1.0,1.0)
     }
@@ -138,28 +133,37 @@ Shader "Custom/Character/CartoonShader"
                 float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
                 float4 parameter   = var_ParamTex;
                 float  shadow = light.shadowAttenuation;
+                parameter.b *= smoothstep(0.5,0.6,saturate(shadow)); 
+
                 //向量准备
                 float3 normalDir  = normalize(i.worldNormal);
                 float3 viewDir    = normalize(i.worldView);
-                float3 lightDir   = normalize(light.direction);
-                float3 halfDir    = normalize(lightDir + viewDir);
+                light.direction = normalize(light.direction);
+                float Night = dot(light.direction,float3(0.0,1.0,0.0));
+                if (Night < 0.0)
+                {
+                    light.direction = -light.direction;
+                }
+
+
+                float3 halfDir    = normalize(light.direction + viewDir);
                 float3 reflectDir = normalize(reflect(viewDir,normalDir));
                 //点乘结果
                 float NdotH = max(0.00001,dot(normalDir,halfDir));
-                float NdotL = max(0.00001,dot(normalDir,lightDir));
+                float NdotL = max(0.00001,dot(normalDir,light.direction));
                 float NdotV = max(0.00001,dot(normalDir,viewDir));
-                float HdotL = max(0.00001,dot(halfDir,lightDir));
-
+                float HdotL = max(0.00001,dot(halfDir,light.direction));
+                
 
                 float3 finalRGB = float3(0.0,0.0,0.0);
                 #if _SHADERENUM_BASE
-                    finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light) ;
+                    finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night) ;
                 #elif _SHADERENUM_FACE
-                    finalRGB = NPR_Function_face(lightDir,var_MainTex,var_ParamTex,light);
+                    finalRGB = NPR_Function_face(var_MainTex,var_ParamTex,light,Night);
                 #elif _SHADERENUM_HAIR
-                    finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light);
+                    finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night);
                 #endif
-              
+                
                 return finalRGB;
 
             }
@@ -217,5 +221,5 @@ Shader "Custom/Character/CartoonShader"
         
     }
 
-   CustomEditor "NPR_ShaderGUI"  
+    CustomEditor "NPR_ShaderGUI"  
 }

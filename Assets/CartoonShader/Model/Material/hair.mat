@@ -97,18 +97,19 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HairSpecularIntensity: 0.922
+    - _HairSpecularIntensity: 0.557
     - _HandMask: 0
     - _MaskTolerate: 10
     - _MetalMask: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NightTime: 0
     - _OcclusionStrength: 1
     - _OutlineOffset: 0.00033
     - _Parallax: 0.02
     - _RenderType: 0
     - _RimIntensity: 2
-    - _RimRadius: 0.013
+    - _RimRadius: 0.066
     - _Roughness: 1
     - _ShaderEnum: 2
     - _SilkFactor: 0
@@ -133,10 +134,10 @@ Material:
     - _DarkShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MetalColor: {r: 1, g: 0.75686276, b: 0.49411765, a: 1}
+    - _MetalColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.22745098, g: 0.21176471, b: 0.21176471, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0.68529725, g: 0.7081424, b: 0.8301887, a: 1}
+    - _ShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowMultColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
