@@ -115,7 +115,7 @@ Material:
     - _NightTime: 1
     - _OcclusionStrength: 1
     - _OulineScale: 1
-    - _OutlineOffset: 0.00013
+    - _OutlineOffset: 0.00003
     - _Parallax: 0.02
     - _RenderType: 1
     - _RimIntensity: 3
