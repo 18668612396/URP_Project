@@ -3,23 +3,8 @@ Shader "Custom/Scene/WaterShader"
 {
     Properties
     {
-        _WarpScaleOffset("_WarpScaleOffset",vector) = (1.0,1.0,0.0,0.0)
-        _WarpIntensity("_WarpIntensity",Range(0.0,1.0)) = 0.5
-        _LightFactor("_LightFactor",Range(0.0,1.0)) = 0.0
-        _WaterDepth("WaterDepth",float) = 0.0
-        [HDR]_WaterTopColor("WaterTopColor",Color) = (1.0,1.0,1.0,1.0)
-        _TransparentRadius("_TransparentRadius",Range(0.0,1.0)) = 0.0
-        _WaterDownColor("WaterDownColor",Color) = (0.0,0.0,0.0,0.0)
-        [Space(50)]
-        _WaveRadius("_WaveRadius",Range(0.0,1.0)) = 0.0
-        _WaveTile("_WaveTile",float) = 1
-        _WaveWidth("_WaveWidth",Range(0.0,0.9)) = 0.0
-        _WaveIntensity("_WaveIntensity",Range(0.0,1.0)) = 0.5
-        _WaveFactorRadius("_WaveFactorRadius",float) = 0.0
-        _WaveFactorIntensity("_WaveFactorIntensity",Range(0.0,1.0)) = 0.0
-        [Space(20)]
-        _WaveWarpScale("_WaveWarpScale",Range(0.0,1.0)) = 0.0 
-        _IndirectionFactor("_IndirectionFactor",float) = 0.0
+        _CubemapTexture("CubeMap",Cube) = "cube"{}
+        _Normal("Normal",2D) = "bump"{}
     }
     
     SubShader
@@ -37,108 +22,82 @@ Shader "Custom/Scene/WaterShader"
         HLSLINCLUDE
         #pragma vertex vert
         #pragma fragment frag
-        #include "../ShaderFunction.hlsl"
+        #include "../Water_Function.hlsl"
         struct appdata
         {
             float4 vertex : POSITION;
-            float2 uv:TEXCOORD0;
+            float4 uv:TEXCOORD0;
             float3 normal:NORMAL;
         };
         struct v2f
         {
             float4 pos : SV_POSITION;
-            float3 viewPos : TEXCOORD1;
-            float2 uv:TEXCOORD0;
+            float3 worldView : TEXCOORD1;
+            float4 uv:TEXCOORD0;
             float3 worldPos:TEXCPPRD2;
             float3 worldNormal:NORMAL;
         };
-        TEXTURE2D(_CameraOpaqueTexture);
-        SAMPLER(sampler_CameraOpaqueTexture);
 
+
+        TEXTURE2D(_Normal);
+        SAMPLER(sampler_Normal);
+
+
+        
         CBUFFER_START(UnityPerMaterial)
-        uniform float4 _WarpScaleOffset;
-        uniform float _WarpIntensity;
-        uniform float _LightFactor;
-        uniform float _WaterDepth;
-        uniform float4 _WaterTopColor;
-        uniform float4 _WaterDownColor;
-        uniform float _TransparentRadius;
-        uniform float _WaveRadius;
-        uniform float _WaveTile;
-        uniform float _WaveWidth;
-        uniform float _WaveIntensity;
-        uniform float _WaveFactorIntensity;
-        uniform float _WaveFactorRadius;
-        uniform float _WaveWarpScale;
-        uniform float _IndirectionFactor;
+        
         CBUFFER_END
         ENDHLSL
 
-        
+
         Pass
         {
             Cull Back
-            Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
-            ZTest LEqual
-            ZWrite Off
+            // Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+
+
             HLSLPROGRAM
+            //Function
+
+            
             v2f vert ( appdata v )
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
                 o.worldPos = TransformObjectToWorld(v.vertex.xyz);
-                o.viewPos  = TransformWorldToView(o.worldPos);
-                o.pos = TransformWViewToHClip(o.viewPos);
-                o.uv = v.uv;
+                o.uv.zw = o.worldPos.xz * 0.1h + _Time.y * 0.05h;
+                o.uv.xy = o.worldPos.xz * 0.4h - _Time.y * 0.1h;
+                o.pos = TransformWorldToHClip(o.worldPos.xyz);
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
+                o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
+
                 return o;
             }
             
-            float4 frag (v2f i ) : SV_Target
+
+
+            float3 frag (v2f i ) : SV_Target
             {
+                //采样Normal
+                float2 normal01 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.xy).xy * 2 - 1;
+                float2 normal02 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.zw).xy * 2 - 1;
+                float2 normal = (normal01  + normal02)* 0.1;
+                
                 
                 //准备向量
                 Light light = GetMainLight();
-                float3 lightDir = normalize(light.direction).xyz;
                 float3 normalDir = normalize(i.worldNormal);
-                float3 viewDir   =normalize(_WorldSpaceCameraPos - i.worldPos);
-                float3 reflectDir = reflect(-viewDir,normalDir);
-                float3 cameraPos = _WorldSpaceCameraPos;
-                float3 reflectCamera = reflect(cameraPos * 0.5 + i.worldPos,normalDir);
+                float3 viewDir   = normalize(i.worldView);
                 float2 scrPos = i.pos.xy / _ScreenParams.xy;
-                float fresnel = max(0.0,dot(normalDir,viewDir));
-                float indirectionFactor =1 -  pow(fresnel,_IndirectionFactor);
-                //计算扭曲
-                float2 warp = float2(1.0,1.0);
-                warp.x = PerlinNoise(reflectCamera.xz + float2(0.0,_Time.y));
-                warp.y = PerlinNoise(reflectCamera.xz + float2(0.0,-_Time.y));
-                warp *= _WarpIntensity;
-                //计算主光源漫反射
-                float3 Albedo = SAMPLE_TEXTURE2D(_CameraOpaqueTexture, sampler_CameraOpaqueTexture, scrPos).rgb;
-                float DepthFactor = DepthCompare(scrPos,i.viewPos,_WaterDepth);
-                float waterTopFactor = smoothstep(_TransparentRadius,1.0,DepthFactor);
-                float3 lightDiffuse = lerp(_WaterDownColor.rgb,lerp(_WaterTopColor.rgb,1,waterTopFactor)* Albedo,DepthFactor);
-                //计算主光源镜面反射
-                float waveFactor = distance(cameraPos,i.worldPos);
-                waveFactor = 1 - saturate((1 - waveFactor + _WaveFactorRadius) * i.uv.y * _WaveFactorIntensity);
-                float waveRadius = smoothstep(_WaveRadius,1,DepthFactor);
-                float waveWarp   = PerlinNoise(i.worldPos.xz * _WaveWarpScale);
-                float2 waveCoord = float2(0.0,waveRadius) * _WaveTile + float2(0.0,-_Time.y) + waveWarp;
-                float3 lightSpec = smoothstep(_WaveWidth,_WaveWidth+0.1,(PerlinNoise(waveCoord) * 0.5 + 0.5) * waveRadius) *light.color * _WaveIntensity * waveFactor;
-                //计算主光源贡献
-                float3 lightContribution = lightDiffuse  * (1 - _LightFactor) + lightSpec;
+                normalDir += float3(normal.x,0,normal.y) * 1;
 
-                //计算环境漫反射 
-                float3 indirectionDiffuse = 0.0;
-                //采样环境反射
-                float3 var_Cubemap = GlossyEnvironmentReflection(reflectDir + float3(warp.y,warp.x,0.0), 0, 1);
-                float3 indirectionSpec = var_Cubemap;
-                float3 indirectionContribution = (indirectionDiffuse + indirectionSpec) * _LightFactor * indirectionFactor;
+
                 
-                float3 finalRGB = lightContribution + indirectionContribution;
-                BIGWORLD_FOG(i,finalRGB);//大世界雾效
-                float Alpha =1 - smoothstep(0.9,1,DepthFactor);
-                return float4(finalRGB,Alpha);
+                half3 reflection = SampleReflections(normalDir, viewDir);
+                
+
+                
+                return reflection;
             }
             ENDHLSL
         }
