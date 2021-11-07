@@ -5,6 +5,7 @@ Shader "Custom/Scene/WaterShader"
     {
         _CubemapTexture("CubeMap",Cube) = "cube"{}
         _Normal("Normal",2D) = "bump"{}
+        _NormalScale("NormalScale",Range(0.0,1.0)) = 0.5
     }
     
     SubShader
@@ -45,7 +46,7 @@ Shader "Custom/Scene/WaterShader"
 
         
         CBUFFER_START(UnityPerMaterial)
-        
+        uniform float _NormalScale;
         CBUFFER_END
         ENDHLSL
 
@@ -81,7 +82,7 @@ Shader "Custom/Scene/WaterShader"
                 //采样Normal
                 float2 normal01 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.xy).xy * 2 - 1;
                 float2 normal02 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.zw).xy * 2 - 1;
-                float2 normal = (normal01  + normal02)* 0.1;
+                float2 normal = (normal01 * 0.5  + normal02);
                 
                 
                 //准备向量
@@ -89,15 +90,17 @@ Shader "Custom/Scene/WaterShader"
                 float3 normalDir = normalize(i.worldNormal);
                 float3 viewDir   = normalize(i.worldView);
                 float2 scrPos = i.pos.xy / _ScreenParams.xy;
-                normalDir += float3(normal.x,0,normal.y) * 1;
+                normalDir += float3(normal.x,0,normal.y) * _NormalScale;
 
-
-                
+                BRDFData brdfData;
+                half alpha = 1;
+                InitializeBRDFData(half3(0, 0, 0), 0, half3(1, 1, 1), 0.95, alpha, brdfData);
+                half3 spec = DirectBDRF(brdfData, normalDir, light.direction, viewDir)  * light.color * 0.2;
                 half3 reflection = SampleReflections(normalDir, viewDir);
                 
 
                 
-                return reflection;
+                return spec + reflection;
             }
             ENDHLSL
         }
