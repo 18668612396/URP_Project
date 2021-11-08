@@ -140,10 +140,11 @@ Shader "Custom/Scene/WaterShader"
                 //WaterColor
                 float3 Albedo = lerp(Refraction,Reflection,Fresnel);
                 //边缘波浪
-                float WarpNoise = WaterNoise(i.worldPos.xz * 0.1);
-                float WavaFactor =1 - saturate(WaterDepth * 0.5);
-                float WavaRadius = PerlinNoise(WavaFactor * 3 - _Time.y + (var_Normal.a * 2 - 1) * 0.5) * WavaFactor;
-                float3 finalWava = smoothstep(0.5,0.6,WavaRadius) * saturate(WarpNoise) * _WavaIntensity * light.color ;
+                float WarpNoise = WaterNoise(i.worldPos.xz * 0.2);
+                float WavaFactor =1 - saturate(WaterDepth * 1);
+                float WavaRadius = PerlinNoise(WavaFactor.xx * 3- _Time.y + (var_Normal.a * 2 - 1) * 0.5) * WavaFactor * 0.5  +0.5;
+                
+                float3 finalWava = smoothstep(0.5,0.6,WavaRadius) * saturate(WarpNoise) * _WavaIntensity * light.color * Fresnel ;
 
 
 
