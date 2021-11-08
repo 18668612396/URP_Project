@@ -138,16 +138,5 @@
     }
     #define BIGWORLD_FOG(i,finalRGB) ExponentialHeightFog(i.worldPos,finalRGB);
 
-    //深度计算
-    TEXTURE2D_X_FLOAT(_CameraDepthTexture);
-    SAMPLER(sampler_CameraDepthTexture);
 
-    uniform float _Offset;
-    float DepthCompare(float2 scrPos,float3 viewPos,float _Radius)
-    {
-        float scrDepth = LinearEyeDepth(SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, scrPos).r, _ZBufferParams);
-        float disDepth  = (scrDepth + viewPos.z) * _Radius;
-        return 1 - saturate(disDepth);
-    }
-    
 #endif

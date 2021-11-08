@@ -24,7 +24,17 @@
         dot( random(i + float2(1.0,1.0) ), f - float2(1.0,1.0) ), u.x), u.y);
     }
 
-
+    //深度计算
+    TEXTURE2D_X_FLOAT(_CameraDepthTexture);
+    SAMPLER(sampler_CameraDepthTexture);
+    uniform float _Offset;
+    float DepthCompare(float2 scrPos,float3 viewPos,float _Radius)
+    {
+        float scrDepth = LinearEyeDepth(SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, scrPos).r, _ZBufferParams);
+        float disDepth  = (scrDepth + viewPos.z) * _Radius;
+        return 1 - saturate(disDepth);
+    }
+    
     
     half2 DistortionUVs(half depth, float3 worldNormal)
     {
@@ -32,6 +42,7 @@
 
         return viewNormal.xz * saturate((depth) * 0.005);
     }
+
     TEXTURECUBE(_CubemapTexture);
     SAMPLER(sampler_CubemapTexture);
     half3 SampleReflections(half3 normalDir, half3 viewDirectionWS)
