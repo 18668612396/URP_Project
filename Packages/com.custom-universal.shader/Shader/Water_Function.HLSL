@@ -11,7 +11,7 @@
         return -1.0 + 2.0 * frac(sin(st) * 43758.5453123);
     }
 
-    float waterNoise (float2 st) 
+    float WaterNoise (float2 st) 
     {
         float2 i = floor(st);
         float2 f = frac(st);
@@ -24,15 +24,25 @@
         dot( random(i + float2(1.0,1.0) ), f - float2(1.0,1.0) ), u.x), u.y);
     }
 
+
+    half2 AdditionalData(float3 worldPos,float3 viewPos)
+    {
+        half4 data = half4(0.0, 0.0, 0.0, 0.0);
+        data.x = length(viewPos / viewPos.z);// distance to surface
+        data.y = length(GetCameraPositionWS().xyz - worldPos); // local position in camera space
+        return data;
+    }
+    
     //深度计算
     TEXTURE2D_X_FLOAT(_CameraDepthTexture);
-    SAMPLER(sampler_CameraDepthTexture);
+    SAMPLER(sampler_ScreenTextures_linear_clamp);
     uniform float _Offset;
-    float DepthCompare(float2 scrPos,float3 viewPos,float _Radius)
+    float WaterDepth_Function(float3 worldPos,float2 scrPos,float3 viewPos)
     {
-        float scrDepth = LinearEyeDepth(SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, scrPos).r, _ZBufferParams);
-        float disDepth  = (scrDepth + viewPos.z) * _Radius;
-        return 1 - saturate(disDepth);
+        float2 AddData = AdditionalData(worldPos,viewPos);
+        float scrDepth = LinearEyeDepth(SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_ScreenTextures_linear_clamp, scrPos).r, _ZBufferParams) * AddData.x - AddData.y;
+        
+        return scrDepth;
     }
     
     

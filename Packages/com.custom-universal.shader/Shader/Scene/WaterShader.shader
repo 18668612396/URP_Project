@@ -6,8 +6,11 @@ Shader "Custom/Scene/WaterShader"
         _Color("Color",Color) = (1,1,1,1)
         _CubemapTexture("CubeMap",Cube) = "cube"{}
         _Normal("Normal",2D) = "bump"{}
+        _DepthMulti("DepthMulti",Range(0.0,1.0)) = 0.5
         _NormalScale("NormalScale",Range(0.0,1.0)) = 0.5
         _RefractionRamp("RefractionRamp",2D) = "white"{}
+        _ScatteringRamp("ScatteringRamp",2D) = "white"{}
+        _WavaIntensity("_WavaIntensity",float) = 1.0
     }
     
     SubShader
@@ -50,6 +53,12 @@ Shader "Custom/Scene/WaterShader"
         TEXTURE2D(_RefractionRamp);
         SAMPLER(sampler_RefractionRamp);
 
+        TEXTURE2D(_ScatteringRamp);
+        SAMPLER(sampler_ScatteringRamp);
+
+        TEXTURE2D(_CameraOpaqueTexture); 
+        SAMPLER(sampler_CameraOpaqueTexture_linear_clamp);
+
         
 
 
@@ -58,6 +67,8 @@ Shader "Custom/Scene/WaterShader"
         float4 _Normal_ST;
         uniform float _NormalScale;
         uniform float4 _Color;
+        uniform float _DepthMulti;
+        uniform float _WavaIntensity;
         CBUFFER_END
         ENDHLSL
 
@@ -89,14 +100,14 @@ Shader "Custom/Scene/WaterShader"
             
 
 
-            float3 frag (v2f i ) : SV_Target
+            float4 frag (v2f i ) : SV_Target
             {
                 //采样贴图
-
+                float4 var_Normal = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.worldPos.xz * 0.1);
                 //法线
-                float2 normal01 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.xy).xy * 2 - 1;
-                float2 normal02 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.zw).xy * 2 - 1;
-                float2 normal = (normal01 * 0.5  + normal02);
+                float4 normal01 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.xy) * 2 - 1;
+                float4 normal02 = SAMPLE_TEXTURE2D(_Normal, sampler_Normal, i.uv.zw) * 2 - 1;
+                float2 normal = (normal01.xy * 0.5  + normal02.xy);
                 //Ramp
 
                 
@@ -107,28 +118,42 @@ Shader "Custom/Scene/WaterShader"
                 float2 scrPos = i.pos.xy / _ScreenParams.xy;//屏幕UV坐标
                 normalDir += float3(normal.x,0,normal.y) * _NormalScale;
                 //深度
-                float WaterDepth = DepthCompare(scrPos,i.viewPos,1);
+                float WaterDepth = WaterDepth_Function(i.worldPos,scrPos,i.viewPos);
                 //菲尼尔
                 float Fresnel = saturate(pow(1 - dot(normalDir,viewDir),5));
-                //环境反射
-                float3 Reflection = SampleReflections(normalDir, viewDir);//采样环境反射  后续课添加切换
+
                 //折射
-                float3 Refraction  = SAMPLE_TEXTURE2D(_RefractionRamp, sampler_RefractionRamp,float2(WaterDepth,0.5));
-                //次表面散射
-                return Refraction;
+                float3 Refraction  = SAMPLE_TEXTURE2D(_RefractionRamp, sampler_RefractionRamp,float2(WaterDepth * _DepthMulti,0.0));
+                half3 SceneColor = SAMPLE_TEXTURE2D_LOD(_CameraOpaqueTexture, sampler_CameraOpaqueTexture_linear_clamp, scrPos, WaterDepth * 0.25).rgb;
+                Refraction *= SceneColor;
+
                 //高光
                 BRDFData brdfData;
                 float alpha = 1.0;
                 InitializeBRDFData(half3(0, 0, 0), 0, half3(1, 1, 1), 0.95, alpha, brdfData);
-                half3 Specular = DirectBDRF(brdfData, normalDir, light.direction, viewDir)  * light.color * 0.2;
+                half3 Specular = DirectBDRF(brdfData, normalDir, light.direction, viewDir)  * light.color * 0.01;
+
+                //环境镜面反射
+                float3 Reflection = SampleReflections(normalDir, viewDir);//采样环境反射  后续课添加切换
+                //次表面散射
+                float3 SubSurfaceScattering = SAMPLE_TEXTURE2D(_ScatteringRamp, sampler_ScatteringRamp,float2(WaterDepth * _DepthMulti,0.0)) * light.color * _Color;
+                //WaterColor
+                float3 Albedo = lerp(Refraction,Reflection,Fresnel);
+                //边缘波浪
+                float WarpNoise = WaterNoise(i.worldPos.xz * 0.1);
+                float WavaFactor =1 - saturate(WaterDepth * 0.5);
+                float WavaRadius = PerlinNoise(WavaFactor * 3 - _Time.y + (var_Normal.a * 2 - 1) * 0.5) * WavaFactor;
+                float3 finalWava = smoothstep(0.5,0.6,WavaRadius) * saturate(WarpNoise) * _WavaIntensity * light.color ;
 
 
 
                 
-                float3 finalRGB = lerp(_Color,Reflection,Fresnel);
 
-                // return Fresnel;
-                return Specular + finalRGB;
+
+
+                float WaterAlpha =  smoothstep(0.01,0.2,WaterDepth);
+
+                return float4(Albedo + Specular + SubSurfaceScattering + finalWava,WaterAlpha);
             }
             ENDHLSL
         }

@@ -7,13 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
-  m_Shader: {fileID: 4800000, guid: e500e06e8eecbd04fbce9d77c6279bfe, type: 3}
-  m_ShaderKeywords: 
+  m_Name: ground
+  m_Shader: {fileID: 4800000, guid: 26ad1b5994688de46b977c2d13c2c06f, type: 3}
+  m_ShaderKeywords: _FALLDUSTNORMALBLEND_ON _FALLDUSTSWITCHUV_ON _HEIGHTNORMALUP_ON
+    _MAINTEX_ON _NORMAL_ON _PBRPARAM_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -51,8 +52,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
+    - _FallDustMainTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FallDustNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FallDustPbrParam:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 2d2c74c9b480c4d66929f8589709840d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -60,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 520699b30b891ca4d8d5fe6d868ed785, type: 3}
+        m_Texture: {fileID: 2800000, guid: 547b5e7c54f398e49adeb68683e98327, type: 3}
         m_Scale: {x: 0.2, y: 0.2}
         m_Offset: {x: 0.2, y: 0.2}
     - _OcclusionMap:
@@ -71,12 +84,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _RefractionRamp:
-        m_Texture: {fileID: 2800000, guid: abb98d882205992489e45440ef8fba30, type: 3}
+    - _PbrParam:
+        m_Texture: {fileID: 2800000, guid: 547b5e7c54f398e49adeb68683e98327, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ScatteringRamp:
-        m_Texture: {fileID: 2800000, guid: 82df2f9775072f5438a98656126738c0, type: 3}
+    - _RefractionRamp:
+        m_Texture: {fileID: 2800000, guid: abb98d882205992489e45440ef8fba30, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -99,37 +112,52 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendHeight: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthMulti: 0.375
+    - _DepthMulti: 0.1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissionIntensity: 0
     - _EnvironmentReflections: 1
+    - _FallDustColorBlend: 1
+    - _FallDustMetallic: 0
+    - _FallDustNormalBlend: 1
+    - _FallDustNormalIntensity: 0
+    - _FallDustRoughness: 1
+    - _FallDustSwitchUV: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _HeightDepth: 0
+    - _HeightNormalUp: 1
+    - _HeightRadius: 1
     - _Metallic: 0
-    - _NormalScale: 0.213
+    - _NormalIntensity: 1
+    - _NormalScale: 0.122
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Roughness: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WavaIntensity: 10
+    - _WindAnimToggle: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _fallDustEmissionIntensity: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.70554465, g: 0.8163863, b: 0.990566, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FallDustColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5010945708016777909
