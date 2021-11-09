@@ -123,7 +123,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WavaIntensity: 29.74
+    - _WavaIntensity: 5.58
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

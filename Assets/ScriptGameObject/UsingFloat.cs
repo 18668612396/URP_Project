@@ -4,13 +4,19 @@ using UnityEngine;
 public class UsingFloat : MonoBehaviour
 {
 
-    public ScriptObject test;
+    public testScript test;
     // Start is called before the first frame update
-    public float floatdd;
-    // Update is called once per frame
-    void Update()
+    public float Float01;
+    public Gradient gradient;
+
+    // void Awake()
+    // {
+    //    test.Float01 = Float01 ;
+    //    test.gradient =  gradient ;
+    // }
+    private void Update()
     {
-        test.test = floatdd;
-        floatdd = test.test;
+        Float01 = test.Float01 ;
+        test.gradient = gradient;
     }
 }

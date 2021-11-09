@@ -144,7 +144,7 @@ Shader "Custom/Scene/WaterShader"
                 float WavaFactor =1 - saturate(WaterDepth * 1);
                 float WavaRadius = PerlinNoise(WavaFactor.xx * 3- _Time.y + (var_Normal.a * 2 - 1) * 0.5) * WavaFactor * 0.5  +0.5;
                 
-                float3 finalWava = smoothstep(0.5,0.6,WavaRadius) * saturate(WarpNoise) * _WavaIntensity * light.color * Fresnel ;
+                float3 finalWava = smoothstep(0.5,0.6,WavaRadius) * saturate(WarpNoise) * _WavaIntensity * light.color;
 
 
 
