@@ -180,6 +180,7 @@ Shader "Custom/Character/CartoonShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
+        
                 v.vertex.xyz += v.normal * _OutlineOffset * v.color.a;
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.uv = v.uv;

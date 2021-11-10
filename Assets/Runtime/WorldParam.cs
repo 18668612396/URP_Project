@@ -19,16 +19,16 @@ public class WorldParam : EditorWindow
         WaterDataGUI();
     }
     //水
-    static WaterSettingsData WaterData = new WaterSettingsData(); 
+    static WaterSettingsData WaterData; 
     float WaterDepthRadiusProp;
-    Cubemap Cubemap;
+    Cubemap Cubemap; 
     private void WaterDataGUI()
     {
         WaterData = EditorGUILayout.ObjectField("水参数", WaterData, typeof(WaterSettingsData), false) as WaterSettingsData;//水的Asset文件
 
         WaterDepthRadiusProp = WaterData.WaterDepthRadius;
         WaterData.WaterDepthRadius = EditorGUILayout.Slider(WaterDepthRadiusProp, 0, 1);
-        Shader.SetGlobalFloat("_Float01", WaterData.WaterDepthRadius);
+      
 
         // Cubemap = WaterData.WaterCubemap;
         // WaterData.WaterCubemap = (Cubemap)EditorGUILayout.ObjectField("CUBE",Cubemap,typeof(Cubemap),false);
@@ -38,6 +38,6 @@ public class WorldParam : EditorWindow
         WaterData.ScatteringRamp = EditorGUILayout.GradientField("次表面散射颜色渐变", WaterData.ScatteringRamp);
 
 
-       EditorGUILayout.FloatField("test",WaterDepthRadiusProp);
+    //    EditorGUILayout.FloatField("test",WaterDepthRadiusProp);
     }
 }
