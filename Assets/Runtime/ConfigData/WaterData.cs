@@ -11,10 +11,17 @@ public class WaterData : ScriptableObject
     public Gradient ScatteringRamp;
     public Cubemap WaterCubemap;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR 
     //绘制GUI
-    public WaterData waterData;
+    public WaterData waterData; 
+    public void DrawGUI()
+    {
+        waterData = EditorGUILayout.ObjectField("数据文件", waterData, typeof(WaterData), false) as WaterData;//水的Asset文件
 
+        WaterDepthRadius = waterData.WaterDepthRadius;
+        waterData.WaterDepthRadius = EditorGUILayout.Slider(WaterDepthRadius, 0, 1);
+        Debug.Log(WaterDepthRadius);
+    }
 #endif
 
 }

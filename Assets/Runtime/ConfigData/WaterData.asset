@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ece79ea167dffd4287c4619a19599f5, type: 3}
   m_Name: WaterData
   m_EditorClassIdentifier: 
-  WaterDepthRadius: 0
+  WaterDepthRadius: 1
   RefractionRamp:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -72,3 +72,4 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   WaterCubemap: {fileID: 0}
+  waterData: {fileID: 0}
