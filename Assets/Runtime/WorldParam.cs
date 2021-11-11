@@ -11,33 +11,59 @@ public class WorldParam : EditorWindow
         window.titleContent = new GUIContent("WorldParam");
         window.Show();
     }
+    int ToolsIndexID;
+    WaterData WaterData = null;
+    static FogData fogData = new FogData();
 
-    
-    [SerializeField]
+    private void OnEnable()
+    {
+
+        if (!EditorPrefs.HasKey("shuishuju"))
+        {
+            WaterData = null;
+        }
+        else
+        {
+            
+            WaterData = AssetDatabase.LoadAssetAtPath<WaterData>(EditorPrefs.GetString("shuishuju", ""));
+        }
+    }
+
     private void OnGUI()
     {
-        WaterDataGUI();
+        EditorGUILayout.Space(10);
+
+        ToolsIndexID = GUILayout.SelectionGrid(ToolsIndexID, new[] { "Water", "Fog", "Wind", "Cloud", "LALALA" }, 3);
+
+        EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalscrollbarthumb"));//绘制分割线 
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space(20);
+        if (ToolsIndexID == 0)
+        {
+            DrawGUI();
+
+            Shader.SetGlobalFloat("_Float01",WaterData.WaterDepthRadius);
+        }
+        // if (ToolsIndexID == 1)
+        // {
+        //     fogData.DrawGUI();
+        // }
     }
-    //水
-    static WaterSettingsData WaterData; 
-    float WaterDepthRadiusProp;
-    Cubemap Cubemap; 
-    private void WaterDataGUI()
+
+    public void DrawGUI()
     {
-        WaterData = EditorGUILayout.ObjectField("水参数", WaterData, typeof(WaterSettingsData), false) as WaterSettingsData;//水的Asset文件
+        WaterData curWaterData = EditorGUILayout.ObjectField("数据文件", WaterData, typeof(WaterData), false) as WaterData;//水的Ass 
 
-        WaterDepthRadiusProp = WaterData.WaterDepthRadius;
-        WaterData.WaterDepthRadius = EditorGUILayout.Slider(WaterDepthRadiusProp, 0, 1);
-      
-
-        // Cubemap = WaterData.WaterCubemap;
-        // WaterData.WaterCubemap = (Cubemap)EditorGUILayout.ObjectField("CUBE",Cubemap,typeof(Cubemap),false);
-
-        WaterData.RefractionRamp = EditorGUILayout.GradientField("折射颜色渐变", WaterData.RefractionRamp);
-
-        WaterData.ScatteringRamp = EditorGUILayout.GradientField("次表面散射颜色渐变", WaterData.ScatteringRamp);
+        if (curWaterData != WaterData)
+        {
+            EditorPrefs.SetString("shuishuju", curWaterData ? AssetDatabase.GetAssetPath(curWaterData) : "");
+            WaterData = curWaterData;
+        }
+        // WaterData = EditorGUILayout.ObjectField("数据文件", WaterData, typeof(WaterData), false) as WaterData;//水的Asset文件
 
 
-    //    EditorGUILayout.FloatField("test",WaterDepthRadiusProp);
+        // WaterDepthRadius = waterData.WaterDepthRadius;
+        // waterData.WaterDepthRadius = EditorGUILayout.Slider(WaterDepthRadius, 0, 1);
+        // Debug.Log(WaterDepthRadius);
     }
 }

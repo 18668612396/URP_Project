@@ -180,7 +180,7 @@ Shader "Custom/Character/CartoonShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
-        
+                
                 v.vertex.xyz += v.normal * _OutlineOffset * v.color.a;
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.uv = v.uv;
@@ -210,7 +210,8 @@ Shader "Custom/Character/CartoonShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);
-                o.pos = TransformObjectToHClip(v.vertex.xyz);
+                 o.pos = GetShadowPositionHClip(v.vertex.xyz,v.normal);
+                // o.pos = TransformObjectToHClip(v.vertex.xyz);
                 return o;
             }
             float4 frag(v2f i) : SV_Target

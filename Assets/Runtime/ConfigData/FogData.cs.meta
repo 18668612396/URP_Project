@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 390d24da30e56744197f9ef9f75a9b55
+guid: cb02351afaea2f846b4f0cdeeba15d90
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - m_ViewDataDictionary: {instanceID: 0}
-  - WaterData: {fileID: 11400000, guid: 9c935dc7ebd540a4882ac6b301035a39, type: 2}
+  - fogData: {fileID: 11400000, guid: 03b1277f0299fe3428c2bfd2160f7606, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
