@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - m_ViewDataDictionary: {instanceID: 0}
-  - WaterData: {fileID: 11400000, guid: 9c935dc7ebd540a4882ac6b301035a39, type: 2}
+  - dataCombine: {fileID: 11400000, guid: fefb72cafbce22e4390f953abd987b62, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

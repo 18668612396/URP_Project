@@ -14,6 +14,7 @@ public class WaterData : ScriptableObject
 #if UNITY_EDITOR 
     //绘制GUI
     public WaterData waterData; 
+    private WorldParam worldParam;
     public void DrawGUI()
     {
         waterData = EditorGUILayout.ObjectField("数据文件", waterData, typeof(WaterData), false) as WaterData;//水的Asset文件
