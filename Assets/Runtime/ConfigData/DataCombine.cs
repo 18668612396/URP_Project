@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "WorldParam/DataCombine")]
 public class DataCombine : ScriptableObject
 {
+    
     public WaterData waterData;
     public FogData fogData;
 

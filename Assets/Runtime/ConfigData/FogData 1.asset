@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb02351afaea2f846b4f0cdeeba15d90, type: 3}
-  m_Name: New Fog Data
+  m_Name: FogData 1
   m_EditorClassIdentifier: 
   _FogToggle: 0
-  _FogColor: {r: 1, g: 1, b: 1, a: 1}
+  _FogColor: {r: 0.7137255, g: 0.95605195, b: 1, a: 1}
   _FogGlobalDensity: 1
   _FogHeight: 0
   _FogStartDistance: 10
   _FogInscatteringExp: 1
   _FogGradientDistance: 50
-  fogData: {fileID: 11400000, guid: 03b1277f0299fe3428c2bfd2160f7606, type: 2}
+  fogData: {fileID: 0}

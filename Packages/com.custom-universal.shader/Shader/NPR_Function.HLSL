@@ -9,7 +9,7 @@
 
     uniform TEXTURE2D(_RampTex);
     uniform SAMPLER(sampler_RampTex);
-    uniform int _NightTime;
+
     float3 NPR_Base_Ramp (float NdotL,float Night,float4 parameter)
     {
         float halfLambert = smoothstep(0.0,0.5,NdotL) * parameter.b * 2;

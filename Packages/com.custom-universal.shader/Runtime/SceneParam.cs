@@ -93,7 +93,6 @@ public class SceneParam : MonoBehaviour
     }
 
     //雾效
-
     public bool _FogToggle;
     public Color _FogColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);//雾的颜色
     public float _FogGlobalDensity = 1.0f;//雾的密度
