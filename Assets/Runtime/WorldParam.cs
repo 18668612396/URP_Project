@@ -19,7 +19,7 @@ public class WorldParam : EditorWindow
 
     int dataIndex;
 
-    Color fogColor;
+
     private void OnGUI()
     {
         EditorGUILayout.Space(10);
@@ -39,11 +39,10 @@ public class WorldParam : EditorWindow
 
         }
         GUILayout.EndHorizontal();
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalslider"));//绘制分割线 
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space(20);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // GUILayout.BeginHorizontal();
         // {
@@ -53,25 +52,33 @@ public class WorldParam : EditorWindow
         EditorGUILayout.Space(20);
 
 
+        if (dataIndex == 1)
+        {
+            FogDataGUI();
+        }
 
-        fogColor = dataCombine.fogData._FogColor;
-        dataCombine.fogData._FogColor = EditorGUILayout.ColorField(fogColor);
-        Shader.SetGlobalColor("_FogColor", dataCombine.fogData._FogColor);
 
 
-        // Debug.Log(dataCombineEditor.windowState);
-        // waterData.DrawGUI(); 
+
         SceneView.RepaintAll();//需要重新绘制Scene视图才能实时更新数据
     }
 
-    private void OnDisable()
+    //雾效编辑
+    Color fogColor;
+    private void FogDataGUI()
     {
-       dataCombineEditor.windowState = false;
-       Debug.Log(dataCombineEditor.windowState);
+        fogColor = dataCombine.fogData._FogColor;
+        dataCombine.fogData._FogColor = EditorGUILayout.ColorField(fogColor);
+        Shader.SetGlobalColor("_FogColor", dataCombine.fogData._FogColor);
     }
+    // private void OnEnable()
+    // {
+    //     dataCombineEditor.Show();
+    // }
+    // private void OnDisable()
+    // {
+    //     dataCombineEditor.Close();
+    // }
 
-    private void Update()
-    {
 
-    }
 }
