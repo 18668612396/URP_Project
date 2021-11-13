@@ -23,7 +23,7 @@
     }
     float G_Function (float NdotL,float NdotV,float roughness)
     {
-        float K = roughness * roughness * 0.5; //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 其结果是相同的
+        float K = (1.0+roughness) * (1.0+roughness) / 8;
         return G_SubFunction(NdotL,K) * G_SubFunction(NdotV,K);
     }
 
@@ -150,7 +150,7 @@
 
         float3 F0 = lerp(0.04,baseColor,metallic);
         //法线计算
-        float3x3 TBN = float3x3(normalize(worldTangent),normalize(worldBitangent),normalize((worldNormal)));
+        float3x3 TBN = float3x3(normalize(worldTangent),normalize(worldBitangent),normalize(worldNormal));
         //向量准备
         float3 normalDir  = mul(pbr.normal,TBN);//映射法线  *2-1的操作在这里执行
         float3 viewDir    = normalize(worldView);

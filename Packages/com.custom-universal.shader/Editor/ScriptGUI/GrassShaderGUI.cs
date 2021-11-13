@@ -7,12 +7,10 @@ public class GrassShaderGUI : ShaderGUI
 {
     MaterialProperty _MainTexProp;
     MaterialProperty _CutOffProp;
-    // MaterialProperty _ColorProp;
-
     MaterialProperty _SpecularRadiusProp;
-
     MaterialProperty _SpecularIntensityProp;
-    MaterialProperty _OcclusionIntensityPorp;
+    MaterialProperty _HeightDepthPorp;
+    MaterialProperty _UseMainColorProp;
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
 
     {
@@ -28,29 +26,30 @@ public class GrassShaderGUI : ShaderGUI
     {
         _MainTexProp = FindProperty("_MainTex", properties);
         _CutOffProp = FindProperty("_CutOff", properties);
-        // _ColorProp = FindProperty("_Color", properties);
-        _SpecularRadiusProp = FindProperty("_SpecularRadius",properties);
-        _SpecularIntensityProp = FindProperty("_SpecularIntensity",properties);
-        _OcclusionIntensityPorp = FindProperty("_OcclusionIntensity",properties);
+        _SpecularRadiusProp = FindProperty("_SpecularRadius", properties);
+        _SpecularIntensityProp = FindProperty("_SpecularIntensity", properties);
+        _HeightDepthPorp = FindProperty("_HeightDepth", properties);
+        _UseMainColorProp = FindProperty("_UseMainColor",properties);
     }
 
     private void DrawGUI(MaterialEditor materialEditor)
     {
         EditorGUILayout.LabelField("参数属性", EditorStyles.boldLabel);
-        // materialEditor.TexturePropertySingleLine(new GUIContent("MainTex"), _MainTexProp,_ColorProp,_CutOffProp);//绘制主纹理GUI
-        materialEditor.RangeProperty(_SpecularRadiusProp,"高光范围");
-        materialEditor.RangeProperty(_SpecularIntensityProp,"高光强度");
-        // materialEditor.RangeProperty(_OcclusionIntensityPorp,"AO强度");
-     }
+        materialEditor.ShaderProperty(_UseMainColorProp,"使用贴图颜色");
+        materialEditor.TexturePropertySingleLine(new GUIContent("MainTex"), _MainTexProp, _CutOffProp);//绘制主纹理GUI
+        materialEditor.RangeProperty(_SpecularRadiusProp, "高光范围");
+        materialEditor.RangeProperty(_SpecularIntensityProp, "高光强度");
+        materialEditor.RangeProperty(_HeightDepthPorp, "AO强度");
+    }
 
     private void LoadParam()
     {
-       // _Gradient = _GradientVectorProp.vectorValue;
+        // _Gradient = _GradientVectorProp.vectorValue;
 
     }
     private void SaveParam()
     {
-       // _GradientVectorProp.vectorValue = _Gradient;
+        // _GradientVectorProp.vectorValue = _Gradient;
     }
 
     private void Other(MaterialEditor materialEditor)
