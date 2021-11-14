@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: c874c79670ad38c4eb2f0ddc0ef2309d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - WaterCubemap: {instanceID: 0}
+  - waterData: {fileID: 11400000, guid: 9c935dc7ebd540a4882ac6b301035a39, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

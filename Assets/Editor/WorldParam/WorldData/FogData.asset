@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb02351afaea2f846b4f0cdeeba15d90, type: 3}
+  m_Name: FogData
+  m_EditorClassIdentifier: 
+  _FogToggle: 1
+  _FogColor: {r: 0.109069064, g: 0.21160191, b: 0.5377358, a: 0.23921569}
+  _FogGlobalDensity: 11.5
+  _FogHeight: 19.9
+  _FogStartDistance: 1.4
+  _FogInscatteringExp: 4.45
+  _FogGradientDistance: 70.2
+  fogData: {fileID: 0}

@@ -11,7 +11,7 @@
         float a2     = a*a;
         float NdotH2 = NdotH*NdotH;
         float nom   = a2;
-        float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+        float denom = max(1e-8,NdotH2 * (a2 - 1.0) + 1.0); //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
         denom = PI * denom * denom;
         return nom / denom;
     }
@@ -23,7 +23,7 @@
     }
     float G_Function (float NdotL,float NdotV,float roughness)
     {
-        float K = roughness * roughness * 0.5; //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 其结果是相同的
+        float K = roughness * roughness * 0.5; //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
         return G_SubFunction(NdotL,K) * G_SubFunction(NdotV,K);
     }
 

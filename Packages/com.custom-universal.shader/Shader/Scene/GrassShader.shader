@@ -5,13 +5,15 @@ Shader "Custom/Scene/GrassShader"
     Properties
     {
         [Toggle]_UseMainColor("_UseMainColor",int) = 0
+        [Toggle]_WindAnim("动画开关",int) = 1
         _MainTex ("Texture", 2D) = "white" {}
+        _Color("Color",Color) = (1.0,1.0,1.0,1.0)
         _Color01("TopColor1",Color) = (1.0,1.0,1.0,1.0)
         _Color02("TopColor2",Color) = (1.0,1.0,1.0,1.0)
         _Color03("TopColor3",Color) = (1.0,1.0,1.0,1.0)
         _Color04("TopColor4",Color) = (1.0,1.0,1.0,1.0)
         _GradientVector("_GradientVector",vector) = (0.0,1.0,0.0,0.0)
-        _CutOff("Cutoff",Range(0.0,1.0)) = 0.0
+        _CutOff("Cutoff",Range(0.0,1.0)) = 0.5
         _WindAnimToggle("_WindAnimToggle",int) = 1
         _SpecularRadius("_SpecularRadius",Range(1.0,100.0)) = 50.0
         _SpecularIntensity("_SpecularIntensity",Range(0.0,1.0)) = 0.5
@@ -181,7 +183,7 @@ Shader "Custom/Scene/GrassShader"
                 float3 Albedo  = finalAlbedo.rgb;
                 if (_UseMainColor > 0)
                 {
-                    Albedo  = lerp(finalAlbedo.rgb,var_MainTex.rgb,i.vertexColor.a);
+                    Albedo  = lerp(finalAlbedo.rgb,var_MainTex.rgb * _Color,i.vertexColor.a);
                 }
 
                 //Occlusion

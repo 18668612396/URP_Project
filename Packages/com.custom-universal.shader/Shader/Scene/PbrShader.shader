@@ -238,7 +238,7 @@ Shader "Custom/Scene/PbrShader"
                 float3 finalRGB = PBR_FUNCTION(i,pbr);
 
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效
-                
+                clip(var_MainTex.a - 0.5);
                 return  finalRGB;
             }
             ENDHLSL

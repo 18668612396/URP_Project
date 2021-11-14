@@ -6,7 +6,7 @@ Shader "Custom/Scene/VegetationShader"
         [HDR]_TopColor("TopColor",Color) = (1.0,1.0,1.0,1.0)
         [HDR] _DownColor("DownColor",Color) = (0.0,0.0,0.0,0.0)
         _GradientVector("_GradientVector",vector) = (0.0,1.0,0.0,0.0)
-        _CutOff("Cutoff",Range(0.0,1.0)) = 0.0
+        _CutOff("Cutoff",Range(0.0,1.0)) = 0.5
         _WindAnimToggle("_WindAnimToggle",int) = 1
         
         
@@ -122,7 +122,7 @@ Shader "Custom/Scene/VegetationShader"
                 float3 finalRGB = lightContribution + indirectionContribution;
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效
                 //AlphaTest
-                clip(var_MainTex.g - _CutOff);
+                clip(var_MainTex.a - _CutOff);
                 //输出
                 return finalRGB.rgbb;
             }
