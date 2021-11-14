@@ -24,19 +24,17 @@ public class WorldParam : EditorWindow
     private void OnGUI()
     {
         Header();
-        dataIndex = GUILayout.SelectionGrid(dataIndex, new[] { "Water", "Fog", "Wind", "Cloud", "Interact" }, 5);
+        dataIndex = GUILayout.SelectionGrid(dataIndex, new[] { "Water", "Fog", "Wind", "Cloud" }, 4);
         EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalscrollbarthumb"));//绘制分割线 
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space(20);
 
         if (dataIndex == 1)
-        {
             FogDataGUI();
-        }
         if (dataIndex == 2)
-        {
             WindDataGUI();
-        }
+        if (dataIndex == 3)
+            CloudDataGUI();
 
         SceneView.RepaintAll();//需要重新绘制Scene视图才能实时更新数据
     }
@@ -110,12 +108,18 @@ public class WorldParam : EditorWindow
     }
 
 
-
+    //风力动画
     public bool _WindToggle;
     float _WindDensity = 15.0f;
     float _WindSpeedFloat = 0.35f;
     float _WindTurbulenceFloat = 0.5f;
     float _WindStrengthFloat = 0.1f;
+
+    bool _InteractToggle;
+    [Range(0.0f, 5.0f)] public float _InteractRadius = 0.2f;
+    [Range(0.0f, 1.0f)] public float _InteractIntensity = 0.5f;
+    [Range(0.0f, 10.0f)] public float _InteractHeight = 1.0f;
+
     private void WindDataGUI()
     {
         _WindDensity = dataCombine.windData._WindDensity;
@@ -130,11 +134,58 @@ public class WorldParam : EditorWindow
         _WindStrengthFloat = dataCombine.windData._WindStrengthFloat;
         dataCombine.windData._WindStrengthFloat = EditorGUILayout.Slider("风力强度", _WindStrengthFloat, 0.0f, 1.0f);
 
+        EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalslider"));//绘制分割线 
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.Space(20);
+
+
+        _InteractToggle = dataCombine.windData._InteractToggle;
+        dataCombine.windData._InteractToggle = GUILayout.Toggle(_InteractToggle, "草地交互开关");
+        EditorGUILayout.Space(2);
+        _InteractRadius = dataCombine.windData._InteractRadius;
+        dataCombine.windData._InteractRadius = EditorGUILayout.Slider("草地交互半径", _InteractRadius, 0.0f, 5.0f);
+
+        _InteractIntensity = dataCombine.windData._InteractIntensity;
+        dataCombine.windData._InteractIntensity = EditorGUILayout.Slider("草地交互强度", _InteractIntensity, 0.0f, 1.0f);
+
+        _InteractHeight = dataCombine.windData._InteractHeight;
+        dataCombine.windData._InteractHeight = EditorGUILayout.Slider("草地交互高度", _InteractHeight, 0.0f, 10.0f);
+
+        if (_InteractToggle == true)
+        {
+            Shader.EnableKeyword("_INTERACT_ON");
+            Shader.DisableKeyword("_INTERACT_OFF");
+        }
+        else
+        {
+            Shader.EnableKeyword("_INTERACT_OFF");
+            Shader.DisableKeyword("_INTERACT_ON");
+        }
+
     }
 
+    //云阴影
+    // public bool _CloudShadowToggle;
+    [Range(0.0f, 1.0f)] public float _CloudShadowSize = 0.1f;
+    public Vector2 _CloudShadowRadius = new Vector2(0.8f, 0.5f);
+    [Range(0.0f, 1.0f)] public float _CloudShadowIntensity = 0.75f;
+    [Range(0.0f, 5.0f)] public float _CloudShadowSpeed = 0.65f;
 
+    private void CloudDataGUI()
+    {
+        _CloudShadowSize = dataCombine.cloudData._CloudShadowSize;
+        dataCombine.cloudData._CloudShadowSize = EditorGUILayout.Slider("阴影密度", _CloudShadowSize, 0.0f, 1.0f);
 
+        _CloudShadowRadius = dataCombine.cloudData._CloudShadowRadius;
+        dataCombine.cloudData._CloudShadowRadius = EditorGUILayout.Vector2Field("阴影大小", _CloudShadowRadius);
 
+        _CloudShadowIntensity = dataCombine.cloudData._CloudShadowIntensity;
+        dataCombine.cloudData._CloudShadowIntensity = EditorGUILayout.Slider("阴影强度", _CloudShadowIntensity, 0.0f, 1.0f);
+
+        _CloudShadowSpeed = dataCombine.cloudData._CloudShadowSpeed;
+        dataCombine.cloudData._CloudShadowSpeed = EditorGUILayout.Slider("阴影速度", _CloudShadowSpeed, 0.0f, 1.0f);
+
+    }
 
 
 
@@ -174,7 +225,19 @@ public class WorldParam : EditorWindow
         Shader.SetGlobalFloat("_FogInscatteringExp", dataCombine.fogData._FogInscatteringExp);
         Shader.SetGlobalFloat("_FogGradientDis", dataCombine.fogData._FogGradientDistance);
 
+        // Shader.SetGlobalVector("_WindDirection", transform.rotation * Vector3.back);
+        Shader.SetGlobalFloat("_WindDensity", _WindDensity);
+        Shader.SetGlobalFloat("_WindSpeedFloat", _WindSpeedFloat);
+        Shader.SetGlobalFloat("_WindTurbulenceFloat", _WindTurbulenceFloat);
+        Shader.SetGlobalFloat("_WindStrengthFloat", _WindStrengthFloat);
+        Shader.SetGlobalFloat("_InteractRadius", _InteractRadius);
+        Shader.SetGlobalFloat("_InteractIntensity", _InteractIntensity);
+        Shader.SetGlobalFloat("_InteractHeight", _InteractHeight);
 
+        Shader.SetGlobalFloat("_CloudShadowSize", _CloudShadowSize);
+        Shader.SetGlobalVector("_CloudShadowRadius", _CloudShadowRadius);
+        Shader.SetGlobalFloat("_CloudShadowSpeed", _CloudShadowSpeed);
+        Shader.SetGlobalFloat("_CloudShadowIntensity", _CloudShadowIntensity);
 
     }
 }

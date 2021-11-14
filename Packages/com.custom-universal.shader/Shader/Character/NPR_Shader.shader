@@ -132,8 +132,8 @@ Shader "Custom/Character/CartoonShader"
                 float4 baseColor = var_MainTex;
                 float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
                 float4 parameter   = var_ParamTex;
-                float  shadow = light.shadowAttenuation;
-                parameter.b *= smoothstep(0.5,0.6,saturate(shadow)); 
+                float  shadow = light.shadowAttenuation * CloudShadow(i.worldPos);
+                parameter.b *= shadow; 
 
                 //向量准备
                 float3 normalDir  = normalize(i.worldNormal);

@@ -118,8 +118,8 @@ Material:
     - _SnowSize: 0
     - _SnowSizeFloat: 1
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 0.5
-    - _SpecularRadius: 50
+    - _SpecularIntensity: 0.154
+    - _SpecularRadius: 15.8
     - _Speed: 10
     - _SquashAmount: 1
     - _SrcBlend: 1
@@ -140,6 +140,7 @@ Material:
     - _WiggleStrenght: 0.5
     - _Wind: 0
     - _WindAmplitudeMultiplier: 1
+    - _WindAnim: 1
     - _WindAnimToggle: 1
     - _WindDirectionSpeed: 5
     - _WindQuality: 4

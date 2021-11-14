@@ -47,6 +47,7 @@ public class DataCombineEditor : EditorWindow
 
         FogGUI();//绘制雾效
         WindGUI();//风力动画
+        CloudGUI();
         if (windowState == false)
         {
             Close();
@@ -80,7 +81,7 @@ public class DataCombineEditor : EditorWindow
         else
         {
             Shader.EnableKeyword("_WORLDFOG_OFF");
-            Shader.DisableKeyword("_WORLDFOG_ON"); 
+            Shader.DisableKeyword("_WORLDFOG_ON");
         }
     }
 
@@ -90,14 +91,14 @@ public class DataCombineEditor : EditorWindow
     private void WindGUI()
     {
         GUILayout.BeginHorizontal();
-        // _WindToggle = windData._WindToggle;                                           
-        // dataCombine.windData._WindToggle = GUILayout.Toggle(_WindToggle, "");
+        _WindToggle = windData._WindToggle;
+        dataCombine.windData._WindToggle = GUILayout.Toggle(_WindToggle, "");
 
         windData = dataCombine.windData;
         dataCombine.windData = EditorGUILayout.ObjectField("", windData, typeof(WindData), false) as WindData;//水的Asset文件
         GUILayout.EndHorizontal();
 
-
+        // Shader.EnableKeyword("_WINDANIM_ON");
         if (_WindToggle == true)
         {
             Shader.EnableKeyword("_WINDANIM_ON");
@@ -112,7 +113,31 @@ public class DataCombineEditor : EditorWindow
     }
 
 
+    //云阴影
+    private CloudData cloudData;
+    private bool _CloudShadowToggle;
+    private void CloudGUI()
+    {
+        GUILayout.BeginHorizontal();
+        _CloudShadowToggle = dataCombine.cloudData._CloudShadowToggle;
+        dataCombine.cloudData._CloudShadowToggle = GUILayout.Toggle(_CloudShadowToggle, "");
 
+
+        cloudData = dataCombine.cloudData;
+        dataCombine.cloudData = EditorGUILayout.ObjectField("", cloudData, typeof(CloudData), false) as CloudData;//水的Asset文件
+        GUILayout.EndHorizontal();
+        
+        if (_CloudShadowToggle == true)
+        {
+            Shader.EnableKeyword("_CLOUDSHADOW_ON");
+            Shader.DisableKeyword("_CLOUDSHADOW_OFF");
+        }
+        else
+        {
+            Shader.EnableKeyword("_CLOUDSHADOW_OFF");
+            Shader.DisableKeyword("_CLOUDSHADOW_ON");
+        }
+    }
 
 
 

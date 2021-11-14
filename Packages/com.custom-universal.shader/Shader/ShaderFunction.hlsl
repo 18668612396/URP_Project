@@ -41,7 +41,7 @@
     //风力动画
     
     uniform float  _WindDensity;
-    uniform float3 _WindDirection;
+    uniform float3 _WindDirection = float3(0.5,0.0,0.5); //这里给他定了一个固定方向
     uniform float  _WindSpeedFloat;
     uniform float  _WindTurbulenceFloat;
     uniform float  _WindStrengthFloat;
@@ -51,10 +51,10 @@
         #if _WINDANIM_ON
             vertex.xyz = vertex.xyz;
             float3 windDirection = float3(_WindDirection.xy,0.0);
-            float2 panner = _Time.y * (windDirection * _WindSpeedFloat * 10).xy  + worldPos.xy; //这里的  Time.y 会造成浮点数误差的问题  后续想办法解决
+            float2 panner = _Time.y * (float3(0.5,0.0,0.5) * _WindSpeedFloat * 10).xy  + worldPos.xy; //这里的  Time.y 会造成浮点数误差的问题  后续想办法解决
             float SimplePerlinNoise = PerlinNoise(panner * _WindTurbulenceFloat / 10 * _WindDensity) * 0.5 + 0.5;
             
-            vertex.xyz += mul(unity_WorldToObject,float4(_WindDirection * SimplePerlinNoise * _WindStrengthFloat,0.0)).xyz * vertexColor.a ;
+            vertex.xyz += mul(unity_WorldToObject,float4(float3(0.5,0.0,0.5) * SimplePerlinNoise * _WindStrengthFloat,0.0)).xyz * vertexColor.a ;
 
             vertex.w = 1.0;
         #elif _WINDANIM_OFF
@@ -74,7 +74,7 @@
     {
         float Shadow = 1.0;
         #if _CLOUDSHADOW_ON
-            Shadow = PerlinNoise(worldPos.xz * _CloudShadowSize * _CloudShadowRadius.xy + _Time.y * _WindDirection.xz * _CloudShadowSpeed);
+            Shadow = PerlinNoise(worldPos.xz * _CloudShadowSize * _CloudShadowRadius.xy + _Time.y  * _CloudShadowSpeed);//这里可以乘一个float2来判断云的方向
             Shadow = lerp(1.0,1.0 - saturate(Shadow),_CloudShadowIntensity);
         #elif _CLOUDSHADOW_OFF
             Shadow = 1.0;

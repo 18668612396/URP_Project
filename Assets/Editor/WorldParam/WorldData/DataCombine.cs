@@ -9,5 +9,6 @@ public class DataCombine : ScriptableObject
     public WaterData waterData;
     public FogData fogData;
     public WindData windData;
+    public CloudData cloudData;
 }
  

@@ -13,7 +13,7 @@ public class SceneParam : MonoBehaviour
 
     private void Update()
     {
-        WindParam();
+        // WindParam();
         CloudShadow();
         GrassInteract();
         BigWorldFog();//大世界雾效
