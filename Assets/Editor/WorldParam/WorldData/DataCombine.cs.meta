@@ -7,6 +7,7 @@ MonoImporter:
   - waterData: {fileID: 11400000, guid: 9c935dc7ebd540a4882ac6b301035a39, type: 2}
   - fogData: {fileID: 11400000, guid: 03b1277f0299fe3428c2bfd2160f7606, type: 2}
   - windData: {fileID: 11400000, guid: ac3cbba601095d744889f77e95e447af, type: 2}
+  - cloudData: {fileID: 11400000, guid: da51382eef3ed59478c915c194b0d577, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

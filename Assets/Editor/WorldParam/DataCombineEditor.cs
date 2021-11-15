@@ -87,13 +87,13 @@ public class DataCombineEditor : EditorWindow
 
     //风力动画
     private WindData windData;
-    bool _WindToggle = true;
+    private bool _WindToggle = true;
     private void WindGUI()
     {
         GUILayout.BeginHorizontal();
-        _WindToggle = windData._WindToggle;
-        dataCombine.windData._WindToggle = GUILayout.Toggle(_WindToggle, "");
-
+        // _WindToggle = windData._WindToggle;
+        // dataCombine.windData._WindToggle = GUILayout.Toggle(_WindToggle, "");
+        GUILayout.Toggle(_WindToggle, ""); //临时
         windData = dataCombine.windData;
         dataCombine.windData = EditorGUILayout.ObjectField("", windData, typeof(WindData), false) as WindData;//水的Asset文件
         GUILayout.EndHorizontal();
@@ -126,7 +126,7 @@ public class DataCombineEditor : EditorWindow
         cloudData = dataCombine.cloudData;
         dataCombine.cloudData = EditorGUILayout.ObjectField("", cloudData, typeof(CloudData), false) as CloudData;//水的Asset文件
         GUILayout.EndHorizontal();
-        
+
         if (_CloudShadowToggle == true)
         {
             Shader.EnableKeyword("_CLOUDSHADOW_ON");
