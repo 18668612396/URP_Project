@@ -8,12 +8,12 @@ Shader "Custom/URP_BASE"
     SubShader
     {
         Tags { 
-        "RenderPipeline"="UniversalRenderPipline"
-        "RenderType"="Opaque" 
+            "RenderPipeline"="UniversalRenderPipline"
+            "RenderType"="Opaque" 
         }
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-//      #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+        //      #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
         
         CBUFFER_START(UnityMaterial)
         half4 _MainTex_ST;
@@ -23,52 +23,52 @@ Shader "Custom/URP_BASE"
         TEXTURE2D (_MainTex);
         SAMPLER(sampler_MainTex);
         
-       uniform TEXTURE2D (_Gradient);
-       uniform SAMPLER(sampler_Gradient);
+        uniform TEXTURE2D (_Gradient);
+        uniform SAMPLER(sampler_Gradient);
 
 
 
 
-        	struct appdata
-			{
-				float4 vertex:POSITION;
-				float4 normal:NORMAL;
-				float4 uv : TEXCOORD0;
-			};
+        struct appdata
+        {
+            float4 vertex:POSITION;
+            float4 normal:NORMAL;
+            float4 uv : TEXCOORD0;
+        };
 
-			struct v2f
-			{
-				float4 vertex:SV_POSITION;
-				float4 normal:NORMAL;
-				float2 uv:TEXCOORD0;
-			};
+        struct v2f
+        {
+            float4 vertex:SV_POSITION;
+            float4 normal:NORMAL;
+            float2 uv:TEXCOORD0;
+        };
 
 
-			ENDHLSL
+        ENDHLSL
         pass{
 
-	        HLSLPROGRAM
-				#pragma vertex VERT
-				#pragma fragment FRAG
+            HLSLPROGRAM
+            #pragma vertex VERT
+            #pragma fragment FRAG
 
-				v2f VERT( appdata i)
-				{
-					v2f o;
-					o.vertex = TransformObjectToHClip(i.vertex.xyz);
-					o.uv = TRANSFORM_TEX(i.uv, _MainTex);
-					return o;
-				}
+            v2f VERT( appdata i)
+            {
+                v2f o;
+                o.vertex = TransformObjectToHClip(i.vertex.xyz);
+                o.uv = TRANSFORM_TEX(i.uv, _MainTex);
+                return o;
+            }
 
-				half4 FRAG(v2f i):SV_TARGET
-				{
-					half4 tex = SAMPLE_TEXTURE2D(_Gradient,sampler_Gradient, i.uv)*_BaseColor;
+            half4 FRAG(v2f i):SV_TARGET
+            {
+                half4 tex = SAMPLE_TEXTURE2D(_Gradient,sampler_Gradient, i.uv)*_BaseColor;
 
-					return tex;
+                return tex;
 
-				}
+            }
 
-	        ENDHLSL 
+            ENDHLSL 
         }
     }
-//    FallBack "Diffuse"
+    //    FallBack "Diffuse"
 }

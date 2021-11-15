@@ -93,7 +93,7 @@ public class GradientTexCreator : EditorWindow
         Texture2D tex = Create(gr, width, gr.Count * width);
         Shader.SetGlobalTexture("_Gradient", tex);
 
-        SceneView.RepaintAll();
+        
         if (GUILayout.Button("Save"))
         {
             string path = EditorUtility.SaveFolderPanel("Select an output path", "", "");
