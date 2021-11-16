@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da62acd1b56182e45a4c23a490dc2f0c, type: 3}
   m_Name: _RampTex
   m_EditorClassIdentifier: 
-  _GradientName: test222
+  _GradientName: _RampTex
   _GradientWidth: 256
   _GradientHeight: 3
   _Gradient:
@@ -296,3 +296,4 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  _ShaderPropName: _Gradient

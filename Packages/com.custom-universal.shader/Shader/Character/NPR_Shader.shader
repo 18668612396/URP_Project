@@ -11,7 +11,7 @@ Shader "Custom/Character/CartoonShader"
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)//
         _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
         _ParamTex("_ParamTex",2D) = "white"{}//
-        // _RampTex("RampTex",2D) = "white"{}//
+        _RampTex("RampTex",2D) = "white"{}//
         _Matcap("_Matcap",2D) = "white"{}//
         _MetalColor("_MetalColor",Color)= (1,1,1,1)//
         _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
@@ -21,8 +21,7 @@ Shader "Custom/Character/CartoonShader"
 
         _OutlineColor("Color",Color) = (0.0,0.0,0.0,0.0)
         _OutlineOffset("Offset",Range(0.0,0.1)) = 0.0 
-        // _ShadowMultColor("一级阴影颜色(实时光照)",Color) = (1.0,1.0,1.0,1.0)
-        // _DarkShadowMultColor   ("二级阴影颜色(静态光照)",Color) = (1.0,1.0,1.0,1.0)
+
     }
     SubShader
     {
@@ -34,21 +33,17 @@ Shader "Custom/Character/CartoonShader"
         ///////////////////////////////////////////////////////////
         //                ShaderFunction中的宏开关                //
         ///////////////////////////////////////////////////////////
-        #pragma shader_feature _WINDANIM_ON _WINDANIM_OFF
         #pragma shader_feature _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
         #pragma shader_feature _WORLDFOG_ON _WORLDFOG_OFF
         #pragma shader_feature _SHADERENUM_BASE _SHADERENUM_FACE _SHADERENUM_HAIR
-
-        #pragma shader_feature _SKINTOGGLE_ON 
-        #pragma shader_feature _SILKTOGGLE_ON 
         uniform TEXTURE2D (_MainTex);
         uniform	SAMPLER(sampler_MainTex);
 
         uniform TEXTURE2D(_ParamTex);
         uniform SAMPLER(sampler_ParamTex);
         
-    uniform TEXTURE2D(_RampTex);
-    uniform SAMPLER(sampler_RampTex);
+        uniform TEXTURE2D(_RampTex);
+        uniform SAMPLER(sampler_RampTex);
 
 
         //变量声明
@@ -120,14 +115,7 @@ Shader "Custom/Character/CartoonShader"
             {
                 //采样贴图                
                 float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv) * _Color;
-                
-                #ifndef _SHADERENUM_FACE
-                    float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
-                #else
-                    float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
-                    
-                #endif
-
+                float4 var_ParamTex = SAMPLE_TEXTURE2D(_ParamTex,sampler_ParamTex,i.uv);
                 //灯光信息
                 float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
                 Light light = GetMainLight(SHADOW_COORDS);
@@ -148,8 +136,6 @@ Shader "Custom/Character/CartoonShader"
                 {
                     light.direction = -light.direction;
                 }
-
-
                 float3 halfDir    = normalize(light.direction + viewDir);
                 float3 reflectDir = normalize(reflect(viewDir,normalDir));
                 //点乘结果
