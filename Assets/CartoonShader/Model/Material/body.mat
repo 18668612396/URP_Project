@@ -97,7 +97,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
-        m_Texture: {fileID: 2800000, guid: 820875f4fb2b2e147863ac70b7e59179, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9eb0046687f4d6a458cf756cbb52c6a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -131,7 +131,7 @@ Material:
     - _NightTime: 0
     - _OcclusionStrength: 1
     - _OulineScale: 2.11
-    - _OutlineOffset: 0.00003
+    - _OutlineOffset: 0.00002
     - _Parallax: 0.02
     - _RampIndex: 1
     - _RampIntensity: 1

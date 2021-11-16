@@ -1,4 +1,4 @@
-Shader "Custom/URP_BASE"
+Shader "Custom/test"
 {
     Properties
     {
@@ -61,7 +61,7 @@ Shader "Custom/URP_BASE"
 
             half4 FRAG(v2f i):SV_TARGET
             {
-                half4 tex = SAMPLE_TEXTURE2D(_RampTex,sampler_RampTex, i.uv)*_BaseColor;
+                half4 tex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, i.uv)*_BaseColor;
 
                 return tex;
 

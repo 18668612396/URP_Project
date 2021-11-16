@@ -11,7 +11,7 @@ Shader "Custom/Character/CartoonShader"
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)//
         _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
         _ParamTex("_ParamTex",2D) = "white"{}//
-        // _RampTex("RampTex",2D) = "white"{}//
+        _RampTex("RampTex",2D) = "white"{}//
         _Matcap("_Matcap",2D) = "white"{}//
         _MetalColor("_MetalColor",Color)= (1,1,1,1)//
         _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
@@ -122,7 +122,7 @@ Shader "Custom/Character/CartoonShader"
                 float4 baseColor = var_MainTex;
                 float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
                 float4 parameter   = var_ParamTex;
-                float  shadow = light.shadowAttenuation * CloudShadow(i.worldPos);
+                float  shadow = light.shadowAttenuation;
                 parameter.b *= shadow; 
 
                 //向量准备

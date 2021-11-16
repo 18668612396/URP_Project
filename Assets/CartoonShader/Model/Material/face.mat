@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9eb0046687f4d6a458cf756cbb52c6a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowMap:
@@ -115,7 +115,7 @@ Material:
     - _NightTime: 1
     - _OcclusionStrength: 1
     - _OulineScale: 1
-    - _OutlineOffset: 0.00003
+    - _OutlineOffset: 0.00002
     - _Parallax: 0.02
     - _RenderType: 1
     - _RimIntensity: 3
