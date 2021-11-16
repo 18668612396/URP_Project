@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18015485, g: 0.22555816, b: 0.30684352, a: 1}
+  m_IndirectSpecularColor: {r: 0.18015575, g: 0.2255599, b: 0.30684495, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,28 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b457fef01bcb2547af7e03bb7edad8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BigWind: 0
-  _WindAnimToggle: 0
-  _WindDensity: 15
-  _WindSpeedFloat: 0.35
-  _WindTurbulenceFloat: 0.5
-  _WindStrengthFloat: 0.1
-  _CloudShadowToggle: 0
-  _CloudShadowSize: 0.1
-  _CloudShadowRadius: {x: 0.8, y: 0.5}
-  _CloudShadowIntensity: 0.75
-  _CloudShadowSpeed: 0.65
-  _InteractToggle: 0
-  _InteractRadius: 0.2
-  _InteractIntensity: 0.5
-  _InteractHeight: 1
-  _FogToggle: 0
-  _FogColor: {r: 1, g: 1, b: 1, a: 1}
-  _FogGlobalDensity: 1
-  _FogHeight: 0
-  _FogStartDistance: 10
-  _FogInscatteringExp: 1
-  _FogGradientDistance: 50
   _GrassParam: 0
   _BaseTex: {fileID: 0}
   _ColorTex0: {fileID: 0}
@@ -495,13 +473,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462741562}
-  m_LocalRotation: {x: -0.11487015, y: 0.88357055, z: -0.44694605, w: 0.07966912}
+  m_LocalRotation: {x: -0.017372083, y: 0.8465197, z: -0.46114403, w: 0.26542202}
   m_LocalPosition: {x: -0.281, y: 1.556, z: 0.685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 50.49, y: -562.5, z: -25.531}
+  m_LocalEulerAnglesHint: {x: 50.49, y: 132.987, z: -25.531}
 --- !u!114 &462741565
 MonoBehaviour:
   m_ObjectHideFlags: 0
