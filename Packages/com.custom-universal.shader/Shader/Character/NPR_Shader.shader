@@ -11,7 +11,7 @@ Shader "Custom/Character/CartoonShader"
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)//
         _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
         _ParamTex("_ParamTex",2D) = "white"{}//
-        _RampTex("RampTex",2D) = "white"{}//
+        // _RampTex("RampTex",2D) = "white"{}//
         _Matcap("_Matcap",2D) = "white"{}//
         _MetalColor("_MetalColor",Color)= (1,1,1,1)//
         _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
@@ -46,6 +46,10 @@ Shader "Custom/Character/CartoonShader"
 
         uniform TEXTURE2D(_ParamTex);
         uniform SAMPLER(sampler_ParamTex);
+        
+    uniform TEXTURE2D(_RampTex);
+    uniform SAMPLER(sampler_RampTex);
+
 
         //变量声明
         CBUFFER_START(UnityPerMaterial)
@@ -157,11 +161,11 @@ Shader "Custom/Character/CartoonShader"
 
                 float3 finalRGB = float3(0.0,0.0,0.0);
                 #if _SHADERENUM_BASE
-                    finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night) ;
+                    finalRGB = NPR_Function_Base(_RampTex,sampler_RampTex,NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night) ;
                 #elif _SHADERENUM_FACE
-                    finalRGB = NPR_Function_face(var_MainTex,var_ParamTex,light,Night);
+                    finalRGB = NPR_Function_face(_RampTex,sampler_RampTex,var_MainTex,var_ParamTex,light,Night);
                 #elif _SHADERENUM_HAIR
-                    finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night);
+                    finalRGB = NPR_Function_Hair(_RampTex,sampler_RampTex,NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night);
                 #endif
                 
                 return finalRGB;
@@ -210,7 +214,7 @@ Shader "Custom/Character/CartoonShader"
             {
                 v2f o;
                 ZERO_INITIALIZE(v2f,o);
-                 o.pos = GetShadowPositionHClip(v.vertex.xyz,v.normal);
+                o.pos = GetShadowPositionHClip(v.vertex.xyz,v.normal);
                 // o.pos = TransformObjectToHClip(v.vertex.xyz);
                 return o;
             }

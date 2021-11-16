@@ -7,10 +7,8 @@
 
 
 
-    uniform TEXTURE2D(_RampTex);
-    uniform SAMPLER(sampler_RampTex);
 
-    float3 NPR_Base_Ramp (float NdotL,float Night,float4 parameter)
+    float3 NPR_Base_Ramp (TEXTURE2D_PARAM(_Texture, sampler_Texture),float NdotL,float Night,float4 parameter)
     {
         float halfLambert = smoothstep(0.0,0.5,NdotL) * parameter.b * 2;
         /* 
@@ -22,12 +20,12 @@
         */
         if (Night > 0.0)
         {
-            return SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, parameter.a * 0.45 + 0.55)).rgb;//因为分层材质贴图是一个从0-1的一张图 所以可以直接把他当作采样UV的Y轴来使用 
+            return SAMPLE_TEXTURE2D(_Texture, sampler_Texture, float2(halfLambert, parameter.a * 0.45 + 0.55)).rgb;//因为分层材质贴图是一个从0-1的一张图 所以可以直接把他当作采样UV的Y轴来使用 
             //又因为白天需要只采样Ramp贴图的上半段，所以把他 * 0.45 + 0.55来限定范围 (范围 0.55 - 1.0)
         }
         else
         {
-            return SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, parameter.a * 0.45)).rgb;//因为晚上需要只采样Ramp贴图的上半段，所以把他 * 0.45来限定范围(其中如果采样0.5的话 会被上面的像素所影响)
+            return SAMPLE_TEXTURE2D(_Texture, sampler_Texture, float2(halfLambert, parameter.a * 0.45)).rgb;//因为晚上需要只采样Ramp贴图的上半段，所以把他 * 0.45来限定范围(其中如果采样0.5的话 会被上面的像素所影响)
         }
     }
     //高光部分
@@ -68,10 +66,10 @@
     
     //主体部分  需要用到多个材质融合
 
-    float3 NPR_Function_Base (float NdotL,float NdotH,float NdotV,float3 normalDir,float4 baseColor,float4 parameter,Light light,float Night)
+    float3 NPR_Function_Base (TEXTURE2D_PARAM(_Texture, sampler_Texture),float NdotL,float NdotH,float NdotV,float3 normalDir,float4 baseColor,float4 parameter,Light light,float Night)
     {
         
-        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter);
+        float3 RampColor = NPR_Base_Ramp (_Texture, sampler_Texture,NdotL,Night,parameter);
         float3 Albedo = baseColor * RampColor;
         float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter);
         float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);
@@ -83,7 +81,7 @@
     
 
     //脸部
-    float3 NPR_Function_face (float4 baseColor,float4 var_FaceShadow,Light light,float Night)
+    float3 NPR_Function_face (TEXTURE2D_PARAM(_Texture, sampler_Texture),float4 baseColor,float4 var_FaceShadow,Light light,float Night)
     {
 
 
@@ -94,16 +92,16 @@
         float FaceShadow = lerp(1 - var_FaceShadow.g,1 - var_FaceShadow.r,switchShadow.r);
         float FaceShadowRange = dot(normalize(Front.xz), normalize(light.direction.xz));
         float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.1,FaceShadowRange + 0.1,FaceShadow);
-        float3 rampColor = NPR_Base_Ramp(lightAttenuation * var_FaceShadow.a,Night,1.0);
+        float3 rampColor = NPR_Base_Ramp(_Texture, sampler_Texture,lightAttenuation * var_FaceShadow.a,Night,1.0);
 
         return baseColor.rgb * rampColor ;
     }
 
     //头发
-    float3 NPR_Function_Hair (float NdotL,float NdotH,float NdotV,float3 normalDir,float3 baseColor,float4 parameter,Light light,float Night)
+    float3 NPR_Function_Hair (TEXTURE2D_PARAM(_Texture, sampler_Texture),float NdotL,float NdotH,float NdotV,float3 normalDir,float3 baseColor,float4 parameter,Light light,float Night)
     {
         
-        float3 RampColor = NPR_Base_Ramp (NdotL,Night,float4(parameter.r,parameter.g,parameter.b,parameter.a));//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
+        float3 RampColor = NPR_Base_Ramp (_Texture, sampler_Texture,NdotL,Night,float4(parameter.r,parameter.g,parameter.b,parameter.a));//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
         float3 Albedo = baseColor * RampColor;
         float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter);
         float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);
