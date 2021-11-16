@@ -117,8 +117,11 @@ public class GradientCreator : EditorWindow
         int howMany = 0;
         while (howMany != Gradient.Count)
         {
-            for (int y = eachHeight * howMany; y < eachHeight * howMany + eachHeight; y++)
+            int start = height - eachHeight * howMany - 1;
+            int end = start - eachHeight;
+            for (int y = start; y > end; y--)
             {
+
                 for (int x = 0; x < width; x++)
                 {
                     var t = x * inv;
