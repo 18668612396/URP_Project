@@ -108,7 +108,7 @@
         float3 Front = unity_ObjectToWorld._12_22_32;
         float3 Right = cross(Up,Front);
         float switchShadow  = dot(normalize(Right.xz), normalize(light.direction.xz))*0.5+0.5 < 0.5;
-        float FaceShadow = lerp(parameter.r,1 - parameter.r,switchShadow.r);
+        float FaceShadow = lerp(1 - parameter.g,1 - parameter.r,switchShadow.r); //这里必须使用双通道来反转阴影贴图 因为需要让苹果肌那里为亮的
         float FaceShadowRange = dot(normalize(Front.xz), normalize(light.direction.xz));
         float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.05,FaceShadowRange + 0.05,FaceShadow);
 
