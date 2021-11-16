@@ -6,9 +6,12 @@
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
 
-      
-        uniform TEXTURE2D(_RampTex);
-        uniform SAMPLER(sampler_RampTex);
+    
+    uniform TEXTURE2D(_RampTex);
+    uniform SAMPLER(sampler_RampTex);
+
+    uniform TEXTURE2D(_DebugGradient);
+    uniform SAMPLER(sampler_DebugGradient);
 
     float3 NPR_Base_Ramp (float NdotL,float Night,float4 parameter)
     {
@@ -20,15 +23,27 @@
         Soft = 78
         Hand = 0
         */
-        if (Night > 0.0)
-        {
-            return SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, parameter.a * 0.45 + 0.55)).rgb;//因为分层材质贴图是一个从0-1的一张图 所以可以直接把他当作采样UV的Y轴来使用 
-            //又因为白天需要只采样Ramp贴图的上半段，所以把他 * 0.45 + 0.55来限定范围 (范围 0.55 - 1.0)
-        }
-        else
-        {
-            return SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, parameter.a * 0.45)).rgb;//因为晚上需要只采样Ramp贴图的上半段，所以把他 * 0.45来限定范围(其中如果采样0.5的话 会被上面的像素所影响)
-        }
+        #if _DEBUGGRADIENT_ON//调试渐变贴图
+            if (Night > 0.0)
+            {
+                return SAMPLE_TEXTURE2D(_DebugGradient, sampler_DebugGradient, float2(halfLambert, parameter.a * 0.45 + 0.55)).rgb;//因为分层材质贴图是一个从0-1的一张图 所以可以直接把他当作采样UV的Y轴来使用 
+                //又因为白天需要只采样Ramp贴图的上半段，所以把他 * 0.45 + 0.55来限定范围 (范围 0.55 - 1.0)
+            }
+            else
+            {
+                return SAMPLE_TEXTURE2D(_DebugGradient, sampler_DebugGradient, float2(halfLambert, parameter.a * 0.45)).rgb;//因为晚上需要只采样Ramp贴图的上半段，所以把他 * 0.45来限定范围(其中如果采样0.5的话 会被上面的像素所影响)
+            }
+        #else
+            if (Night > 0.0)
+            {
+                return SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, parameter.a * 0.45 + 0.55)).rgb;//因为分层材质贴图是一个从0-1的一张图 所以可以直接把他当作采样UV的Y轴来使用 
+                //又因为白天需要只采样Ramp贴图的上半段，所以把他 * 0.45 + 0.55来限定范围 (范围 0.55 - 1.0)
+            }
+            else
+            {
+                return SAMPLE_TEXTURE2D(_RampTex, sampler_RampTex, float2(halfLambert, parameter.a * 0.45)).rgb;//因为晚上需要只采样Ramp贴图的上半段，所以把他 * 0.45来限定范围(其中如果采样0.5的话 会被上面的像素所影响)
+            }
+        #endif
     }
     //高光部分
     uniform float _HairSpecularIntensity;
@@ -83,7 +98,7 @@
     
 
     //脸部
-    float3 NPR_Function_face (float4 baseColor,float4 var_FaceShadow,Light light,float Night)
+    float3 NPR_Function_face (float4 baseColor,float4 parameter,Light light,float Night)
     {
 
 
@@ -91,10 +106,12 @@
         float3 Front = unity_ObjectToWorld._12_22_32;
         float3 Right = cross(Up,Front);
         float switchShadow  = dot(normalize(Right.xz), normalize(light.direction.xz))*0.5+0.5 < 0.5;
-        float FaceShadow = lerp(1 - var_FaceShadow.g,1 - var_FaceShadow.r,switchShadow.r);
+        float FaceShadow = lerp(parameter.r,1 - parameter.r,switchShadow.r);
         float FaceShadowRange = dot(normalize(Front.xz), normalize(light.direction.xz));
         float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.1,FaceShadowRange + 0.1,FaceShadow);
-        float3 rampColor = NPR_Base_Ramp(lightAttenuation * var_FaceShadow.a,Night,1.0);
+
+        
+        float3 rampColor = NPR_Base_Ramp(lightAttenuation * parameter.b * light.shadowAttenuation,Night,1.0);
 
         return baseColor.rgb * rampColor ;
     }

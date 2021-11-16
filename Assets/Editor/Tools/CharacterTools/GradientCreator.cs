@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 public class GradientCreator : EditorWindow
 {
-    [MenuItem("Tools/AssetsEditor/GradientCreator")]
+    [MenuItem("Tools/AssetsEditor/GradientCreator &_c")]
     private static void ShowWindow()
     {
         var window = GetWindow<GradientCreator>();
@@ -24,7 +24,9 @@ public class GradientCreator : EditorWindow
         _GradientWidth = _GradientData._GradientWidth;
         _ShaderPropName = _GradientData._ShaderPropName;
         _GradientData._ShaderPropName = EditorGUILayout.TextField("预览(Shader纹理变量名)", _ShaderPropName);
+        KeyworldGUI();
         GradientListGUI();
+
 
         _GradientMap = Create(_Gradient, _GradientWidth, _Gradient.Count * _GradientHeight);
         _GradientMap.wrapMode = TextureWrapMode.Clamp;
@@ -94,11 +96,27 @@ public class GradientCreator : EditorWindow
         }
     }
 
+    ///<Shader内的宏控制>
+    string _KeywordName = "_DEBUGGRADIENT_ON";
+    
+    private void KeyworldGUI()
+    {
+        _KeywordName = _GradientData._KeywordName;
+        _GradientData._KeywordName = EditorGUILayout.TextField("预览(Shader内宏开关名)",_KeywordName);
+    }
+
     ///<序列化属性列表>
     private void OnEnable()
     {
         _serializedObject = new SerializedObject(this);//使用当前类初始化
         _assetLstProperty = _serializedObject.FindProperty("_Gradient");
+
+        Shader.EnableKeyword(_KeywordName);
+    }
+
+    private void OnDisable()
+    {
+        Shader.DisableKeyword(_KeywordName);
     }
 
     ///<生成纹理函数>

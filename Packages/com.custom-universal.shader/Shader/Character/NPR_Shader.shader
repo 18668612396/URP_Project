@@ -6,6 +6,7 @@ Shader "Custom/Character/CartoonShader"
     {
         //基础
         [KeywordEnum(Base,Face,Hair)] _ShaderEnum("ShaderEnum",int) = 0//
+        [Toggle]_DebugGradient("Debug",int) = 0
         [Toggle]_NightTime("DayOrNight",int) = 0
         _MainTex ("MainTex", 2D) = "white" {}//
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)//
@@ -36,16 +37,18 @@ Shader "Custom/Character/CartoonShader"
         #pragma shader_feature _CLOUDSHADOW_ON _CLOUDSHADOW_OFF
         #pragma shader_feature _WORLDFOG_ON _WORLDFOG_OFF
         #pragma shader_feature _SHADERENUM_BASE _SHADERENUM_FACE _SHADERENUM_HAIR
+        #pragma shader_feature _DEBUGGRADIENT_ON
         uniform TEXTURE2D (_MainTex);
         uniform	SAMPLER(sampler_MainTex);
 
         uniform TEXTURE2D(_ParamTex);
         uniform SAMPLER(sampler_ParamTex);
-  
+        
+
 
 
         //变量声明
-        CBUFFER_START(UnityPerMaterial)
+        CBUFFER_START(UnityPerMaterial) 
         
         float _OutlineOffset;
         float4 _OutlineColor;
@@ -144,6 +147,7 @@ Shader "Custom/Character/CartoonShader"
                 
 
                 float3 finalRGB = float3(0.0,0.0,0.0);
+                
                 #if _SHADERENUM_BASE
                     finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night) ;
                 #elif _SHADERENUM_FACE
@@ -151,7 +155,7 @@ Shader "Custom/Character/CartoonShader"
                 #elif _SHADERENUM_HAIR
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night);
                 #endif
-                
+        
                 return finalRGB;
 
             }

@@ -26,6 +26,7 @@ public class NPR_ShaderGUI : ShaderGUI
     MaterialProperty _RampTexProp;
 
     MaterialProperty _EmissionIntensityProp;
+    bool _DebugGradient;
     private void PublicGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
         //NPR公共参数
@@ -36,7 +37,9 @@ public class NPR_ShaderGUI : ShaderGUI
         _RampTexProp = FindProperty("_RampTex", properties);
         _EmissionIntensityProp = FindProperty("_EmissionIntensity", properties);
         materialEditor.ShaderProperty(_ShaderEnumProp, "材质类型");
-        EditorGUILayout.Space(20);
+    
+       
+        EditorGUILayout.Space(10);
         EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalscrollbarthumb"));//绘制分割线
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space(20);

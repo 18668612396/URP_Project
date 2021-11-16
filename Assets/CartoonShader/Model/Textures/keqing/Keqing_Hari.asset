@@ -12,24 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da62acd1b56182e45a4c23a490dc2f0c, type: 3}
   m_Name: Keqing_Hari
   m_EditorClassIdentifier: 
-  _GradientName: _RampTex
+  _GradientName: Keqing_Hari
+  _ShaderPropName: _DebugGradient
+  _KeywordName: _DEBUGGRADIENT_ON
   _GradientWidth: 256
   _GradientHeight: 3
   _Gradient:
   - serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+    key1: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+    key2: {r: 0.78193355, g: 0.75244534, b: 0.7919013, a: 0}
+    key3: {r: 0.9468941, g: 0.9103774, b: 1, a: 0}
+    key4: {r: 1, g: 1, b: 1, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
+    ctime1: 53777
+    ctime2: 54548
+    ctime3: 63029
+    ctime4: 65535
     ctime5: 0
     ctime6: 0
     ctime7: 0
@@ -42,7 +44,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 5
     m_NumAlphaKeys: 2
   - serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -296,4 +298,3 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  _ShaderPropName: _Gradient
