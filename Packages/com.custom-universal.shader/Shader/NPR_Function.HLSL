@@ -16,6 +16,7 @@
     float3 NPR_Base_Ramp (float NdotL,float Night,float4 parameter)
     {
         float halfLambert = smoothstep(0.0,0.5,NdotL) * parameter.b * 2;
+        
         /* 
         Skin = 255
         Silk = 160
@@ -85,8 +86,9 @@
 
     float3 NPR_Function_Base (float NdotL,float NdotH,float NdotV,float3 normalDir,float4 baseColor,float4 parameter,Light light,float Night)
     {
-        
-        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter);
+        float3 LightFactor = lerp(1.0,light.color,smoothstep(0.0,0.5,NdotL) * parameter.b * 2);//为了增强亮部
+
+        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter) * LightFactor;
         float3 Albedo = baseColor * RampColor;
         float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter);
         float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);
@@ -98,9 +100,9 @@
     
 
     //脸部
-    float3 NPR_Function_face (float4 baseColor,float4 parameter,Light light,float Night)
+    float3 NPR_Function_face (float NdotL,float4 baseColor,float4 parameter,Light light,float Night)
     {
-
+        
 
         float3 Up = float3(0.0,1.0,0.0);
         float3 Front = unity_ObjectToWorld._12_22_32;
@@ -108,10 +110,11 @@
         float switchShadow  = dot(normalize(Right.xz), normalize(light.direction.xz))*0.5+0.5 < 0.5;
         float FaceShadow = lerp(parameter.r,1 - parameter.r,switchShadow.r);
         float FaceShadowRange = dot(normalize(Front.xz), normalize(light.direction.xz));
-        float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.1,FaceShadowRange + 0.1,FaceShadow);
+        float lightAttenuation = 1 - smoothstep(FaceShadowRange - 0.05,FaceShadowRange + 0.05,FaceShadow);
 
+        float3 LightFactor = lerp(1.0,light.color,smoothstep(0.2,0.4,lightAttenuation) * parameter.b);//为了增强亮部
         
-        float3 rampColor = NPR_Base_Ramp(lightAttenuation * parameter.b * light.shadowAttenuation,Night,1.0);
+        float3 rampColor = NPR_Base_Ramp(lightAttenuation * light.shadowAttenuation,Night,parameter) * LightFactor;//这里的脸部参数贴图的Alpha必须是1
 
         return baseColor.rgb * rampColor ;
     }
@@ -119,8 +122,9 @@
     //头发
     float3 NPR_Function_Hair (float NdotL,float NdotH,float NdotV,float3 normalDir,float3 baseColor,float4 parameter,Light light,float Night)
     {
+        float3 LightFactor = lerp(1.0,light.color,smoothstep(0.0,0.5,NdotL) * parameter.b * 2);//为了增强亮部
         
-        float3 RampColor = NPR_Base_Ramp (NdotL,Night,float4(parameter.r,parameter.g,parameter.b,parameter.a));//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
+        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter) * LightFactor;//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
         float3 Albedo = baseColor * RampColor;
         float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter);
         float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);

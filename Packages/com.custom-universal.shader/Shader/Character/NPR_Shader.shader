@@ -126,7 +126,7 @@ Shader "Custom/Character/CartoonShader"
                 float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
                 float4 parameter   = var_ParamTex;
                 float  shadow = light.shadowAttenuation;
-                parameter.b *= shadow; 
+                parameter.b *= smoothstep(0.1,0.5,shadow); //硬化实时阴影 主要是为了去除软阴影的误差
 
                 //向量准备
                 float3 normalDir  = normalize(i.worldNormal);
@@ -148,10 +148,11 @@ Shader "Custom/Character/CartoonShader"
 
                 float3 finalRGB = float3(0.0,0.0,0.0);
                 
+                // return parameter.b;
                 #if _SHADERENUM_BASE
                     finalRGB = NPR_Function_Base(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night) ;
                 #elif _SHADERENUM_FACE
-                    finalRGB = NPR_Function_face(var_MainTex,var_ParamTex,light,Night);
+                    finalRGB = NPR_Function_face(NdotL,var_MainTex,parameter,light,Night);
                 #elif _SHADERENUM_HAIR
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night);
                 #endif
