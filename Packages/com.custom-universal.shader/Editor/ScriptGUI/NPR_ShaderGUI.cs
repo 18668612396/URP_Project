@@ -37,8 +37,8 @@ public class NPR_ShaderGUI : ShaderGUI
         _RampTexProp = FindProperty("_RampTex", properties);
         _EmissionIntensityProp = FindProperty("_EmissionIntensity", properties);
         materialEditor.ShaderProperty(_ShaderEnumProp, "材质类型");
-    
-       
+
+
         EditorGUILayout.Space(10);
         EditorGUILayout.BeginHorizontal(new GUIStyle("horizontalscrollbarthumb"));//绘制分割线
         EditorGUILayout.EndVertical();
@@ -74,38 +74,44 @@ public class NPR_ShaderGUI : ShaderGUI
         }
     }
     //身体部分GUI
-    MaterialProperty _MatcapProp;
+    MaterialProperty _MetalMapProp;
     MaterialProperty _RimIntensityProp;
     MaterialProperty _RimRadiusProp;
     MaterialProperty _OutlineColorProp;
     MaterialProperty _OutlineOffsetProp;
+    MaterialProperty _MetalIntensityProp;
     private void BaseParam(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
-        _MatcapProp = FindProperty("_Matcap", properties);
+        _MetalMapProp = FindProperty("_MetalMap", properties);
         _RimIntensityProp = FindProperty("_RimIntensity", properties);
         _RimRadiusProp = FindProperty("_RimRadius", properties);
         _OutlineColorProp = FindProperty("_OutlineColor", properties);
         _OutlineOffsetProp = FindProperty("_OutlineOffset", properties);
+        _MetalIntensityProp = FindProperty("_MetalIntensity", properties);
         //绘制GUI
 
-        materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MatcapProp);
+        materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MetalMapProp);
+        materialEditor.ShaderProperty(_MetalIntensityProp, "金属强度");
         materialEditor.ShaderProperty(_RimIntensityProp, "边缘光强度");
         materialEditor.ShaderProperty(_RimRadiusProp, "边缘光范围");
         materialEditor.ShaderProperty(_OutlineColorProp, "描边颜色");
         materialEditor.ShaderProperty(_OutlineOffsetProp, "描边宽度");
 
     }
+
     MaterialProperty _HairSpecularIntensityProp;
     private void HariParam(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
-        _MatcapProp = FindProperty("_Matcap", properties);
+        _MetalMapProp = FindProperty("_MetalMap", properties);
         _HairSpecularIntensityProp = FindProperty("_HairSpecularIntensity", properties);
         _RimIntensityProp = FindProperty("_RimIntensity", properties);
         _RimRadiusProp = FindProperty("_RimRadius", properties);
         _OutlineColorProp = FindProperty("_OutlineColor", properties);
         _OutlineOffsetProp = FindProperty("_OutlineOffset", properties);
+        _MetalIntensityProp = FindProperty("_MetalIntensity", properties);
         //绘制GUI
-        materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MatcapProp);
+        materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MetalMapProp);
+        materialEditor.ShaderProperty(_MetalIntensityProp, "金属强度");
         materialEditor.ShaderProperty(_HairSpecularIntensityProp, "头发高光强度");
         materialEditor.ShaderProperty(_RimIntensityProp, "边缘光强度");
         materialEditor.ShaderProperty(_RimRadiusProp, "边缘光范围");

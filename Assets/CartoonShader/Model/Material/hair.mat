@@ -56,6 +56,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: abb9f6f8ab1f82845b1a95bec142d26e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetalMap:
+        m_Texture: {fileID: 2800000, guid: ab616fd4b724cc34ab2c18798bc78212, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetalMatCap:
         m_Texture: {fileID: 2800000, guid: c4985ac3b658ce741b8c17599e949add, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -94,13 +98,14 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissioIntensity: 0
-    - _EmissionIntensity: 0
+    - _EmissionIntensity: 17.8
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HairSpecularIntensity: 0.557
+    - _HairSpecularIntensity: 0.113
     - _HandMask: 0
     - _MaskTolerate: 10
+    - _MetalIntensity: 1
     - _MetalMask: 1
     - _Metallic: 0
     - _Mode: 0

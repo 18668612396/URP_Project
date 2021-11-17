@@ -15,7 +15,7 @@
 
     float3 NPR_Base_Ramp (float NdotL,float Night,float4 parameter)
     {
-        float halfLambert = smoothstep(0.0,0.5,NdotL) * parameter.b * 2;
+        float halfLambert = smoothstep(0.0,0.5,NdotL) * parameter.b;
         
         /* 
         Skin = 255
@@ -47,30 +47,38 @@
         #endif
     }
     //高光部分
+    uniform TEXTURE2D(_MetalMap);
+    uniform SAMPLER(sampler_MetalMap);
     uniform float _HairSpecularIntensity;
-    float3 NPR_Base_Specular(float NdotH ,float3 baseColor,float4 parameter)
+    uniform float _MetalIntensity;
+    float3 NPR_Base_Specular(float NdotL,float NdotH ,float3 normalDir,float3 baseColor,float4 parameter)
     {
-        float  SpecularRadius = pow(NdotH,parameter.r * 50);//将金属通道作为高光的范围控制  金属的部分高光集中  非金属的部分高光分散
-        float3 SpecularColor  = parameter.g * baseColor;
-        #if _SHADERENUM_HAIR
-            return smoothstep(0.3,0.4,SpecularRadius) * SpecularColor * lerp(_HairSpecularIntensity,1,step(0.9,parameter.r));//如果是材质是头发的话  头发部分的高光强度自定
-        #endif
-        return smoothstep(0.3,0.4,SpecularRadius) * SpecularColor * parameter.r;//
-    }
-    //金属部分
-    uniform TEXTURE2D(_Matcap);
-    uniform SAMPLER(sampler_Matcap);
-    float3 NPR_Base_Metal(float3 normalDir,float4 parameter,float3 baseColor)
-    {
+        float Ks = 0.04;
         float3 viewNormal = normalize(mul(UNITY_MATRIX_V,normalDir));//视空间法线向量，用于MatCap的UV采样
-        float var_Matcap = SAMPLE_TEXTURE2D(_Matcap,sampler_Matcap,viewNormal * 0.5 + 0.5) * 2;
-        float MetalColorMask = step(0.99,parameter.r);
-        return var_Matcap * baseColor * parameter.r;
+        
+        float  SpecularPow = exp2(0.5 * parameter.r * 11.0 + 2.0);//这里乘以0.5是为了扩大高光范围
+        float  SpecularNorm = (SpecularPow+8.0) / 8.0;
+        float3 SpecularColor = baseColor * parameter.g;
+        float SpecularContrib = baseColor * (SpecularNorm * pow(NdotH, SpecularPow));
+        float4 var_MetalMap = SAMPLE_TEXTURE2D(_MetalMap,sampler_MetalMap, viewNormal * 0.5 + 0.5) * lerp(_MetalIntensity * 5,_MetalIntensity * 10,parameter.b);
+        float3 MetalColor = var_MetalMap * baseColor * step(0.95,parameter.r);
+
+        float3 HariSpecular = smoothstep(0.3,0.5,SpecularContrib) * SpecularColor * step(parameter.r,0.1) * NdotL;
+        float3 finalSpecular = float3(0.0,0.0,0.0);
+
+        #if _SHADERENUM_HAIR
+            finalSpecular = SpecularColor * (SpecularContrib * NdotL * Ks * parameter.b + MetalColor) + HariSpecular * _HairSpecularIntensity * 10;
+        #else
+            finalSpecular = SpecularColor * (SpecularContrib  * NdotL* Ks * parameter.b + MetalColor);
+        #endif
+
+        return finalSpecular;
     }
+
+
+    //边缘光
     uniform float _RimIntensity;
     uniform float _RimRadius;
-    
-    //边缘光
     float3 NPR_Base_RimLight(float NdotV,float NdotL,float3 baseColor)
     {
         return (1 - smoothstep(_RimRadius,_RimRadius + 0.03,NdotV)) * _RimIntensity * (1 - (NdotL * 0.5 + 0.5 )) * baseColor;
@@ -90,11 +98,10 @@
 
         float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter) * LightFactor;
         float3 Albedo = baseColor * RampColor;
-        float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter);
-        float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);
+        float3 Specular = NPR_Base_Specular(NdotL,NdotH,normalDir,baseColor,parameter);
         float3 RimLight = NPR_Base_RimLight(NdotV,NdotL,baseColor) * parameter.b;
         float3 Emission = NPR_Emission(baseColor);
-        float3 finalRGB = Albedo* (1 - parameter.r) + Specular + Metal + RimLight + Emission;
+        float3 finalRGB = Albedo* (1 - parameter.r) + Specular + RimLight + Emission;
         return finalRGB;
     }
     
@@ -126,10 +133,10 @@
         
         float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter) * LightFactor;//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
         float3 Albedo = baseColor * RampColor;
-        float3 Specular = NPR_Base_Specular(NdotH,baseColor,parameter);
-        float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);
+        float3 Specular = NPR_Base_Specular(NdotL,NdotH,normalDir,baseColor,parameter);
+        // float3 Metal =  NPR_Base_Metal(normalDir,parameter,baseColor);
         float3 RimLight = NPR_Base_RimLight(NdotV,NdotL,baseColor);
-        float3 finalRGB = Albedo* (1 - parameter.r) + Specular + Metal + RimLight;
+        float3 finalRGB = Albedo* (1 - parameter.r) + Specular  + RimLight;
         return finalRGB;
     }
 

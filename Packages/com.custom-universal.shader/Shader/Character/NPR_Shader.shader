@@ -13,7 +13,8 @@ Shader "Custom/Character/CartoonShader"
         _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
         _ParamTex("_ParamTex",2D) = "white"{}//
         _RampTex("RampTex",2D) = "white"{}//
-        _Matcap("_Matcap",2D) = "white"{}//
+        _MetalMap("_Matcap",2D) = "white"{}//
+        _MetalIntensity("_MetalIntensity",Range(0.5,1.0)) = 1.0
         _MetalColor("_MetalColor",Color)= (1,1,1,1)//
         _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
         _RimIntensity("_RimIntensity",float) = 0
@@ -126,7 +127,7 @@ Shader "Custom/Character/CartoonShader"
                 float3 emission  = var_MainTex.a * var_MainTex * _EmissionIntensity;
                 float4 parameter   = var_ParamTex;
                 float  shadow = light.shadowAttenuation;
-                parameter.b *= smoothstep(0.1,0.5,shadow); //硬化实时阴影 主要是为了去除软阴影的误差
+                parameter.b *= smoothstep(0.1,0.5,shadow) * 2; //硬化实时阴影 主要是为了去除软阴影的误差  这里乘以2是因为原始阴影贴图是0 - 0.5的值 这里把他映射到 0 -1
 
                 //向量准备
                 float3 normalDir  = normalize(i.worldNormal);
