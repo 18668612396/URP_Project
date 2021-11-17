@@ -25,13 +25,13 @@ Shader "Custom/Scene/LavaShader"
         LOD 100
 
         HLSLINCLUDE
-        #include "../ShaderFunction.hlsl" 
+        #include "../ShaderFunction.hlsl"  
 
         uniform TEXTURE2D (_LavaTex);
         uniform	SAMPLER(sampler_LavaTex);
 
-        uniform TEXTURE2D (_RockTex);
-        uniform SAMPLER(sampler_RockTex);
+        uniform TEXTURE2D (_RockTex); 
+        uniform SAMPLER(sampler_RockTex);  
         //变量声明
         CBUFFER_START(UnityPerMaterial)
         //贴图采样器

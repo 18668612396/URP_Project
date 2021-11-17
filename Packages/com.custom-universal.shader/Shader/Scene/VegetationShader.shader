@@ -11,7 +11,7 @@ Shader "Custom/Scene/VegetationShader"
         
         
     }
-    SubShader
+    SubShader 
     {
         Tags
         { 
@@ -24,7 +24,7 @@ Shader "Custom/Scene/VegetationShader"
 
         HLSLINCLUDE
         #pragma vertex vert
-        #pragma fragment frag
+        #pragma fragment frag 
         #include "../ShaderFunction.hlsl"
 
         ///////////////////////////////////////////////////////////
