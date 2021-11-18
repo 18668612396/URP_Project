@@ -102,7 +102,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HairSpecularIntensity: 0.113
+    - _HairSpecularIntensity: 0.2
     - _HandMask: 0
     - _MaskTolerate: 10
     - _MetalIntensity: 1

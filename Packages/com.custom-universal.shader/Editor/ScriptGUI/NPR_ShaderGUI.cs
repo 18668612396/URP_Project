@@ -82,7 +82,7 @@ public class NPR_ShaderGUI : ShaderGUI
     MaterialProperty _MetalIntensityProp;
     private void BaseParam(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
-        _MetalMapProp = FindProperty("_MetalMap", properties);
+        // _MetalMapProp = FindProperty("_MetalMap", properties);
         _RimIntensityProp = FindProperty("_RimIntensity", properties);
         _RimRadiusProp = FindProperty("_RimRadius", properties);
         _OutlineColorProp = FindProperty("_OutlineColor", properties);
@@ -90,7 +90,7 @@ public class NPR_ShaderGUI : ShaderGUI
         _MetalIntensityProp = FindProperty("_MetalIntensity", properties);
         //绘制GUI
 
-        materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MetalMapProp);
+        // materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MetalMapProp);
         materialEditor.ShaderProperty(_MetalIntensityProp, "金属强度");
         materialEditor.ShaderProperty(_RimIntensityProp, "边缘光强度");
         materialEditor.ShaderProperty(_RimRadiusProp, "边缘光范围");
@@ -102,7 +102,7 @@ public class NPR_ShaderGUI : ShaderGUI
     MaterialProperty _HairSpecularIntensityProp;
     private void HariParam(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
-        _MetalMapProp = FindProperty("_MetalMap", properties);
+        // _MetalMapProp = FindProperty("_MetalMap", properties);
         _HairSpecularIntensityProp = FindProperty("_HairSpecularIntensity", properties);
         _RimIntensityProp = FindProperty("_RimIntensity", properties);
         _RimRadiusProp = FindProperty("_RimRadius", properties);
@@ -110,7 +110,7 @@ public class NPR_ShaderGUI : ShaderGUI
         _OutlineOffsetProp = FindProperty("_OutlineOffset", properties);
         _MetalIntensityProp = FindProperty("_MetalIntensity", properties);
         //绘制GUI
-        materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MetalMapProp);
+        // materialEditor.TexturePropertySingleLine(new GUIContent("金属贴图"), _MetalMapProp);
         materialEditor.ShaderProperty(_MetalIntensityProp, "金属强度");
         materialEditor.ShaderProperty(_HairSpecularIntensityProp, "头发高光强度");
         materialEditor.ShaderProperty(_RimIntensityProp, "边缘光强度");

@@ -13,7 +13,7 @@ Shader "Custom/Character/CartoonShader"
         _EmissionIntensity("_EmissionIntensity",Range(0.0,25.0)) = 0.0//
         _ParamTex("_ParamTex",2D) = "white"{}//
         _RampTex("RampTex",2D) = "white"{}//
-        _MetalMap("_Matcap",2D) = "white"{}//
+        // _MetalMap("_Matcap",2D) = "white"{}//
         _MetalIntensity("_MetalIntensity",Range(0.5,1.0)) = 1.0
         _MetalColor("_MetalColor",Color)= (1,1,1,1)//
         _HairSpecularIntensity("_HairSpecularIntensity",Range(0.0,1.0)) = 0.5
@@ -70,6 +70,7 @@ Shader "Custom/Character/CartoonShader"
             float2 uv : TEXCOORD0;
             float4 color:COLOR;
             float3 normal:NORMAL;
+            float4 tangent:TANGENT;
 
         };
         struct v2f
@@ -81,6 +82,8 @@ Shader "Custom/Character/CartoonShader"
             float3 viewNormal :TEXCOORD3;
             float3 worldView :TEXCOORD5;
             float3 worldPos:TEXCOORD6;
+            float3 worldTangent:TEXCOORD7;
+            float3 worldBinormal:TEXCOORD8;
             
         };
         
@@ -108,6 +111,8 @@ Shader "Custom/Character/CartoonShader"
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 o.viewNormal = TransformWorldToView(o.worldNormal);
                 o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
+                float3 worldTangent = TransformObjectToWorldDir(v.tangent.xyz);
+                o.worldBinormal = cross(worldTangent, o.worldNormal);
                 o.vertexColor = v.color;
                 return o;
             }
@@ -155,9 +160,9 @@ Shader "Custom/Character/CartoonShader"
                 #elif _SHADERENUM_FACE
                     finalRGB = NPR_Function_face(NdotL,var_MainTex,parameter,light,Night);
                 #elif _SHADERENUM_HAIR
-                    finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,baseColor,parameter,light,Night);
+                    finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,viewDir,baseColor,parameter,light,Night);
                 #endif
-        
+                
                 return finalRGB;
 
             }
