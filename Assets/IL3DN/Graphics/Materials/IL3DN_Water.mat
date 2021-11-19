@@ -115,6 +115,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cull: 2
@@ -183,12 +184,13 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}
-    - _MidColor: {r: 0.113725476, g: 0.5294118, b: 0.4537716, a: 1}
+    - _MidColor: {r: 0.249644, g: 0.55048245, b: 0.6226415, a: 1}
     - _RimColor: {r: 0.40032038, g: 0.49056602, b: 0.45731762, a: 1}
     - _ShallowColor: {r: 0.16019884, g: 0.45282984, b: 0.35354424, a: 1}
     - _ShalowColor: {r: 0.06421317, g: 0.36792442, b: 0.33499187, a: 0.6156863}
-    - _TopColor: {r: 0.44872433, g: 0.4716981, b: 0, a: 1}
+    - _TopColor: {r: 0.612985, g: 0.8667987, b: 0.8962264, a: 1}
     - _TranslucencyColor: {r: 0.72321427, g: 1, b: 0, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
     - _WaterColor: {r: 0.05887325, g: 0.46226412, b: 0.38302666, a: 1}
+  m_BuildTextureStacks: []

@@ -9,8 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: IL3DN_Plant_Flower_Petal_03
   m_Shader: {fileID: 4800000, guid: 69677495aaa1b074986cab89aab9c3dd, type: 3}
-  m_ShaderKeywords: EFFECT_HUE_VARIATION GEOM_TYPE_LEAF _SHOWBACKFACES_ON _SHOWFRONTFACES_ON
-    _USEMAINCOLOR_ON
+  m_ShaderKeywords: _WINDANIM_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -112,6 +111,7 @@ Material:
     - _Wiggle: 0
     - _WiggleStrenght: 0.5
     - _Wind: 0
+    - _WindAnim: 1
     - _WindAnimToggle: 1
     - _WindQuality: 0
     - _WindStrenght: 0.5

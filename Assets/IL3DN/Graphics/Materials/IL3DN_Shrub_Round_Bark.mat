@@ -171,7 +171,7 @@ Material:
     - __dirty: 1
     - _fallDustEmissionIntensity: 0
     m_Colors:
-    - _Color: {r: 0.5943396, g: 0.37672913, b: 0.28875902, a: 1}
+    - _Color: {r: 0.5849056, g: 0.11863652, b: 0.14921151, a: 1}
     - _CurveSphereTip: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
     - _FallDustColor: {r: 1, g: 1, b: 1, a: 1}

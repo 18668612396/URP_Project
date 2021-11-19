@@ -110,6 +110,7 @@ Material:
     - _HairSpecularIntensity: 0.5
     - _HandMask: 0
     - _MaskTolerate: 50
+    - _MetalIntensity: 1
     - _MetalMask: 0
     - _Metallic: 0
     - _Mode: 0

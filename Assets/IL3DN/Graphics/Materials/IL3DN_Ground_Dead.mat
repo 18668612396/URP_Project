@@ -138,7 +138,7 @@ Material:
     - __dirty: 0
     - _fallDustEmissionIntensity: 0
     m_Colors:
-    - _Color: {r: 0.5660378, g: 0.42964256, b: 0.31772864, a: 1}
+    - _Color: {r: 0.5849056, g: 0.49109998, b: 0.41108933, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _FallDustColor: {r: 1, g: 1, b: 1, a: 1}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}

@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: IL3DN_Plant_Grass_03
   m_Shader: {fileID: 4800000, guid: 69677495aaa1b074986cab89aab9c3dd, type: 3}
-  m_ShaderKeywords: EFFECT_HUE_VARIATION GEOM_TYPE_LEAF _BEND_ON _USEMAINCOLOR_ON
+  m_ShaderKeywords: _WINDANIM_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -139,6 +139,7 @@ Material:
     - _WiggleStrenght: 1
     - _Wind: 0
     - _WindAmplitudeMultiplier: 1
+    - _WindAnim: 1
     - _WindAnimToggle: 1
     - _WindDirectionSpeed: 5
     - _WindQuality: 4
@@ -147,7 +148,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 0.6509434, g: 0.42004892, b: 0.26713228, a: 1}
+    - _Color: {r: 0.5283019, g: 0.34976858, b: 0.23175506, a: 1}
     - _Color0: {r: 1, g: 0.9847094, b: 0, a: 1}
     - _Color01: {r: 1, g: 1, b: 1, a: 1}
     - _Color02: {r: 1, g: 1, b: 1, a: 1}
