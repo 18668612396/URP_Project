@@ -105,7 +105,7 @@
     {
         float3 LightFactor = lerp(1.0,light.color,smoothstep(0.0,0.5,NdotL) * parameter.b * 2);//为了增强亮部
 
-        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter) * LightFactor;
+        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter);
         float3 Albedo = baseColor * RampColor;
         float3 Specular = NPR_Base_Specular(NdotL,NdotH,normalDir,baseColor,parameter);
         float3 RimLight = NPR_Base_RimLight(NdotV,NdotL,baseColor) * parameter.b;
@@ -131,9 +131,9 @@
 
         float3 LightFactor = lerp(1.0,light.color,smoothstep(0.2,0.4,lightAttenuation) * parameter.b);//为了增强亮部
         
-        float3 rampColor = NPR_Base_Ramp(lightAttenuation * light.shadowAttenuation,Night,parameter) * LightFactor;//这里的脸部参数贴图的Alpha必须是1
+        float3 rampColor = NPR_Base_Ramp(lightAttenuation * light.shadowAttenuation,Night,parameter);//这里的脸部参数贴图的Alpha必须是1
 
-        return baseColor.rgb * rampColor ;
+        return baseColor.rgb * rampColor;
     }
 
     //头发
@@ -141,7 +141,7 @@
     {
         float3 LightFactor = lerp(1.0,light.color,smoothstep(0.0,0.5,NdotL) * parameter.b * 2);//为了增强亮部
         
-        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter) * LightFactor;//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
+        float3 RampColor = NPR_Base_Ramp (NdotL,Night,parameter);//头发的rampColor不应该把固定阴影的部分算进去，所以这里固定阴影给定0.5 到计算ramp的时候 *2 结果等于1  这个暂定
         float3 Albedo = baseColor * RampColor;
         
         float HariSpecRadius = 0.25;//这里可以控制头发的反射范围

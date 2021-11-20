@@ -162,7 +162,7 @@ Shader "Custom/Character/CartoonShader"
                 #elif _SHADERENUM_HAIR
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,viewDir,baseColor,parameter,light,Night);
                 #endif
-                
+                // clip(var_MainTex.a - 0.5);
                 return finalRGB;
 
             }
