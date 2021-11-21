@@ -2,7 +2,7 @@ Shader "DepthRim"
 {
     Properties
     {
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        // _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _BaseColor ("BaseColor", Color) = (1,1,1,1)
     }
     SubShader

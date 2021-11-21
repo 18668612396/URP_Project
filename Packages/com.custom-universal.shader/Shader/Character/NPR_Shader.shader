@@ -163,7 +163,7 @@ Shader "Custom/Character/CartoonShader"
                     finalRGB = NPR_Function_Hair(NdotL,NdotH,NdotV,normalDir,viewDir,baseColor,parameter,light,Night);
                 #endif
                 // clip(var_MainTex.a - 0.5);
-                return finalRGB;
+                return finalRGB.xyz;
 
             }
             ENDHLSL

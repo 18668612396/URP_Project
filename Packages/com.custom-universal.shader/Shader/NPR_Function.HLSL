@@ -73,7 +73,7 @@
         float  SpecularPow = exp2(0.5 * parameter.r * 11.0 + 2.0);//这里乘以0.5是为了扩大高光范围
         float  SpecularNorm = (SpecularPow+8.0) / 8.0;
         float3 SpecularColor = baseColor * parameter.g;
-        float SpecularContrib = baseColor * (SpecularNorm * pow(NdotH, SpecularPow));
+        float SpecularContrib = SpecularNorm * pow(NdotH, SpecularPow);
 
         //原神的金属贴图（这里我使用了一种拟合曲线来模拟）
         float MetalDir = normalize(mul(UNITY_MATRIX_V,normalDir));
