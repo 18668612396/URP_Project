@@ -23,7 +23,7 @@
     }
     float G_Function (float NdotL,float NdotV,float roughness)
     {
-        float K = roughness * roughness * 0.5; //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
+        float K = pow(1 + roughness,2) / 8; //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
         return G_SubFunction(NdotL,K) * G_SubFunction(NdotV,K);
     }
 
@@ -37,7 +37,7 @@
     float3 F_Indir_Function(float NdotV,float roughness,float3 F0)
     {
         float fresnel = exp2((-5.55473 * NdotV - 6.98316) * NdotV);
-        return F0 + fresnel * saturate(1 - roughness - F0);
+        return F0 + fresnel * saturate(1 - roughness - F0); 
     }
     //直接光镜面反射 
     float3 DGF_Function(float NdotH,float NdotL,float NdotV,float HdotL,float roughness,float3 F0)
@@ -100,12 +100,12 @@
     }
     
     //计算直接光照的贡献
-    float3 lightContribution(float NdotH,float NdotL,float NdotV,float HdotL,float roughness,float3 baseColor,float metallic,float shadow,Light light,float3 F0)
+    float3 lightContribution(float NdotH,float NdotL,float NdotV,float HdotL,float roughness,float3 baseColor,float metallic,Light light,float3 F0)
     {
         
         float3 lightDiffuse = lightDiffuse_Function(HdotL,NdotL,baseColor,metallic,F0);
         float3 lightSpec    = DGF_Function(NdotH,NdotL,NdotV,HdotL,roughness,F0);
-        return (lightDiffuse + lightSpec) * light.color * shadow;//灯光和阴影在这里-----------------------------
+        return (lightDiffuse + lightSpec) * light.color * light.distanceAttenuation  * light.shadowAttenuation;//灯光和阴影在这里-----------------------------
     }
     
     //计算环境光照的贡献
@@ -123,11 +123,10 @@
     }
     
 
-    float3 PBR_Function (float3 worldTangent,float3 worldBitangent,float3 worldNormal,float3 worldView,float3 worldPos,float2 lightmapUV,PBR pbr)
+    float3 PBR_BRDF (float3 worldTangent,float3 worldBitangent,float3 worldNormal,float3 worldView,float3 worldPos,float2 lightmapUV,PBR pbr,Light light)
     {
         
-        float4 SHADOW_COORDS = TransformWorldToShadowCoord(worldPos);
-        Light light = GetMainLight(SHADOW_COORDS);
+
         //参数输入
         float3 baseColor = pbr.baseColor.rgb;
         float3 normal    = pbr.normal.xyz;
@@ -136,9 +135,6 @@
         float3  emission  = pbr.emission;
 
         float  occlusion = pbr.occlusion;;
-        float  shadow = light.shadowAttenuation * CloudShadow(worldPos);
-
-        
         // #ifdef LIGHTMAP_ON
         //     float3 var_Lightmap = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap,lightmapUV.xy));
         //     occlusion = pbr.occlusion * var_Lightmap.r;
@@ -156,20 +152,42 @@
         float3 viewDir    = normalize(worldView);
         float3 lightDir   = normalize(light.direction);
         float3 halfDir    = normalize(lightDir + viewDir);
-        float3 reflectDir = normalize(reflect(viewDir,normalDir));
+        float3 reflectDir = normalize(reflect(-viewDir,normalDir));
         //点乘结果
         float NdotH = max(0.00001,dot(normalDir,halfDir));
         float NdotL = max(0.00001,dot(normalDir,lightDir));
         float NdotV = max(0.00001,dot(normalDir,viewDir));
         float HdotL = max(0.00001,dot(halfDir,lightDir));
         
-        float3 lighting = lightContribution(NdotH,NdotL,NdotV,HdotL,roughness,baseColor,metallic,shadow,light,F0);
+        float3 lighting = lightContribution(NdotH,NdotL,NdotV,HdotL,roughness,baseColor,metallic,light,F0);
         float3 indirection = indirectionContribution(reflectDir,normalDir,NdotV,baseColor,roughness,metallic,occlusion,F0);
         float3 emissionLight = emission_Function(emission);
-        
+        // return indirection;
         return lighting +indirection + emissionLight;
-    }
 
+    }
+    //光照部分带入计算
+    float3 PBR_Function(float3 worldTangent,float3 worldBitangent,float3 worldNormal,float3 worldView,float3 worldPos,float2 lightmapUV,PBR pbr)
+    {
+        //直接光源
+        float4 SHADOW_COORDS = TransformWorldToShadowCoord(worldPos);
+        Light light = GetMainLight(SHADOW_COORDS);
+        light.shadowAttenuation *= CloudShadow(worldPos);//这里用来计算额外直接光阴影阴影
+
+
+        //额外光源
+        float3 AddLight  = float3(0.0,0.0,0.0);
+        int addLightsCount = GetAdditionalLightsCount();
+        for(int idx = 0; idx < addLightsCount; idx++)
+        {
+            Light addlight = GetAdditionalLight(idx, worldPos);
+            AddLight =  PBR_BRDF(worldTangent,worldBitangent,worldNormal,worldView,worldPos,lightmapUV,pbr,addlight);
+        }
+
+        float3 MainLight = PBR_BRDF(worldTangent,worldBitangent,worldNormal,worldView,worldPos,lightmapUV,pbr,light);
+
+        return AddLight; 
+    }
     #define PBR_FUNCTION(i,pbr) PBR_Function(i.worldTangent,i.worldBitangent,i.worldNormal,i.worldView,i.worldPos,i.lightmapUV,pbr);
     
 
