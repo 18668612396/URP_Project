@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9503b113-9fbe-fff9-5eb1-f89d78201c92}</ProjectGuid>
+    <ProjectGuid>{7840c13a-f005-8230-6c11-2b8c251af17a}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Custom.Universal.Editor</AssemblyName>
+    <AssemblyName>Unity.VisualScripting.State.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -36,13 +36,75 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\RenderFeature\CustomRenderPassFeature.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\VegetationShaderGUI.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\NPR_ShaderGUI.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\GrassShaderGUI.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\CustomSceneParamEditor.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\PBR_ShaderGUI.cs" />
-     <None Include="Packages\com.shader.custom-universal-shader\Editor\Custom.Universal.Editor.asmdef" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateAnalysis.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\BoltStateConfiguration.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Graph\StateCanvas.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Flow\StateUnitDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\FlowStateWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\TriggerStateTransitionWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\StateTransitionDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_2_4.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\NesterStateDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Flow\StateUnitEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_3_0.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\StateTransitionDescription.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_4_1.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Migrations\Migration_1_6_to_1_7.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\StateTransitionWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\BoltStateManifest.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\StateRevealCondition.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\NesterStateTransitionWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateAnalyser.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_4_0.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Migrations\Migration_1_5_1_to_1_5_2.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\AnyStateWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\FlowStateTransitionWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Flow\UnitBaseStateExtensions.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateTransitionAnalysis.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\FlowStateEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_2_3.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\BoltState.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_0_1.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Migrations\Migration_Asset_to_Package.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\NesterStateAnalyser.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\NesterStateTransitionEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Description\StateMachineDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_1_1.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\IStateTransitionWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Properties\AssemblyInfo.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Flow\StateUnitWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_2_2.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_0_2.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\StateGraphEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\StateTransitionAnalyser.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\AnyStateDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\SuperStateDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Graph\StateGraphContext.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\NesterStateTransitionAnalyser.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Analytics\StateMacroSavedEvent.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\BoltStateResources.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\SuperStateWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\FlowStateTransitionAnalyser.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_1_3.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Flow\FlowGraphContextStateExtension.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_1_2.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\SuperStateEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\FlowStateDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\StateTransitionEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Description\StateGraphDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\StateDescription.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\FlowStateTransitionEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\NesterStateEditor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\NesterStateWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\States\IStateWidget.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\NesterStateTransitionDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Transitions\FlowStateTransitionDescriptor.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Plugin\Changelogs\Changelog_1_0_0.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Description\StateMacroDescriptor.cs" />
+     <None Include="Packages\com.unity.visualscripting\Editor\VisualScripting.State\Unity.VisualScripting.State.Editor.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0a15\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -708,21 +770,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Custom.Universal.Runtime.csproj">
-      <Project>{4d1fc697-6329-f69d-2249-861b5c646e73}</Project>
-      <Name>Custom.Universal.Runtime</Name>
+    <ProjectReference Include="Unity.VisualScripting.Core.csproj">
+      <Project>{ce8fe78f-420a-5b8e-0c1a-77380f78fa62}</Project>
+      <Name>Unity.VisualScripting.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{1300106e-988e-92c4-d23c-127cac77c8a9}</Project>
-      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
+      <Project>{38e91cee-4df8-63a7-107e-1f4b23b9beec}</Project>
+      <Name>Unity.VisualScripting.Flow</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
-      <Project>{ff28fea3-66c6-67e8-41ca-51b9094364f7}</Project>
-      <Name>Unity.RenderPipelines.Universal.Editor</Name>
+    <ProjectReference Include="Unity.VisualScripting.State.csproj">
+      <Project>{5bb8003a-6ee4-d7e1-e5c6-73b7adc3c90d}</Project>
+      <Name>Unity.VisualScripting.State</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
-      <Project>{df34da07-d48e-425b-d9dc-5547c8a21e61}</Project>
-      <Name>Unity.Mathematics.Editor</Name>
+    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
+      <Project>{5b0300a8-159d-153b-ae0b-2bcac6ef4a09}</Project>
+      <Name>Unity.VisualScripting.Core.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
+      <Project>{91b7df42-1a03-0644-3815-f35ac6aeef22}</Project>
+      <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{32ed49b9-5bd7-90b9-8b27-1df06c59d54c}</Project>

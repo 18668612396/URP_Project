@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9503b113-9fbe-fff9-5eb1-f89d78201c92}</ProjectGuid>
+    <ProjectGuid>{b70c103b-944a-5436-adfe-f60428b73efa}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Custom.Universal.Editor</AssemblyName>
+    <AssemblyName>Unity.TextMeshPro.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -36,13 +36,55 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\RenderFeature\CustomRenderPassFeature.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\VegetationShaderGUI.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\NPR_ShaderGUI.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\GrassShaderGUI.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\CustomSceneParamEditor.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Editor\ScriptGUI\PBR_ShaderGUI.cs" />
-     <None Include="Packages\com.shader.custom-universal-shader\Editor\Custom.Universal.Editor.asmdef" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_PackageUtilities.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_EditorPanel.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_ProjectTextSettings.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SubMeshUI_Editor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SpriteAssetEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_EditorCoroutine.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_FontAsset_CreationMenu.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_TextAlignmentDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_PostBuildProcessHandler.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_SortingLayerHelper.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_InputFieldEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_FontPlugin.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_CreateObjectMenu.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_EditorUtility.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SubMesh_Editor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\GlyphMetricsPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_CharacterPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SpriteAssetImporter.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_PreBuildProcessor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SpriteAssetMenu.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_ContextMenus.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\GlyphRectPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SDFShaderGUI.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\DropdownOptionListDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_UIStyleManager.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_StyleAssetMenu.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_BitmapShaderGUI.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SpriteCharacterPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_ColorGradientEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SerializedPropertyHolder.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_StyleSheetEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_GlyphPairAdjustmentRecordPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_BaseEditorPanel.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_ColorGradientAssetMenu.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_EditorPanelUI.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_BaseShaderGUI.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_EditorShaderUtilities.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\GlyphInfoDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SettingsEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_SpriteGlyphPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_TextContainerEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_TexturePostProcessor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_FontAssetCreatorWindow.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_GlyphPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_FontAssetEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_MeshRendererEditor.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_ResourcesLoader.cs" />
+     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMP_DropdownEditor.cs" />
+     <None Include="Packages\com.unity.textmeshpro\Scripts\Editor\Unity.TextMeshPro.Editor.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0a15\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -708,21 +750,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Custom.Universal.Runtime.csproj">
-      <Project>{4d1fc697-6329-f69d-2249-861b5c646e73}</Project>
-      <Name>Custom.Universal.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{1300106e-988e-92c4-d23c-127cac77c8a9}</Project>
-      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
-      <Project>{ff28fea3-66c6-67e8-41ca-51b9094364f7}</Project>
-      <Name>Unity.RenderPipelines.Universal.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
-      <Project>{df34da07-d48e-425b-d9dc-5547c8a21e61}</Project>
-      <Name>Unity.Mathematics.Editor</Name>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{fc2f4156-8530-7ecb-baab-f10f655a19f6}</Project>
+      <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{32ed49b9-5bd7-90b9-8b27-1df06c59d54c}</Project>

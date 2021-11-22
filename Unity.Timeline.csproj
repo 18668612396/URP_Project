@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4d1fc697-6329-f69d-2249-861b5c646e73}</ProjectGuid>
+    <ProjectGuid>{5f4304ea-1c2e-db81-6100-14a85104c990}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Custom.Universal.Runtime</AssemblyName>
+    <AssemblyName>Unity.Timeline</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -22,11 +22,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2022_1_0;UNITY_2022_1;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2022_1_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;USE_QUERY_BUILDER;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;AMPLIFY_SHADER_EDITOR;STARTER_ASSETS_PACKAGES_CHECKED;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2022_1_0;UNITY_2022_1;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2022_1_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;USE_QUERY_BUILDER;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;AMPLIFY_SHADER_EDITOR;STARTER_ASSETS_PACKAGES_CHECKED;TIMELINE_FRAMEACCURATE;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -36,10 +36,80 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\com.shader.custom-universal-shader\Runtime\PlayerPosition.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Runtime\RenderFeature\Outline\OutlineFeature.cs" />
-     <Compile Include="Packages\com.shader.custom-universal-shader\Runtime\SceneParam.cs" />
-     <None Include="Packages\com.shader.custom-universal-shader\Runtime\Custom.Universal.Runtime.asmdef" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Animation\AnimationPreviewUpdateCallback.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Attributes\TimelineHelpURLAttribute.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\TimelineAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\TimelineCreateUtilities.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Evaluation\RuntimeClip.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Animation\AnimationTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Activation\ActivationTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\PrefabControlPlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\Signals\SignalReceiver.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\ILayerable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\TimelineClip.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Animation\AnimationOutputWeightProcessor.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\Marker.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\DiscreteTime.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\TimeNotificationBehaviour.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Evaluation\ScheduleRuntimeClip.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\MarkerList.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\TimelineUndo.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\ParticleControlPlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\GroupTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Properties\AssemblyInfo.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\AssetUpgrade\AnimationPlayableAssetUpgrade.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Evaluation\RuntimeClipBase.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Timeline.deprecated.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\ITimeControl.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\NotificationUtilities.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\WeightUtility.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\TimeUtility.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Evaluation\IntervalTree.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\SignalTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\TimelineAttributes.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Control\ControlTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Audio\AudioMixerProperties.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\Signals\SignalEmitter.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\Extrapolation.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\Signals\SignalAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\Signals\CustomSignalEventDrawer.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\FrameRate.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\TimelinePlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\IPropertyPreview.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\ClipCaps.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\TimelineAsset_CreateRemove.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\IPropertyCollector.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Audio\AudioTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\DirectorControlPlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\AnimationPreviewUtilities.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\INotificationOptionProvider.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\HashUtility.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Animation\ICurvesOwner.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\AssetUpgrade\TrackUpgrade.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Extensions\TrackExtensions.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Activation\ActivationMixerPlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Control\ControlPlayableAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Attributes\TrackColorAttribute.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\AssetUpgrade\TimelineUpgrade.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\AssetUpgrade\ClipUpgrade.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\AnimatorBindingCache.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Activation\ActivationPlayableAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Utilities\TimelineClipExtensions.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Animation\AnimationPlayableAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Evaluation\RuntimeElement.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\IMarker.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Events\MarkerTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Evaluation\InfiniteRuntimeClip.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\TrackAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Scripting\PlayableTrack.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Audio\AudioClipProperties.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\BasicScriptPlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Audio\AudioPlayableAsset.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\NotificationFlags.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\AssetUpgrade\AnimationTrackUpgrade.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\ActivationControlPlayable.cs" />
+     <Compile Include="Packages\com.unity.timeline\Runtime\Playables\TimeControlPlayable.cs" />
+     <None Include="Packages\com.unity.timeline\Runtime\Unity.Timeline.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0a15\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -702,18 +772,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{1300106e-988e-92c4-d23c-127cac77c8a9}</Project>
-      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
-      <Project>{27a41b5c-ad76-2fcf-dfaa-059da93c89aa}</Project>
-      <Name>Unity.RenderPipeline.Universal.ShaderLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.csproj">
-      <Project>{3dc9e274-cb39-9acc-b9b3-caf09cd6e6aa}</Project>
-      <Name>Unity.Mathematics</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{32ed49b9-5bd7-90b9-8b27-1df06c59d54c}</Project>
       <Name>UnityEditor.UI</Name>
