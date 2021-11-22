@@ -208,7 +208,6 @@ Shader "Custom/Scene/PbrShader"
                 //贴图采样 并且利用宏来判断其是否被赋值
                 #if _MAINTEX_ON
                     float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,uv);//A通道为高度图
-                    var_MainTex.rgb *=  _Color;
                 #else
                     float4 var_MainTex = _Color;
                 #endif
@@ -230,9 +229,7 @@ Shader "Custom/Scene/PbrShader"
                 #endif
                 PBR pbr;
                 ZERO_INITIALIZE(PBR,pbr);//初始化PBR结构体
-
-                pbr.baseColor = var_MainTex;
-                
+                pbr.baseColor = _Color;
                 pbr.emission  = pbr.baseColor.rgb * _EmissionIntensity * var_PbrParam.a;//A通道为高度图
                 pbr.normal    = var_Normal;
                 pbr.metallic  = var_PbrParam.r;
@@ -243,14 +240,26 @@ Shader "Custom/Scene/PbrShader"
                 Light light = GetMainLight(SHADOW_COORDS);
 
                 //高度融合相关
-                // PBR_FALLDUST(i,pbr);
-                float3 finalRGB = PBR_FUNCTION(i,pbr);
-                // BIGWORLD_FOG(i,finalRGB);//大世界雾效 
+                PBR_FALLDUST(i,pbr);
+                float3 finalRGB = PBR_FUNCTION(i,pbr,light);
 
+                BIGWORLD_FOG(i,finalRGB);//大世界雾效 
+               
+                
+                int addLightsCount = GetAdditionalLightsCount();
+                for(int idx = 0; idx < addLightsCount; idx++)
+                {
+                    Light addlight = GetAdditionalLight(idx, i.worldPos);
+                    // addlight.color *= addlight.distanceAttenuation  * addlight.shadowAttenuation;
+                    finalRGB += PBR_ADDFUNCTION(i,pbr,addlight);
+                    
+                }
+
+                
                 // half3 attenuatedLightColor = addLight.color * addLight.distanceAttenuation;
                 // finalRGB += LightingLambert(attenuatedLightColor, addLight.direction, i.worldNormal);
 
-                // clip(var_MainTex.a - 0.5);
+                clip(var_MainTex.a - 0.5);
                 return  finalRGB;
             }
             ENDHLSL
