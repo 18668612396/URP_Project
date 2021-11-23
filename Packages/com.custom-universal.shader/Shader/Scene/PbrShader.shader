@@ -236,25 +236,15 @@ Shader "Custom/Scene/PbrShader"
                 pbr.roughness = var_PbrParam.g;
                 pbr.occlusion = var_PbrParam.b * ScrOcclusion;
 
-                float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
-                Light light = GetMainLight(SHADOW_COORDS);
+
 
                 //高度融合相关
                 PBR_FALLDUST(i,pbr);
-                float3 finalRGB = PBR_FUNCTION(i,pbr,light);
+                float3 finalRGB = PBR_FUNCTION(i,pbr);
+
+                
 
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效 
-               
-                
-                int addLightsCount = GetAdditionalLightsCount();
-                for(int idx = 0; idx < addLightsCount; idx++)
-                {
-                    Light addlight = GetAdditionalLight(idx, i.worldPos);
-                    // addlight.color *= addlight.distanceAttenuation  * addlight.shadowAttenuation;
-                    finalRGB += PBR_ADDFUNCTION(i,pbr,addlight);
-                    
-                }
-
                 
                 // half3 attenuatedLightColor = addLight.color * addLight.distanceAttenuation;
                 // finalRGB += LightingLambert(attenuatedLightColor, addLight.direction, i.worldNormal);
