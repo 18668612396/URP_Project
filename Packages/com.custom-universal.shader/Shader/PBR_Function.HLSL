@@ -139,7 +139,6 @@
         float3 lighting = float3(0.0,0.0,0.0);
         for(int idx = 0; idx < addLightsCount; idx++)
         {
-            
             Light light = GetAdditionalLight(idx, worldPos);
             //准备向量
             float3 lightDir   = normalize(light.direction);
@@ -178,7 +177,7 @@
         //各种光公用向量准备
         float3 normalDir  = mul(pbr.normal,TBN);//映射法线  *2-1的操作在这里执行
         float3 viewDir    = normalize(worldView);
-        float3 reflectDir = normalize(reflect(viewDir,normalDir));
+        float3 reflectDir = normalize(reflect(-viewDir,normalDir));
 
         float NdotV = max(0.00001,dot(normalDir,viewDir));
         // #ifdef LIGHTMAP_ON
