@@ -56,13 +56,13 @@ Material:
     - _HeightDepth: 0
     - _HeightNormalUp: 1
     - _HeightRadius: 1
-    - _Metallic: 0.8
+    - _Metallic: 0
     - _NormalIntensity: 1
-    - _Roughness: 0.3
+    - _Roughness: 0.2
     - _WindAnimToggle: 0
     - _fallDustEmissionIntensity: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.8962264, g: 0.6359237, b: 0.2747864, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _FallDustColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
