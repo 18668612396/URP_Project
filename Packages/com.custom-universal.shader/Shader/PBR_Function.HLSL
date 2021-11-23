@@ -4,6 +4,7 @@
     #include "ShaderFunction.HLSL"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
     //D项 法线微表面分布函数
     float D_Function (float NdotH,float roughness)
     {
