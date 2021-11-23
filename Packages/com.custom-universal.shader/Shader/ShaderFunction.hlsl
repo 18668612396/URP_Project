@@ -139,27 +139,27 @@
     #define BIGWORLD_FOG(i,finalRGB) ExponentialHeightFog(i.worldPos,finalRGB);
 
 
-    float3 _LightDirection;
-    float3 _LightPosition;
-    float4 GetShadowPositionHClip(float3 positionOS , float3 normal)
-    {
-        float3 positionWS = TransformObjectToWorld(positionOS.xyz);
-        float3 normalWS = TransformObjectToWorldNormal(normal);
+    // float3 _LightDirection;
+    // float3 _LightPosition;
+    // float4 GetShadowPositionHClip(float3 positionOS , float3 normal)
+    // {
+    //     float3 positionWS = TransformObjectToWorld(positionOS.xyz);
+    //     float3 normalWS = TransformObjectToWorldNormal(normal);
 
-        #if _CASTING_PUNCTUAL_LIGHT_SHADOW
-            float3 lightDirectionWS = normalize(_LightPosition - positionWS);
-        #else
-            float3 lightDirectionWS = _LightDirection;
-        #endif
+    //     #if _CASTING_PUNCTUAL_LIGHT_SHADOW
+    //         float3 lightDirectionWS = normalize(_LightPosition - positionWS);
+    //     #else
+    //         float3 lightDirectionWS = _LightDirection;
+    //     #endif
 
-        float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+    //     float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
 
-        #if UNITY_REVERSED_Z
-            positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
-        #else
-            positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
-        #endif
+    //     #if UNITY_REVERSED_Z
+    //         positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+    //     #else
+    //         positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+    //     #endif
 
-        return positionCS;
-    }
+    //     return positionCS;
+    // }
 #endif

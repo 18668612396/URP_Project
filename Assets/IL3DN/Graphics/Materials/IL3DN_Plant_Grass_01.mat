@@ -133,7 +133,7 @@ Material:
     - _Translucency: 1
     - _TranslucencyViewDependency: 0
     - _UVSec: 0
-    - _UseMainColor: 1
+    - _UseMainColor: 0
     - _Wiggle: 0
     - _WiggleRandomisation: 0
     - _WiggleStrenght: 0.5

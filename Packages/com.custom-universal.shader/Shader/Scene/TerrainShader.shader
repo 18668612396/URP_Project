@@ -53,9 +53,11 @@ Shader "Custom/Scene/TerrainShader"
 		//               光照相关的宏开关                          //
 		///////////////////////////////////////////////////////////
 		//#pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
-		#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-		#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
-		#pragma multi_compile _ _SHADOWS_SOFT
+        #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+        #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+        #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+        #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+        #pragma multi_compile _ _SHADOWS_SOFT
 
 		struct PBR
 		{
@@ -238,20 +240,13 @@ Shader "Custom/Scene/TerrainShader"
 		pass 
 		{
 			Name "ShadowCast"
-			
-			Tags{ "LightMode" = "ShadowCaster" }
+			Tags
+			{ 
+				"LightMode" = "ShadowCaster" 
+			}
 			HLSLPROGRAM
-			v2f vert(appdata v)
-			{
-				v2f o;
-				ZERO_INITIALIZE(v2f,o);
-				o.pos = TransformObjectToHClip(v.vertex.xyz);
-				return o;
-			}
-			float4 frag(v2f i) : SV_Target
-			{
-				return float4(1.0,1.0,1.0,1.0);
-			}
+			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+			#include "../ShadowCastPass.HLSL"
 			ENDHLSL
 		}
 

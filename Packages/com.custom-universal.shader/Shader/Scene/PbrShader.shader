@@ -84,7 +84,6 @@ Shader "Custom/Scene/PbrShader"
         //               光照相关的宏开关                          //
         ///////////////////////////////////////////////////////////
         //#pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
-        #pragma shader_feature _ADD_LIGHT_ON _ADD_LIGHT_OFF
         #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
         #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
         #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
@@ -262,21 +261,11 @@ Shader "Custom/Scene/PbrShader"
             { 
                 "LightMode" = "ShadowCaster" 
             }
-            HLSLPROGRAM
 
-            v2f vert(appdata v)
-            {
-                v2f o;
-                ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
-                o.pos = TransformObjectToHClip(v.vertex.xyz);
-                return o;
-            }
-            real3 frag(v2f i) : SV_Target
-            {
-                float3 color;
-                color.xyz = float3(0.0, 0.0, 0.0);
-                return color;
-            }
+            HLSLPROGRAM
+            //这个是用来区分定向光源和额外光源的宏 因为他们使用了不同的bise
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+            #include "../ShadowCastPass.HLSL"
             ENDHLSL
         }
 

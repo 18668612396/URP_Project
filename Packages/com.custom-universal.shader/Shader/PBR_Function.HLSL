@@ -4,7 +4,7 @@
     #include "ShaderFunction.HLSL"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+
     //D项 法线微表面分布函数
     float D_Function (float NdotH,float roughness)
     {
@@ -136,11 +136,12 @@
     //计算额外光源贡献
     float3 additionaLightContribution (float NdotV,float3 normalDir,float3 viewDir,float3 worldPos,float3 baseColor,float roughness,float metallic,float3 F0)
     {
-        int addLightsCount = GetAdditionalLightsCount();
         float3 lighting = float3(0.0,0.0,0.0);
+        InputData inputData; //貌似是unity的内部数据
+        int addLightsCount = GetAdditionalLightsCount();
         for(int idx = 0; idx < addLightsCount; idx++)
         {
-            Light light = GetAdditionalLight(idx, worldPos);
+            Light light = GetAdditionalLight(idx, worldPos,inputData.shadowMask);
             //准备向量
             float3 lightDir   = normalize(light.direction);
             float3 halfDir    = normalize(lightDir + viewDir);
@@ -152,6 +153,7 @@
             light.color *= light.shadowAttenuation  * light.distanceAttenuation;
             // addlight.color *= addlight.distanceAttenuation  * addlight.shadowAttenuation;
             lighting += lightContribution(NdotH,NdotL,NdotV,HdotL,roughness,baseColor,metallic,light.color,light,F0);
+            // lighting += light.shadowAttenuation;
         }
         return lighting;
     }

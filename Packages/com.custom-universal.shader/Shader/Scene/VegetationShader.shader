@@ -131,23 +131,12 @@ Shader "Custom/Scene/VegetationShader"
         pass 
         {
             Name "ShadowCast"
-            
-            Tags{ "LightMode" = "ShadowCaster" }
+            Tags
+            { 
+                "LightMode" = "ShadowCaster" 
+            }
             HLSLPROGRAM
-            v2f vert(appdata v)
-            {
-                v2f o;
-                ZERO_INITIALIZE(v2f,o);
-                o.uv = v.uv;
-                o.pos = TransformObjectToHClip(v.vertex.xyz);
-                return o;
-            }
-            float4 frag(v2f i) : SV_Target
-            {
-                float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
-                clip(var_MainTex.g - _CutOff);
-                return float4(1.0,1.0,1.0,1.0);
-            }
+            #include "../ShadowCastPass.HLSL"
             ENDHLSL
         }
     }
