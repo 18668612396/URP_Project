@@ -45,7 +45,7 @@
         float  D = D_Function(NdotH,roughness);
         float  G = G_Function(NdotL,NdotV,roughness);
         float3 F = F_Light_Function(HdotL,F0);
-        float3 light_BRDF = saturate(( D * G * F ) / (4 * NdotL * NdotV + 0.001));//这里我自行修改了一下 把他限制在0-1
+        float3 light_BRDF = ( D * G * F ) / (4 * NdotL * NdotV + 0.001);//这里我自行修改了一下 把他限制在0-1
 
         return light_BRDF * NdotL * PI;
     }
