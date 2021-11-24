@@ -5,6 +5,7 @@
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
+
     //D项 法线微表面分布函数
     float D_Function (float NdotH,float roughness)
     {
@@ -164,7 +165,7 @@
         return emission;
     }
     
-    float3 PBR_Function (float3 worldTangent,float3 worldBitangent,float3 worldNormal,float3 worldView,float3 worldPos,float2 lightmapUV,PBR pbr)
+    float3 PBR_FUNCTION(v2f i,ShaderParam pbr)
     {
         //参数输入
         float3 baseColor = pbr.baseColor.rgb;
@@ -176,15 +177,15 @@
         float3 F0 = lerp(0.04,baseColor,metallic);
 
         //法线计算
-        float3x3 TBN = float3x3(normalize(worldTangent),normalize(worldBitangent),normalize((worldNormal)));
+        float3x3 TBN = float3x3(normalize(i.worldTangent),normalize(i.worldBitangent),normalize((i.worldNormal)));
         //各种光公用向量准备
         float3 normalDir  = mul(pbr.normal,TBN);//映射法线  *2-1的操作在这里执行
-        float3 viewDir    = normalize(worldView);
+        float3 viewDir    = normalize(i.worldView);
         float3 reflectDir = normalize(reflect(-viewDir,normalDir));
 
         float NdotV = max(0.00001,dot(normalDir,viewDir));
         // #ifdef LIGHTMAP_ON
-        //     float3 var_Lightmap = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap,lightmapUV.xy));
+        //     float3 var_Lightmap = DecodeLightmap (UNITY_SAMPLE_TEX2D(unity_Lightmap,i.lightmapUV.xy));
         //     occlusion = pbr.occlusion * var_Lightmap.r;
         //     shadow    =  var_Lightmap.g;
         // #else
@@ -192,15 +193,14 @@
         //     shadow    = light.shadowAttenuation * CloudShadow(worldPos);;   //* CLOUD_SHADOW(i)
         // #endif
 
-        float3 Mainlighting = MainLightContribution(worldPos,normalDir,viewDir,NdotV,roughness,baseColor,metallic,F0);
-        float3 AdditionaLighting = additionaLightContribution (NdotV,normalDir,viewDir,worldPos,baseColor,roughness,metallic,F0);
+        float3 Mainlighting = MainLightContribution(i.worldPos,normalDir,viewDir,NdotV,roughness,baseColor,metallic,F0);
+        float3 AdditionaLighting = additionaLightContribution (NdotV,normalDir,viewDir,i.worldPos,baseColor,roughness,metallic,F0);
         float3 indirection = indirectionContribution(reflectDir,normalDir,NdotV,baseColor,roughness,metallic,occlusion,F0);
         float3 emissionLight = emission_Function(emission);
         
         return Mainlighting + AdditionaLighting + indirection + emissionLight;
     }
 
-    #define PBR_FUNCTION(i,pbr) PBR_Function(i.worldTangent,i.worldBitangent,i.worldNormal,i.worldView,i.worldPos,i.lightmapUV,pbr);
 
     
 

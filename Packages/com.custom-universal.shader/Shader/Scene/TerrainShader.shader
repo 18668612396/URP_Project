@@ -39,7 +39,7 @@ Shader "Custom/Scene/TerrainShader"
 
 		HLSLINCLUDE
 
-		#include "../ShaderFunction.hlsl"
+
 		#pragma vertex vert
 		#pragma fragment frag
 
@@ -53,24 +53,13 @@ Shader "Custom/Scene/TerrainShader"
 		//               光照相关的宏开关                          //
 		///////////////////////////////////////////////////////////
 		//#pragma shader_feature LIGHTMAP_OFF LIGHTMAP_ON 
-        #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-        #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
-        #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-        #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-        #pragma multi_compile _ _SHADOWS_SOFT
+		#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+		#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+		#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+		#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+		#pragma multi_compile _ _SHADOWS_SOFT
 
-		struct PBR
-		{
-			float4 baseColor;//A通道为高度图
-			float3 normal;
-			float3 emission;
-			float  roughness;
-			float  metallic;
-			float  occlusion;
-			float  shadow;
-			
-		};
-		#include "../PBR_Function.HLSL"
+
 		struct appdata
 		{
 			float4 vertex : POSITION;
@@ -97,7 +86,8 @@ Shader "Custom/Scene/TerrainShader"
 			float4 SHADOW_COORDS:TEXCOORD7;
 		};
 
-
+		#include "../ShaderFunction.hlsl"
+		#include "../PBR_Function.HLSL"
 		CBUFFER_START(UnityPerMaterial)
 		uniform float4 _Splat0_ST;
 		uniform float4 _Splat1_ST;
@@ -222,8 +212,8 @@ Shader "Custom/Scene/TerrainShader"
 				float3 finalNormal  = var_Normal0*blend.r+ var_Normal1*blend.g+ var_Normal2*blend.b+ var_Normal3*blend.a;
 
 				//PBR
-				PBR pbr;
-				ZERO_INITIALIZE(PBR,pbr);//初始化顶点着色器
+				ShaderParam pbr;
+				ZERO_INITIALIZE(ShaderParam,pbr);//初始化顶点着色器
 				pbr.baseColor = finalAlbedo;
 				pbr.emission  = float3(0.0,0.0,0.0);
 				pbr.normal    = finalNormal;//A通道为高度图

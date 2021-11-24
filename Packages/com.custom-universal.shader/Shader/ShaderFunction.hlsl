@@ -4,6 +4,19 @@
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
+
+    struct ShaderParam//这个为我自定义的结构体，为了适应天气变化中各种不同shader的全局变化将全部修改此结构体
+    {
+        float3 baseColor;
+        float3 normal;
+        float3 emission; 
+        float  roughness;
+        float  metallic;
+        float  occlusion;
+        
+    };
+
+
     //Noise
     float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
     float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
@@ -143,23 +156,23 @@
     // float3 _LightPosition;
     // float4 GetShadowPositionHClip(float3 positionOS , float3 normal)
     // {
-    //     float3 positionWS = TransformObjectToWorld(positionOS.xyz);
-    //     float3 normalWS = TransformObjectToWorldNormal(normal);
+        //     float3 positionWS = TransformObjectToWorld(positionOS.xyz);
+        //     float3 normalWS = TransformObjectToWorldNormal(normal);
 
-    //     #if _CASTING_PUNCTUAL_LIGHT_SHADOW
-    //         float3 lightDirectionWS = normalize(_LightPosition - positionWS);
-    //     #else
-    //         float3 lightDirectionWS = _LightDirection;
-    //     #endif
+        //     #if _CASTING_PUNCTUAL_LIGHT_SHADOW
+        //         float3 lightDirectionWS = normalize(_LightPosition - positionWS);
+        //     #else
+        //         float3 lightDirectionWS = _LightDirection;
+        //     #endif
 
-    //     float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+        //     float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
 
-    //     #if UNITY_REVERSED_Z
-    //         positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
-    //     #else
-    //         positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
-    //     #endif
+        //     #if UNITY_REVERSED_Z
+        //         positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+        //     #else
+        //         positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+        //     #endif
 
-    //     return positionCS;
+        //     return positionCS;
     // }
 #endif

@@ -58,7 +58,7 @@ Material:
     - _HeightRadius: 1
     - _Metallic: 0
     - _NormalIntensity: 1
-    - _Roughness: 0.2
+    - _Roughness: 0.146
     - _WindAnimToggle: 0
     - _fallDustEmissionIntensity: 0
     m_Colors:

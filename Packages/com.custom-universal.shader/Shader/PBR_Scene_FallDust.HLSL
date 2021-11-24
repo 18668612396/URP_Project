@@ -18,7 +18,7 @@
     uniform float _fallDustEmissionIntensity;
     uniform float _FallDustNormalIntensity;
     uniform int _FallDustNormalBlend;
-    void PBR_FallDust_Function(float2 blendUV ,float4 vertexColor,inout PBR pbr)
+    void PBR_FallDust_Function(float2 blendUV ,float4 vertexColor,inout ShaderParam pbr)
     {
         #ifdef _FALLDUST_ON
             //采样落灰贴图

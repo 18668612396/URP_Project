@@ -49,24 +49,14 @@ Shader "Custom/Scene/PbrShader"
         LOD 300
         
         HLSLINCLUDE
-        struct PBR
-        {
-            float4 baseColor;
-            float3 normal;//A通道为高度图
-            float3 emission;
-            float  roughness;
-            float  metallic;
-            float  occlusion;
-            float  shadow;
-            
-        };
+
         #pragma vertex vert
         #pragma fragment frag
         #pragma target 4.5
-        
+
         #include "../ShaderFunction.HLSL"
-        #include "../PBR_Scene_FallDust.HLSL"
-        #include "../PBR_Function.HLSL"
+
+        
         #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
         ///////////////////////////////////////////////////////////
         //                ShaderFunction中的宏开关                //
@@ -117,7 +107,9 @@ Shader "Custom/Scene/PbrShader"
             float3 worldPos:TEXCOORD6;
             
         };
-        
+        #include "../PBR_Function.HLSL"
+        #include "../PBR_Scene_FallDust.HLSL"
+        #include "../Scene_GlobalFeature.HLSL"
         
         //贴图采样器
         #pragma shader_feature _MAINTEX_ON
@@ -227,9 +219,10 @@ Shader "Custom/Scene/PbrShader"
                     float2 scrPos = i.pos.xy / _ScreenParams.xy;
                     ScrOcclusion = SampleAmbientOcclusion(scrPos);
                 #endif
-                PBR pbr;
-                ZERO_INITIALIZE(PBR,pbr);//初始化PBR结构体
-                pbr.baseColor = _Color;
+                ShaderParam pbr;
+                ZERO_INITIALIZE(ShaderParam,pbr);//初始化PBR结构体
+
+                pbr.baseColor = var_MainTex;
                 pbr.emission  = pbr.baseColor.rgb * _EmissionIntensity * var_PbrParam.a;//A通道为高度图
                 pbr.normal    = var_Normal;
                 pbr.metallic  = var_PbrParam.r;
@@ -239,11 +232,10 @@ Shader "Custom/Scene/PbrShader"
 
 
                 //高度融合相关
-                PBR_FALLDUST(i,pbr);
+                // PBR_FALLDUST(i,pbr);
+                SceneGlobalFeature(i,pbr);
+
                 float3 finalRGB = PBR_FUNCTION(i,pbr);
-
-                
-
                 BIGWORLD_FOG(i,finalRGB);//大世界雾效 
                 
                 // half3 attenuatedLightColor = addLight.color * addLight.distanceAttenuation;
