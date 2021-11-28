@@ -479,8 +479,8 @@ MonoBehaviour:
   m_Name: StarterAssetsHDRPVolumeProfile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 2342914778117207641}
   - {fileID: 1147262490508919299}
+  - {fileID: 2342914778117207641}
   - {fileID: -396697424415852230}
 --- !u!114 &198738852298360104
 MonoBehaviour:

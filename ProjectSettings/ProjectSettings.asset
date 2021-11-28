@@ -601,7 +601,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Standalone: AMPLIFY_SHADER_EDITOR;STARTER_ASSETS_PACKAGES_CHECKED
+    Standalone: AMPLIFY_SHADER_EDITOR;STARTER_ASSETS_PACKAGES_CHECKED;THE_VEGETATION_ENGINE
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

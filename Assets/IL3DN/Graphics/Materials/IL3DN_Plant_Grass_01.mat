@@ -101,7 +101,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _HeightDepth: 0.5
+    - _HeightDepth: 0.058
     - _MaxWindStrength: 0.1
     - _Metallic: 0
     - _Mode: 0
@@ -133,7 +133,7 @@ Material:
     - _Translucency: 1
     - _TranslucencyViewDependency: 0
     - _UVSec: 0
-    - _UseMainColor: 0
+    - _UseMainColor: 1
     - _Wiggle: 0
     - _WiggleRandomisation: 0
     - _WiggleStrenght: 0.5
@@ -148,7 +148,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 0.8584906, g: 0.8433806, b: 0.75725347, a: 1}
+    - _Color: {r: 0.36846587, g: 0.4811321, b: 0.13843894, a: 1}
     - _Color0: {r: 1, g: 0.9847094, b: 0, a: 1}
     - _Color01: {r: 1, g: 1, b: 1, a: 1}
     - _Color02: {r: 1, g: 1, b: 1, a: 1}

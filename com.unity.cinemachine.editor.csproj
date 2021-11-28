@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2022_1_0;UNITY_2022_1;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2022_1_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;USE_QUERY_BUILDER;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;AMPLIFY_SHADER_EDITOR;STARTER_ASSETS_PACKAGES_CHECKED;CINEMACHINE_TIMELINE;CINEMACHINE_PHYSICS_2D;CINEMACHINE_PHYSICS;CINEMACHINE_UGUI;CINEMACHINE_LWRP_7_3_1;CINEMACHINE_TIMELINE_1_5_0;CINEMACHINE_UNITY_ANIMATION;CINEMACHINE_UNITY_IMGUI;CINEMACHINE_UNITY_INPUTSYSTEM;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER;NET_STANDARD_2_0;NET_STANDARD</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2022_1_0;UNITY_2022_1;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2022_1_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;USE_QUERY_BUILDER;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;AMPLIFY_SHADER_EDITOR;STARTER_ASSETS_PACKAGES_CHECKED;THE_VEGETATION_ENGINE;CINEMACHINE_TIMELINE;CINEMACHINE_PHYSICS_2D;CINEMACHINE_PHYSICS;CINEMACHINE_UGUI;CINEMACHINE_TIMELINE_1_5_0;CINEMACHINE_UNITY_ANIMATION;CINEMACHINE_UNITY_IMGUI;CINEMACHINE_UNITY_INPUTSYSTEM;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER;NET_STANDARD_2_0;NET_STANDARD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -37,36 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineTrackedDollyEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\NoiseSettingsPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineTransposerEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Windows\CinemachineSettings.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineConfinerEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\ReflectionHelpers.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineHardLockToTargetEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineFreeLookEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\CinemachineBlendDefinitionPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseEnvelopePropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\AxisStatePropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineBlendListCameraEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\InspectorUtility.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineExternalCameraEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineBasicMultiChannelPerlinEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineGroupComposerEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineStoryboardEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\CinemachineEditorAnalytics.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineScreenComposerGuides.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineVirtualCameraBaseEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\OrbitalTransposerHeadingPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineFramingTransposerEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\VcamStageEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineMixingCameraEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\BaseEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\CinemachineTagFieldPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineStateDrivenCameraEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineSameAsFollowTargetEditor.cs" />
-     <Compile Include="Packages\com.unity.cinemachine\Editor\Timeline\CinemachineShotEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Helpers\CinemachineTriggerActionEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseDefinitionPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\NoiseSettingsPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineCollisionImpulseSourceEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseListenerEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineColliderEditor.cs" />
@@ -74,34 +47,61 @@
      <Compile Include="Packages\com.unity.cinemachine\Editor\Windows\CinemachineColliderPrefs.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineConfiner2DEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachinePOVEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineTransposerEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Windows\CinemachineSettings.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineConfinerEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\ReflectionHelpers.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineTargetGroupEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineHardLockToTargetEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\SerializedPropertyHelper.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineFreeLookEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineOrbitalTransposerEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\PostProcessing\CinemachinePostProcessingEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\CinemachineBlendDefinitionPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseEnvelopePropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\AxisStatePropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineBlendListCameraEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Menus\CinemachineMenu.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineHardLookAtEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineBlenderSettingsEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineSmoothPathEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineBrainEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineComposerEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\InspectorUtility.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineClearShotEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineExternalCameraEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineBasicMultiChannelPerlinEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Experimental\CinemachineNewFreeLookEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseSourceEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineGroupComposerEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\CinemachineLensPresets.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\EmbeddedAssetHelpers.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\Cinemachine3rdPersonFollowEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineStoryboardEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\CinemachineEditorAnalytics.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineScreenComposerGuides.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineVirtualCameraBaseEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineVirtualCameraEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\PostProcessing\CinemachineVolumeSettingsEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseChannels.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\OrbitalTransposerHeadingPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\SaveDuringPlay.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineFramingTransposerEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachinePathEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineNoiseSettingsEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\ScriptableObjectUtility.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\VcamStageEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineMixingCameraEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\VcamTargetPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Windows\WaveformWindow.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Utility\BaseEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Impulse\CinemachineImpulseChannelPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\PropertyDrawers\CinemachineTagFieldPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Experimental\CinemachineNewVirtualCameraEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineStateDrivenCameraEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Editors\CinemachineSameAsFollowTargetEditor.cs" />
      <Compile Include="Packages\com.unity.cinemachine\Editor\Timeline\CinemachineShotClipEditor.cs" />
+     <Compile Include="Packages\com.unity.cinemachine\Editor\Timeline\CinemachineShotEditor.cs" />
      <None Include="Packages\com.unity.cinemachine\Editor\EditorResources\StdLib.hlsl" />
      <None Include="Packages\com.unity.cinemachine\Editor\EditorResources\CMWaveform.shader" />
      <None Include="Packages\com.unity.cinemachine\Editor\com.unity.cinemachine.Editor.asmdef" />
@@ -376,26 +376,11 @@
     <Reference Include="unityplastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Burst.Unsafe">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil.Mdb">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Burst.Cecil.Pdb">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
-    </Reference>
     <Reference Include="log4netPlastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil.Rocks">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -790,14 +775,6 @@
     <ProjectReference Include="Unity.RenderPipelines.Core.Editor.csproj">
       <Project>{9cb82211-74f5-8558-7ba0-e8826e1c5ca3}</Project>
       <Name>Unity.RenderPipelines.Core.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
-      <Project>{1300106e-988e-92c4-d23c-127cac77c8a9}</Project>
-      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
-      <Project>{ff28fea3-66c6-67e8-41ca-51b9094364f7}</Project>
-      <Name>Unity.RenderPipelines.Universal.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{55197d1a-7556-b5e4-94c8-2965213f8b2b}</Project>
