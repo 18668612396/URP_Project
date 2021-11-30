@@ -34,14 +34,14 @@
         v2f o;
         ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
         o.pos = GetShadowPositionHClip(v);
-        o.uv = v.uv;
+        // o.uv = v.uv;
         return o;
     }
     real3 frag(v2f i) : SV_Target
     {
         // Alpha(SampleAlbedoAlpha(i.uv, TEXTURE2D_ARGS(_MainTex, sampler_MainTex)).a, _Color, _Cutoff);
-        float MainTexAlpha = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv).a;
-        clip(MainTexAlpha - 0.2);
+        // float MainTexAlpha = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv).a;
+        // clip(MainTexAlpha - 0.2);
         return 0;
     }
 

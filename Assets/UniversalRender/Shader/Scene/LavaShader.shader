@@ -25,7 +25,7 @@ Shader "Custom/Scene/LavaShader"
         LOD 100
 
         HLSLINCLUDE
-        #include "../ShaderFunction.hlsl"  
+        #include "../ShaderLibrary/ShaderFunction.hlsl"  
 
         uniform TEXTURE2D (_LavaTex);
         uniform	SAMPLER(sampler_LavaTex);

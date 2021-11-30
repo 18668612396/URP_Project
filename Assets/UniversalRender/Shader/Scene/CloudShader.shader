@@ -22,7 +22,7 @@ Shader "Custom/Scene/CloudShader"
             "Queue" = "Transparent"
         }
         HLSLINCLUDE
-        #include "../ShaderFunction.hlsl"
+        #include "../ShaderLibrary/ShaderFunction.hlsl"
         #pragma vertex vert
         #pragma fragment frag
 
