@@ -36,61 +36,35 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ImageHeightSelector.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\EXR\EXRRecorderSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ImageInputSelector.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\EnumProperyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\GIFRecorder\GIFRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\GameView\GameViewInput.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\InputSettingsSelectorDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\PNG\PNGRecorderSettingsEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\MP4\MP4RecorderSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\GIFRecorder\GIFRecorderSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Audio\AudioInputSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderControllerSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderOptions.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\StatusBarHelper.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\InputSettingsSelector.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AOVImageInputSelector.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\AspectRatio.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecordModePropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera\CameraInput.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ShutterProfileTypePropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\UnityHelpers.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\MP4\MP4RecorderSettingsEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\VisualListItem.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Audio\AudioInput.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\AccumulationSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera360\Camera360Input.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\EditableLabel.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\EnumHelper.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\InputSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\IAccumulation.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputPathDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderInput.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderSettingsAttribute.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorder.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Timeline\RecorderClipEditor.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Timeline\_WaitForEndOfFrameComponent.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\RenderTextureSampler\RenderTextureSampler.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\BaseRenderTextureInput.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputResolution.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\GIFRecorder\GIFRecorderSettingsEditor.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\BaseTextureRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\MP4\MP4Recorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderControllerSettingsPresetEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\TextureFlipper.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\AccumulationSettingsPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\EXRCompressionTypeDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderWindow.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputPath.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\PanelSplitter.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\ProRes\ProResPreset.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecordersInventory.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\AspectRatioPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Animation\AnimationInputSettingsPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\ProRes\ProResWrapper.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\MovieRecorder\MovieRecorderEditor.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\CameraCapture.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\WEBM\WEBMRecorder.cs" />
@@ -104,38 +78,74 @@
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\EXR\EXRRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\_RecorderComponent.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\InputPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\GameViewSize.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\_FrameRequestComponent.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera360\Camera360InputSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\FileNameGenerator.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderController.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Timeline\RecorderPlayableBehaviour.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecordingSession.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\RenderTexture\RenderTextureInputSettingsPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AOVRecorderEditor.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\PNG\PNGRecorderSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera\CameraInputSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\RenderTexture\RenderTextureInput.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AssemblyInfo.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\PNG\PNGRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AnimationRecorder\AnimationRecorderSettingsEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AudioRecorder\AudioRecorderSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\WEBM\WEBMRecorderSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\ImageRecorder\ImageRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AnimationRecorder\AnimationRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderControllerSettingsPreset.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\MovieRecorder\MovieRecorderSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera360\Camera360InputPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\SerializableObjHelper.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\TargetedPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderAnalytics.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputResolutionPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderEditor.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Encoding\MediaEncoder.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ImageInputSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\AOV\AOVCameraInputSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AOVRecorder.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\FileNameGeneratorDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\UIElementHelper.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\WEBM\WEBMRecorderSettingsEditor.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Timeline\RecorderClipTimelineEditor.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ImageHeightSelector.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ImageInputSelector.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\PNG\PNGRecorderSettingsEditor.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\MP4\MP4RecorderSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Audio\AudioInputSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderControllerSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderOptions.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecordModePropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera\CameraInput.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ShutterProfileTypePropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\VisualListItem.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\EditableLabel.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\InputSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\IAccumulation.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputPathDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorder.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Timeline\RecorderClipEditor.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputResolution.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\TextureFlipper.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\AccumulationSettingsPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderWindow.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\ProRes\ProResPreset.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecordersInventory.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\AspectRatioPropertyDrawer.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\ProRes\ProResWrapper.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\GameViewSize.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderController.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecordingSession.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AOVRecorderEditor.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AssemblyInfo.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\PNG\PNGRecorder.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AudioRecorder\AudioRecorderSettings.cs" />
+     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\WEBM\WEBMRecorderSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\GenericRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera\CameraInputSettingsPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Camera360\Camera360InputPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\GameView\GameViewInputPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\GameView\GameViewInputSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\AOV\AOVCameraInput.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderSettingsPrefsEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\SerializableObjHelper.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AnimationRecorder\AnimationRecorderSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\TargetedPropertyDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderAnalytics.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderItem.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\SceneHook.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\MovieRecorder\MovieRecorder.cs" />
@@ -144,24 +154,14 @@
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\Audio\AudioInputSettingsPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\ImageRecorder\ImageRecorderSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\ImageRecorder\ImageRecorderEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\OutputResolutionPropertyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\BaseFCRecorderSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AudioRecorder\AudioRecorder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\ProRes\ProResEncoderPlugin.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\FrameRateProperyDrawer.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Encoding\CoreMediaEncoder.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\InternalEnums.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\RecorderEditor.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AudioRecorder\AudioRecorderEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Encoding\MediaEncoder.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\ImageInputSettings.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\RenderTextureSampler\RenderTextureSamplerSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\AOV\AOVCameraInputSettings.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\AOVRecorder\AOVRecorder.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\FileNameGeneratorDrawer.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Helpers\UIElementHelper.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Legacy\WEBM\WEBMRecorderSettingsEditor.cs" />
-     <Compile Include="Packages\com.unity.recorder\Editor\Timeline\RecorderClipTimelineEditor.cs" />
      <Compile Include="Packages\com.unity.recorder\Editor\Timeline\RecorderSelector.cs" />
      <None Include="Packages\com.unity.recorder\Editor\Sources\Recorders\_Inputs\RenderTextureSampler\Shaders\BS4Accumulate.shader" />
      <None Include="Packages\com.unity.recorder\Editor\Unity.Recorder.Editor.asmdef" />
@@ -444,11 +444,26 @@
     <Reference Include="unityplastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Mdb">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Cecil.Pdb">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>

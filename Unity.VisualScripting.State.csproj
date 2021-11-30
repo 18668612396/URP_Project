@@ -38,34 +38,34 @@
   <ItemGroup>
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateUnit.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\IStateTransition.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateEventHooks.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\IStateDebugData.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateExitReason.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\FlowState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Properties\AssemblyInfo.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Units\SetStateGraph.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\State.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Units\StateGraphContainerType.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\NesterStateTransition.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\OnExitState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateEnterReason.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\IStateTransitionDebugData.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateGraphAsset.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\INesterStateTransition.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\OnEnterState.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\INesterState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Framework\Graph\HasStateGraph.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\FlowStateTransition.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\NesterState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Units\GetStateGraph.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\IState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\AnyState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateMachine.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\TriggerStateTransition.cs" />
-     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateGraphData.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\SuperState.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateGraph.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Units\GetStateGraphs.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateEventHooks.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\IStateDebugData.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Units\SetStateGraph.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Units\StateGraphContainerType.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateGraphAsset.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\OnEnterState.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\INesterState.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\IState.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\TriggerStateTransition.cs" />
+     <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateGraphData.cs" />
      <Compile Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\StateTransition.cs" />
      <None Include="Packages\com.unity.visualscripting\Runtime\VisualScripting.State\Unity.VisualScripting.State.asmdef" />
     <Reference Include="UnityEngine">
@@ -332,11 +332,26 @@
     <Reference Include="unityplastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Mdb">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Cecil.Pdb">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>

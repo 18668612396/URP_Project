@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DepthRim
-  m_Shader: {fileID: 4800000, guid: 26ad1b5994688de46b977c2d13c2c06f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 64fffa64407e2d845829fcec5bee9079, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3500
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -46,6 +46,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BlendHeight: 0
+    - _Cutoff: 0.5
     - _EmissionIntensity: 0
     - _FallDustColorBlend: 1
     - _FallDustMetallic: 0
@@ -56,13 +57,14 @@ Material:
     - _HeightDepth: 0
     - _HeightNormalUp: 1
     - _HeightRadius: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _NormalIntensity: 1
-    - _Roughness: 0.146
+    - _Refraction: 0.043
+    - _Roughness: 0
     - _WindAnimToggle: 0
     - _fallDustEmissionIntensity: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
     - _FallDustColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

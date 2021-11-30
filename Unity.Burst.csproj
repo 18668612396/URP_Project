@@ -36,55 +36,55 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\F16C.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\BurstCompileAttribute.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\IgnoreWarningAttribute.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstCompileTarget.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstEditorOptions.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\BurstRuntime.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_AArch64_dotprod.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Avx2.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\Hint.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse3.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_ctor.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\DiagnosticId.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_AArch64_fp16.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Ssse3.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\v64.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Fma.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\Constant.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Common.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Bmi2.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\BurstCompilerOptions.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\SimdDebugViews.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\v256.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\Loop.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\f16.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\BurstString.Float.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstLoader.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_AArch64_rdma.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\v128.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\v256.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\BurstCompiler.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstReflection.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Popcnt.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\FunctionPointer.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Common.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Ssse3.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Bmi2.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\Aliasing.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\SPMD.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse2.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse4_2.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstEditorOptions.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\BurstRuntime.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Fma.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\BurstCompilerOptions.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Common.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\AssumeRangeAttribute.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Bmi1.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\SharedStatic.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse2.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\BurstExecutionEnvironment.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstEditorUtility.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Avx.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\F16C.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\DiagnosticId.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Common.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\SkipLocalsInitAttribute.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\Hint.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\Loop.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\f16.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstLoader.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\FunctionPointer.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse4_1.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_AArch64.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse4_2.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Avx.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\SkipLocalsInitAttribute.cs" />
-     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\NoAliasAttribute.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse3.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\v64.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\CompilerServices\IgnoreWarningAttribute.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstCompileTarget.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Avx2.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_ctor.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\BurstString.Float.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_AArch64_rdma.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Editor\BurstReflection.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\BurstExecutionEnvironment.cs" />
+     <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Sse.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\Arm\NEON_AArch64_crypto.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\Intrinsics\x86\Csr.cs" />
      <Compile Include="Packages\com.unity.burst\Runtime\BurstString.cs" />
@@ -354,11 +354,26 @@
     <Reference Include="unityplastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Mdb">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Cecil.Pdb">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.collab-proxy@1.15.1\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.visualscripting@1.7.5\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -368,21 +383,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
         <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Unsafe">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil.Mdb">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil.Pdb">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Cecil.Rocks">
-        <HintPath>E:\GitHub\URP_Project\Library\PackageCache\com.unity.burst@1.6.0\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0a15\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

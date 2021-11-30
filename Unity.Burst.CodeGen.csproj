@@ -36,10 +36,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\com.unity.burst\Unity.Burst.CodeGen\ILPostProcessing.cs" />
      <Compile Include="Packages\com.unity.burst\Unity.Burst.CodeGen\FunctionPointerInvokeTransform.cs" />
-     <Compile Include="Packages\com.unity.burst\Unity.Burst.CodeGen\BurstILPostProcessor.cs" />
      <Compile Include="Packages\com.unity.burst\Unity.Burst.CodeGen\AssemblyLoader.cs" />
+     <Compile Include="Packages\com.unity.burst\Unity.Burst.CodeGen\ILPostProcessing.cs" />
+     <Compile Include="Packages\com.unity.burst\Unity.Burst.CodeGen\BurstILPostProcessor.cs" />
      <None Include="Packages\com.unity.burst\Unity.Burst.CodeGen\Unity.Burst.CodeGen.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0a15\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

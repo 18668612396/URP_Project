@@ -38,21 +38,15 @@
   <ItemGroup>
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\EditorPluginInterop.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\TestEvent.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\TestsCallback.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\GUIDProvider.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\RiderFileSystemWatcher.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Util\LibcNativeInterop.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\SyncTestRunEventsHandler.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\CallbackData.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\RiderScriptEditor.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\FileIOProvider.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\SolutionGuidGenerator.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\IGenerator.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\RiderTestRunner.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\RiderScriptEditorData.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\SyncTestRunCallback.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\ProjectGenerationFlag.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Util\CommandLineParser.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Properties\AssemblyInfo.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\RiderInitializer.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Util\FileSystemUtil.cs" />
@@ -64,13 +58,19 @@
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\CallbackInitializer.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Util\SerializableVersion.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\IGUIDGenerator.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\ProjectGeneration.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\IAssemblyNameProvider.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Util\RiderMenu.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\PostProcessors\RiderAssetPostprocessor.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\TestsCallback.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\RiderFileSystemWatcher.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\SyncTestRunEventsHandler.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\RiderTestRunner.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\UnitTesting\SyncTestRunCallback.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\Util\CommandLineParser.cs" />
+     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\ProjectGeneration\ProjectGeneration.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\RiderStyles.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\LoggingLevel.cs" />
      <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\PluginSettings.cs" />
-     <Compile Include="Packages\com.unity.ide.rider\Rider\Editor\PostProcessors\RiderAssetPostprocessor.cs" />
      <None Include="Packages\com.unity.ide.rider\Rider\Editor\com.unity.ide.rider.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.0a15\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
