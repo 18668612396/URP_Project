@@ -1,7 +1,7 @@
 Shader "Custom/Scene/SampleLit"
 {
     Properties
-    {   
+    {
         _MainTex (" MainTex ", 2D) = "white" {}
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)
         _Metallic("Metallic",Range(0.0,1.0)) = 0.0
@@ -11,18 +11,18 @@ Shader "Custom/Scene/SampleLit"
     SubShader
     {
         Name "CustomPBR"
-        Tags{
-            "RenderType" = "Opaque" 
-            "RenderPipeline" = "UniversalPipeline" 
+        Tags
+        {
+            "RenderType" = "Opaque"
+            "RenderPipeline" = "UniversalPipeline"
             "LightMode" = "UniversalForward"
             "UniversalMaterialType" = "Lit"
             "IgnoreProjector" = "True"
             "ShaderModel"="4.5"
         }
         LOD 300
-        
-        HLSLINCLUDE
 
+        HLSLINCLUDE
         #pragma vertex vert
         #pragma fragment frag
         #pragma target 4.5
@@ -52,7 +52,7 @@ Shader "Custom/Scene/SampleLit"
         #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
         #pragma multi_compile _ _SHADOWS_SOFT
 
-        
+
         // #pragma shader_feature _WINDANIMTOGGLE_ON
         struct appdata
         {
@@ -62,7 +62,6 @@ Shader "Custom/Scene/SampleLit"
             float3 normal :NORMAL;
             float4 tangent:TANGENT;
             float4 color:COLOR;
-            
         };
 
         struct v2f
@@ -78,77 +77,107 @@ Shader "Custom/Scene/SampleLit"
             float3 worldPos:TEXCOORD6;
             float2 blendUV:TEXCOORD7;
         };
+
         #include "ShaderLibrary/LitFunction.hlsl"
 
         //贴图采样器
-        uniform TEXTURE2D (_MainTex);
-        uniform	SAMPLER(sampler_MainTex);
+        uniform TEXTURE2D(_MainTex);
+        uniform SAMPLER(sampler_MainTex);
         CBUFFER_START(UnityPerMaterial)
 
-        
+
         CBUFFER_END
         half4 _Color;
         half _Metallic;
         half _Roughness;
         half4 _MainTex_ST;
         ENDHLSL
-        
+
 
         Pass
         {
-            
+
 
             // Blend One Zero
-            
+
             HLSLPROGRAM
-            
-            v2f vert (appdata v)
+            v2f vert(appdata v)
             {
                 v2f o;
-                ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
+                ZERO_INITIALIZE(v2f, o); //初始化顶点着色器
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.worldPos = TransformObjectToWorld(v.vertex.xyz);
                 o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 o.worldTangent = TransformObjectToWorldDir(v.tangent.xyz);
-                o.worldBitangent = cross(o.worldNormal,o.worldTangent.xyz) * v.tangent.w * unity_WorldTransformParams.w;
+                o.worldBitangent = cross(o.worldNormal, o.worldTangent.xyz) * v.tangent.w * unity_WorldTransformParams.
+                    w;
                 o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
                 o.vertexColor = v.color;
                 return o;
             }
 
-            real3 frag (v2f i) : SV_Target
+            float Function(float NdotH, float roughness)
             {
-                
-                float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);//A通道为高度图
-                float3 _BaseColor  = var_MainTex * _Color;
-                float3 F0 = lerp(0.04,_BaseColor,_Metallic);
+                float a2 = pow(roughness, 5);
+                float NdotH2 = pow(NdotH, 5);
+                float denom = max(1e-8, NdotH2 * (a2 - 1.0) + 1.0); //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
+                return a2 / denom;
+            }
 
-                float3 normalDir  = normalize(i.worldNormal);
-                float3 viewDir    = normalize(i.worldView);
-                float3 reflectDir = normalize(reflect(-viewDir,normalDir));
-                float NdotV = max(0.0,dot(normalDir,viewDir));
+            float fastPow(float x, float n)
+            {
+                n = n * 1.4427f + 1.4427f;
+                return exp2(x * n - n);
+            }
 
 
-                float3 mainLightDiffuse = MainLightDiffuse(normalDir,viewDir,i.worldPos,_BaseColor,_Metallic,F0);
-                float3 mainlightSpecular = MainLightSpecular(NdotV,normalDir,viewDir,i.worldPos,_Roughness,F0);
-                float3 additionaLightDiffuse = AdditionaLightDiffuse(normalDir,viewDir,i.worldPos,_BaseColor,_Metallic,F0);
-                float3 additionaLightSpecular = AdditionaLightSpecular(NdotV,normalDir,viewDir,i.worldPos,_Roughness,F0);
-                
-                float3 IndirectionDiffuse = indirectionDiffuse(NdotV,normalDir,_Metallic,_BaseColor,_Roughness,1.0,F0);
-                float3 IndirectionSpecular = indirectionSpecular(reflectDir,_Roughness,NdotV,1.0,F0);
-                
+            real3 frag(v2f i) : SV_Target
+            {
+                float4 var_MainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv); //A通道为高度图
+                float3 _BaseColor = var_MainTex * _Color;
+                float3 F0 = lerp(0.04, _BaseColor, _Metallic);
 
-                return  mainLightDiffuse + mainlightSpecular + additionaLightDiffuse + additionaLightSpecular + IndirectionDiffuse + IndirectionSpecular;
+                float3 normalDir = normalize(i.worldNormal);
+                float3 viewDir = normalize(i.worldView);
+                float3 reflectDir = normalize(reflect(-viewDir, normalDir));
+                float NdotV = max(0.0, dot(normalDir, viewDir));
+
+
+                float3 mainLightDiffuse = MainLightDiffuse(normalDir, viewDir, i.worldPos, _BaseColor, _Metallic, F0);
+                float3 mainlightSpecular = MainLightSpecular(NdotV, normalDir, viewDir, i.worldPos, _Roughness, F0);
+                float3 additionaLightDiffuse = AdditionaLightDiffuse(normalDir, viewDir, i.worldPos, _BaseColor,
+                                                                     _Metallic, F0);
+                float3 additionaLightSpecular = AdditionaLightSpecular(NdotV, normalDir, viewDir, i.worldPos,
+                                                                       _Roughness, F0);
+
+                float3 IndirectionDiffuse = indirectionDiffuse(NdotV, normalDir, _Metallic, _BaseColor, _Roughness, 1.0,
+                                                               F0);
+                float3 IndirectionSpecular = indirectionSpecular(reflectDir, _Roughness, NdotV, 1.0, F0);
+
+                float3x3 normalM = float3x3(
+                    float3(1, 0, 0),
+                    float3(0, 1, 0),
+                    float3(0, 0, 0.2)
+                );
+                float ndh = max(0.0, dot(float3(0.0, 1.0, 0.0), mul(normalM, normalDir)));
+                float mask = Function(ndh, _Roughness);
+        
+                float terrainPow = pow(ndh,_Roughness * 100);
+                // terrainPow = mask;
+                float noise = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.worldPos.xz * 0.1);
+                // float heightBlend = saturate(pow(  max(0.0,(((1 - noise)*terrainPow)*4)+(terrainPow*2)),_Metallic + 0.1));//(1 - pbr.normal.a)比着原算法反向了一下高度图 
+                terrainPow = terrainPow ;
+                return terrainPow;
             }
             ENDHLSL
         }
-        pass 
+        pass
         {
             Name "ShadowCast"
             Tags
-            { 
-                "LightMode" = "ShadowCaster" 
+            {
+                "LightMode" = "ShadowCaster"
             }
 
             HLSLPROGRAM
@@ -161,17 +190,20 @@ Shader "Custom/Scene/SampleLit"
         Pass//这个PASS暂时不知道做什么  不过加上这个Pass会使得Scene视图的深度信息正确  //后续可以去除
         {
 
-            Tags{"LightMode" = "DepthOnly"}
+            Tags
+            {
+                "LightMode" = "DepthOnly"
+            }
 
             HLSLPROGRAM
-            
             v2f vert(appdata v)
             {
                 v2f o;
-                ZERO_INITIALIZE(v2f,o);//初始化顶点着色器
+                ZERO_INITIALIZE(v2f, o); //初始化顶点着色器
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 return o;
             }
+
             real3 frag(v2f i) : SV_Target
             {
                 float3 color;
@@ -181,7 +213,7 @@ Shader "Custom/Scene/SampleLit"
             ENDHLSL
         }
 
-        
+
     }
 
 }
