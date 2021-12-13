@@ -179,7 +179,7 @@ Shader "Custom/Scene/SceneLit"
                 o.worldTangent = TransformObjectToWorldDir(v.tangent.xyz);
                 o.worldBitangent = cross(o.worldNormal, o.worldTangent.xyz) * v.tangent.w * unity_WorldTransformParams.
                     w;
-                o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
+                o.worldView = GetWorldSpaceViewDir(o.worldPos);
                 o.vertexColor = v.color;
                 return o;
             }

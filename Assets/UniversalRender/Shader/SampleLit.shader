@@ -112,7 +112,7 @@ Shader "Custom/Scene/SampleLit"
                 o.worldTangent = TransformObjectToWorldDir(v.tangent.xyz);
                 o.worldBitangent = cross(o.worldNormal, o.worldTangent.xyz) * v.tangent.w * unity_WorldTransformParams.
                     w;
-                o.worldView = _WorldSpaceCameraPos.xyz - o.worldPos;
+                o.worldView = GetWorldSpaceViewDir(o.worldPos);
                 o.vertexColor = v.color;
                 return o;
             }
@@ -139,9 +139,9 @@ Shader "Custom/Scene/SampleLit"
                 float3 F0 = lerp(0.04, _BaseColor, _Metallic);
 
                 float3 normalDir = normalize(i.worldNormal);
-                float3 viewDir = normalize(i.worldView);
+                float3 viewDir = SafeNormalize(i.worldView);
                 float3 reflectDir = normalize(reflect(-viewDir, normalDir));
-                float NdotV = max(0.0, dot(normalDir, viewDir));
+                float NdotV = max(0.00001, dot(normalDir,viewDir));
 
 
                 float3 mainLightDiffuse = MainLightDiffuse(normalDir, viewDir, i.worldPos, _BaseColor, _Metallic, F0);
@@ -155,20 +155,7 @@ Shader "Custom/Scene/SampleLit"
                                                                F0);
                 float3 IndirectionSpecular = indirectionSpecular(reflectDir, _Roughness, NdotV, 1.0, F0);
 
-                float3x3 normalM = float3x3(
-                    float3(1, 0, 0),
-                    float3(0, 1, 0),
-                    float3(0, 0, 0.2)
-                );
-                float ndh = max(0.0, dot(float3(0.0, 1.0, 0.0), mul(normalM, normalDir)));
-                float mask = Function(ndh, _Roughness);
-        
-                float terrainPow = pow(ndh,_Roughness * 100);
-                // terrainPow = mask;
-                float noise = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.worldPos.xz * 0.1);
-                // float heightBlend = saturate(pow(  max(0.0,(((1 - noise)*terrainPow)*4)+(terrainPow*2)),_Metallic + 0.1));//(1 - pbr.normal.a)比着原算法反向了一下高度图 
-                terrainPow = terrainPow ;
-                return terrainPow;
+                return NdotV;
             }
             ENDHLSL
         }

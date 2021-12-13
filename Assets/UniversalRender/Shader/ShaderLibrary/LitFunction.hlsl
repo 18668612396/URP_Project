@@ -9,67 +9,60 @@
     //D项 法线微表面分布函数
     float D_Function (float NdotH,float roughness)
     {
-        float a      = roughness*roughness;
-        float a2     = a*a;
-        float NdotH2 = NdotH*NdotH;
-        float nom   = a2;
-        float denom = max(1e-8,NdotH2 * (a2 - 1.0) + 1.0); //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
-        denom = PI * denom * denom;
-        return nom / denom;
+        float alpha = roughness * roughness;
+        float tmp = alpha / max(1e-8,(NdotH*NdotH*(alpha*alpha-1.0)+1.0));
+        return tmp * tmp * INV_PI;
     }
 
     //G项 几何函数
     float G_SubFunction(float NdotW , float K)
     {
-        return NdotW / lerp(NdotW,1.0,K);
+        return NdotW / ( NdotW*(1.0 - K) + K );//这里跟Substance有区别 Substance是     1 / ( NdotW*(1.0 - K) + K )
     }
     float G_Function (float NdotL,float NdotV,float roughness)
     {
-        float K = roughness * roughness * 0.5; //这里跟OpenGL的文档有些出入  这里是参考subtance来写的 
+        float K = roughness * roughness * 0.5;
         return G_SubFunction(NdotL,K) * G_SubFunction(NdotV,K);
     }
 
-    //直接光F项
-    float3 F_Light_Function (float HdotL, float3 F0)
+    //F项 菲涅尔函数
+    float3 F_Function (float NdotW, float3 F0)
     {
-        float fresnel = exp2((-5.55473 * HdotL - 6.98316) * HdotL);
-        return lerp(fresnel,1.0,F0);
+        float sphg = pow (2.0, (-5.55473 * NdotW - 6.98316) * NdotW);
+        return F0 + (1.0 - F0) * sphg;
     }
-    //间接光F项
-    float3 F_Indir_Function(float NdotV,float roughness,float3 F0)
-    {
-        float fresnel = exp2((-5.55473 * NdotV - 6.98316) * NdotV);
-        return F0 + fresnel * saturate(1 - roughness - F0);
-    }
+
+
+
     //直接光镜面反射 
     float3 lightSpecular_Function(float NdotH,float NdotL,float NdotV,float HdotL,float roughness,float3 lightColor,float3 F0)
     {
         float  D = D_Function(NdotH,roughness);
         float  G = G_Function(NdotL,NdotV,roughness);
-        float3 F = F_Light_Function(HdotL,F0);
-        float3 light_BRDF = saturate(( D * G * F ) / (4 * NdotL * NdotV + 0.001));//这里我自行修改了一下 把他限制在0-1
+        float3 F = F_Function(HdotL,F0);
+        float3 light_BRDF = F * (D * G / 4.0);
 
-        return light_BRDF * NdotL * PI * lightColor;//为了分流BRDF 所以单独乘以lightColor
+        return light_BRDF * PI * lightColor;//为了分流BRDF 所以单独乘以lightColor
     }
     //直接光照漫反射
     float3 lightDiffuse_Function(float HdotL,float NdotL , float3 baseColor,float metallic,float3 lightColor,float3 F0)
     {
-        float3 KS = F_Light_Function(HdotL,F0);
+        float3 KS = F_Function(HdotL,F0);
         float3 KD = (1 - KS) * (1 - metallic);
         return KD * baseColor * NdotL * lightColor;//为了分流BRDF 所以单独乘以lightColor
     }
 
     //LUT拟合曲线
-    float2 LUT_Approx(float roughness, float NoV )
+    float2 LUT_Approx(float roughness, float NdotV,float3 F0 )
     {
-        // [ Lazarov 2013, "Getting More Physical in Call of Duty: Black Ops II" ]
-        // Adaptation to fit our G term.
-        const float4 c0 = { -1, -0.0275, -0.572, 0.022 };
-        const float4 c1 = { 1, 0.0425, 1.04, -0.04 };
-        float4 r = roughness * c0 + c1;
-        float a004 = min( r.x * r.x, exp2( -9.28 * NoV ) ) * r.x + r.y;
-        float2 AB = float2( -1.04, 1.04 ) * a004 + r.zw;
-        return saturate(AB);
+        float4 p0 = float4( 0.5745, 1.548, -0.02397, 1.301 );
+        float4 p1 = float4( 0.5753, -0.2511, -0.02066, 0.4755 );
+        float4 t = (1 - roughness) * p0 + p1;
+        float bias = saturate( t.x * min( t.y, exp2( -7.672 * NdotV ) ) + t.z );
+        float delta = saturate( t.w );
+        float scale = delta - bias;
+        bias *= saturate( 50.0 * F0.y );
+        return F0 * scale + bias;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////间接光部分
@@ -78,7 +71,7 @@
     float3 indirectionDiffuse(float NdotV,float3 normalDir,float metallic,float3 baseColor,float roughness,float occlusion,float3 F0)
     {
         float3 SHColor = SampleSH(normalDir);
-        float3 KS = F_Indir_Function(NdotV,roughness,F0);
+        float3 KS = F_Function(NdotV,F0);
         float3 KD = (1 - KS) * (1 - metallic);
         return SHColor * KD * baseColor * occlusion;//这里可以乘以一个AO
     }
@@ -95,8 +88,8 @@
             indirectionCube = indirectionCube;
         #endif
         //拟合曲线
-        float2 LUT = LUT_Approx(roughness,NdotV);
-        float3 F_IndirectionLight = F_Indir_Function(NdotV,roughness,F0);//环境菲尼尔
+        float2 LUT = LUT_Approx(roughness,NdotV,F0);
+        float3 F_IndirectionLight = F_Function(NdotV,F0);
         float3 indirectionSpecFactor = indirectionCube.rgb  * (F_IndirectionLight * LUT.r + LUT.g);
         return indirectionSpecFactor  *  occlusion;
     }
@@ -273,7 +266,8 @@
         float3 AdditionaLighting = additionaLightContribution (NdotV,normalDir,viewDir,worldPos,baseColor,roughness,metallic,F0);
         float3 indirection = indirectionContribution(reflectDir,normalDir,NdotV,baseColor,roughness,metallic,occlusion,F0);
         float3 emissionLight = emission_Function(emission);
- 
+        float NdotL = max(0.0,dot(normalDir,_MainLightPosition));
+
         return Mainlighting + AdditionaLighting + indirection + emissionLight;
     }
 
