@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dbceea71b9dc9bc4083df1fc02d5d7f1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2857d8cdf3ca5df4e954f743f0aabcb0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask0:
@@ -92,7 +92,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: b614ca42b63c25744959ab3ffec778fe, type: 3}
+        m_Texture: {fileID: 2800000, guid: 272aa1e78dfd3144c813c9e04ff792e6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal0:
@@ -124,7 +124,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PbrParam:
-        m_Texture: {fileID: 2800000, guid: 7ae66f763ab467342aaecaa0847cb870, type: 3}
+        m_Texture: {fileID: 2800000, guid: f91af510e15a9074291d66bd462ac94d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessMap:
@@ -175,7 +175,7 @@ Material:
     - _Cull: 2
     - _Custom: 0
     - _CutOff: 0
-    - _Cutoff: 0.5
+    - _Cutoff: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
