@@ -2,7 +2,7 @@
     #define SHADER_FUNCTION_INCLUDE
 
     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl" 
 
 
     struct ShaderParam//这个为我自定义的结构体，为了适应天气变化中各种不同shader的全局变化将全部修改此结构体
