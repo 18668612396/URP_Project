@@ -4,7 +4,7 @@ Shader "Custom/URP_Unlit"
 {
     Properties
     {
-        _MainTex ("MainTex", 2D) = "white" { }
+        [NoScaleOffset]_MainTex ("MainTex", 2D) = "white" { }
         _Color("Color",Color) = (1.0,1.0,1.0,1.0)
     }
     SubShader
@@ -12,11 +12,13 @@ Shader "Custom/URP_Unlit"
         Tags 
         {
             "RenderPipeline" = "UniversalPipeline"
-            "RenderType" = "Opaque" 
         }
-
+        Cull Off 
+        Zwrite Off
+        ZTest Always
         Pass
         {
+            Name "test"
             Tags
             {
                 "LightMode" = "UniversalForward" 
@@ -63,7 +65,7 @@ Shader "Custom/URP_Unlit"
                 v2f o;
                 ZERO_INITIALIZE(v2f, o); //初始化顶点着色器
                 o.vertex = TransformObjectToHClip(v.vertex.xyz);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = v.uv;
                 return o;
             }
 
